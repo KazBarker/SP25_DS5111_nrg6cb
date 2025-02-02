@@ -1,4 +1,4 @@
-!#/usr/bin/bash
+#!/usr/bin/bash
 
 USER=kbarker747@gmail.com
 NAME=KazBarker
