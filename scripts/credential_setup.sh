@@ -9,6 +9,12 @@ read NAME
 echo "Type the name of the file containing your SSH key, then press ENTER (if default file, just press ENTER)"
 read KEY
 
+if ! test -d ~/.gitconfig; then
+	mkdir ~/.gitconfig
+	chmod 600 ~/.gitconfig
+	echo "The folder .gitconfig has been added to your home directory."
+fi
+
 echo
 CONF1=$(git config --global --list | tr '\n' '\n\011')
 echo -e "Prior config:\n${CONF1}"
