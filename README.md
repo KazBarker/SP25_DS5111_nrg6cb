@@ -9,7 +9,7 @@ Spring 2025 MSDS Class: Software and Automation Skills
 
 	* Copy the public half of the key by typing `cat id_yourkeyname.pub` (the default key name is `id_ed25519.pub`)
 
-	* In your GitHub account (under Settings > SSH and GPG keys) add a new SSH key, pasting your copied key text into the **Key** field
+	* In your GitHub account (under Settings > SSH and GPG keys) add a new SSH key, pasting your copied key text into the **Key** field`
 
 3.  Navigate to your home directory and clone this repository
 
@@ -17,8 +17,21 @@ Spring 2025 MSDS Class: Software and Automation Skills
 
 5. Finish setting up the environment by typing `make quick_start`. Fill out the fields for your global GitHub credentials when prompted.
 
+## Script Details
+* `init.sh`: updates the environment and installs vital packages
+
+* `setup_git_global_creds.sh`: takes user input and updates the .gitconfig file with GitHub credentials
+
+* `install_chrome_headless.sh`
+	* Updates the environment
+	* Installs task-specific packages
+	* Installs `https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb`
+	* Checks chrome version and runs a sanity check using `https://example.com/` - after successful execution the raw html of [https://example.com/](https://example.com/) should be displayed.
+
+* `requirements.txt`: a list of python packages to be installed (installation performed by the makefile when `make update` is run)
+
 ## Example Output: wjsgainers
-|Unnamed: 0||Volume|Last|Chg|% Chg|
+|ID|Name|Volume|Last|Chg|% Chg|
 |:----------|:-|:------|:----|:---|:-----|
 0|Quantum Biopharma Ltd. (QNTM)|78.6M|6.71|3.53|111.01
 1|Cumberland Pharmaceuticals Inc. (CPIX)|18.5M|3.76|1.63|76.53
