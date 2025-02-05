@@ -33,6 +33,7 @@ Spring 2025 MSDS Class: Software and Automation Skills
 * `requirements.txt`: a list of python packages to be installed (installation performed by the makefile when `make update` is run)
 
 ## Project Repo Structure
+```
 SP25_DS5111_nrg6cb/
 ├── LICENSE
 ├── README.md
@@ -47,6 +48,7 @@ SP25_DS5111_nrg6cb/
     └── setup_git_global_creds.sh
 
 3 directories, 9 files
+```
 
 ## Example Output: wjsgainers
 |ID|Name|Volume|Last|Chg|% Chg|
