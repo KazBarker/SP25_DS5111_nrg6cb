@@ -18,7 +18,7 @@ Spring 2025 MSDS Class: Software and Automation Skills
 5. Finish setting up the environment by typing `make quick_start`. Fill out the fields for your global GitHub credentials when prompted.
 
 ## Example Output: ygainers
-|Symbol|Name|Unnamed: 2|Price|Change|Change %|Volume|Avg Vol (3M)|Market Cap|P/E Ratio (TTM)|52 Wk Change %|52 Wk Range
+|Unnamed: 2|Symbol|Name|Price|Change|Change %|Volume|Avg Vol (3M)|Market Cap|P/E Ratio (TTM)|52 Wk Change %|52 Wk Range|
 |:------|:----|:----------|:-----|:------|:--------|:------|:------------|:----------|:---------------|:--------------|:-----------|
 0|PLTR|Palantir Technologies Inc.||103.83 +20.09 (+23.99%)|20.09|+23.99%|228.64M|82.568M|236.527B|432.63|254.83%|
 1|SPOT|Spotify Technology S.A.||621.77 +72.69 (+13.24%)|72.69|+13.24%|6.513M|2.695M|125.647B|177.14|127.99%|
@@ -41,7 +41,7 @@ Spring 2025 MSDS Class: Software and Automation Skills
 18|CLF|Cleveland-Cliffs Inc.||10.52 +0.78 (+8.01%)|0.78|+8.01%|13.61M|14.745M|5.196B|-|-50.76%|
 
 ## Example Output: wjsgainers
-|Unnamed: 0|Volume|Last|Chg|% Chg
+|Unnamed: 0|Volume|Last|Chg|% Chg|
 |:----------|:------|:----|:---|:-----|
 0|Quantum Biopharma Ltd. (QNTM)|78.6M|6.71|3.53|111.01
 1|Cumberland Pharmaceuticals Inc. (CPIX)|18.5M|3.76|1.63|76.53
