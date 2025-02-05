@@ -19,7 +19,9 @@ Spring 2025 MSDS Class: Software and Automation Skills
 
 <br>
 
-$${\color{red}**IMPORTANT**: before committing changes with git, be sure to run `make cleanup` to remove large installation files.}$$
+
+[!IMPORTANT]
+Before committing changes with git, be sure to run `make cleanup` to remove large installation files.
 
 <br>
 
