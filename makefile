@@ -1,4 +1,4 @@
-MY_DIR := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
+MY_DIR := $(abspath .)
 
 default:
 	@cat makefile
@@ -7,10 +7,10 @@ help:
 	@cat README.md
 
 init:
-	$(MY_DIR)/scripts/init.sh
+	$(MY_DIR)/scripts/init.sh; mkdir $(MY_DIR)/installations; mkdir $(MY_DIR)/installations/env
 
 get_headless_browser:
-	$(MY_DIR)/scripts/install_chrome_headless.sh
+	MY_DIR=$(MY_DIR) $(MY_DIR)/scripts/install_chrome_headless.sh
 
 setup_global_git_creds:
 	$(MY_DIR)/scripts/setup_git_global_creds.sh
@@ -27,13 +27,13 @@ build_file_home:
 	mkdir -p $(MY_DIR)/files
 
 ygainers.html: build_file_home
-	sudo google-chrome-stable --headless --disable-gpu --dump-dom --no-sandbox --timeout=5000 'https://finance.yahoo.com/markets/stocks/gainers/?start=0&count=200' > $(MY_DIR)/files/ygainers.html
+	google-chrome-stable --headless --disable-gpu --dump-dom --no-sandbox --timeout=5000 'https://finance.yahoo.com/markets/stocks/gainers/?start=0&count=200' > $(MY_DIR)/files/ygainers.html
 
 ygainers.csv: ygainers.html
 	$(MY_DIR)/installations/env/bin/python -c "import pandas as pd; raw = pd.read_html('$(MY_DIR)/files/ygainers.html'); raw[0].to_csv('$(MY_DIR)/files/ygainers.csv')"
 
 wjsgainers.html: build_file_home
-	sudo google-chrome-stable --headless --disable-gpu --dump-dom --no-sandbox --timeout=15000 https://www.wsj.com/market-data/stocks/us/movers > $(MY_DIR)/files/wjsgainers.html
+	google-chrome-stable --headless --disable-gpu --dump-dom --no-sandbox --timeout=15000 https://www.wsj.com/market-data/stocks/us/movers > $(MY_DIR)/files/wjsgainers.html
 
 wjsgainers.csv: wjsgainers.html
 	$(MY_DIR)/installations/env/bin/python -c "import pandas as pd; raw = pd.read_html('$(MY_DIR)/files/wjsgainers.html'); raw[0].to_csv('$(MY_DIR)/files/wjsgainers.csv')"
