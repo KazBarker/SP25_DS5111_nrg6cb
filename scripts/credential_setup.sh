@@ -9,10 +9,10 @@ read NAME
 echo "Type the name of the file containing your SSH key, then press ENTER (if default file, just press ENTER)"
 read KEY
 
-if ! test -d ~/.gitconfig; then
-	mkdir ~/.gitconfig
+if [ ! -f ~/.gitconfig ]; then
+	touch ~/.gitconfig
 	chmod 600 ~/.gitconfig
-	echo "The folder .gitconfig has been added to your home directory."
+	echo "A .gitconfig file has been added to your home directory."
 fi
 
 echo
