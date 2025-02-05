@@ -51,6 +51,8 @@ SP25_DS5111_nrg6cb/
 ```
 
 ## Example Output: wjsgainers
+Example CSV files can be found in the `examples` directory.
+
 |ID|Name|Volume|Last|Chg|% Chg|
 |:----------|:-|:------|:----|:---|:-----|
 0|Quantum Biopharma Ltd. (QNTM)|78.6M|6.71|3.53|111.01
