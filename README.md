@@ -80,5 +80,4 @@ This process normalizes the raw data imports for `ygainers` and `wjsgainers`, pr
 2. With the python environment activated (see **Setup Sequence** above) enter: 
 	* `python bin/normalize_csv.py $FILE_PATH/ygainers.csv`
 	* `python bin/normalize_csv.py $FILE_PATH/wjsgainers.csv`
-
 	* `$FILE_PATH` can be replaced with `../files` here if desired.
