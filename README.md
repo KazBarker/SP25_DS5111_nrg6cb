@@ -15,7 +15,7 @@ Spring 2025 MSDS Class: Software and Automation Skills
 
 4. Install required packages and set global variables by navigating into the main folder of the cloned repo and typing: `. ./scripts/init.sh`
 
-5. Finish setting up the environment by typing `make quick_start`. Fill out the fields for your global GitHub credentials when prompted. 
+5. Finish setting up the environment by typing `make quick_start`. Fill out the fields for your global GitHub credentials when prompted
 	* Type `source $ENV_PATH` to activate the environment
 	* Type `deactivate` to deactivate the environment
 
@@ -55,7 +55,7 @@ SP25_DS5111_nrg6cb/
 4 directories, 10 files
 ```
 
-## Example Output: wjsgainers
+## Example Raw Data: wjsgainers
 Example CSV files can be found in the `examples` directory.
 
 |ID|Name|Volume|Last|Chg|% Chg|
@@ -71,11 +71,10 @@ Example CSV files can be found in the `examples` directory.
 8|Exagen Inc. (XGN)|1.1M|5.02|1.14|29.38
 9|ModivCare Inc. (MODV)|2.1M|4.8|0.96|25.0
 10|Nuvve Holding Corp. (NVVE)|15.1M|3.31|0.66|24.91
-11|Palantir Technologies Inc. (PLTR)|230.8M|103.83|20.09|23.99
-12|Vislink Technologies Inc. (VISL)|333.6K|2.51|0.48|23.65
-13|3D Systems Corp. (DDD)|8.7M|4.62|0.88|23.53
-14|One Stop Systems Inc. (OSS)|661.4K|4.3|0.78|22.16
-15|Tuya Inc. ADR (TUYA)|5.2M|2.98|0.5|20.16
-16|Jinxin Technology Holding Co. ADR (NAMI)|53.1K|2.87|0.46|19.0
-17|Creative Medical Technology Holdings Inc. (CELZ)|101.4K|3.76|0.59|18.61
-18|Absci Corp. (ABSI)|12.4M|4.35|0.65|17.57
+
+## Normalizing Raw CSV Files
+1. In the main repo directory, enter `make ygainers.csv` and `make wjsgainers.csv` to import the raw .csv data
+
+2. With the python environment activated (see **Setup Sequence** above) enter `python bin/normalize_csv.py $FILE_PATH/ygainers.csv` and `python bin/normalize_csv.py $FILE_PATH/wjsgainers.csv`
+	* `$FILE_PATH` can be replaced with `../files` if desired
+	* These commands produces normalized files for the datasets within the same `files` directory where the original CSVs can be found: normalized files will end in `_norm.csv`
