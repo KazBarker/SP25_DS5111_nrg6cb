@@ -40,17 +40,19 @@ Spring 2025 MSDS Class: Software and Automation Skills
 SP25_DS5111_nrg6cb/
 ├── LICENSE
 ├── README.md
-├── examples
-│   ├── example_wjsgainers.csv
-│   └── example_ygainers.csv
+├── bin
+│   └── normalize_csv.py
 ├── makefile
+├── sample_data
+│   ├── example_wjsgainers.csv
+│   └── example_ygainers.csv
 └── scripts
     ├── init.sh
     ├── install_chrome_headless.sh
     ├── requirements.txt
     └── setup_git_global_creds.sh
 
-3 directories, 9 files
+4 directories, 10 files
 ```
 
 ## Example Output: wjsgainers
