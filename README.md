@@ -11,9 +11,9 @@ Spring 2025 MSDS Class: Software and Automation Skills
 
 	* In your GitHub account (under Settings > SSH and GPG keys) add a new SSH key, pasting your copied key text into the **Key** field`
 
-3.  Navigate to your home directory and clone this repository
+3. Navigate to your home directory and clone this repository
 
-4.  Navigate into the main folder of the cloned repository and install some basic packages by typing `./scripts/init.sh`
+4. Install required packages and set global variables by navigating into the main folder of the cloned repo and typing: `. ./scripts/init.sh`
 
 5. Finish setting up the environment by typing `make quick_start`. Fill out the fields for your global GitHub credentials when prompted.
 

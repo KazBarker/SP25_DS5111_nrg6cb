@@ -17,7 +17,7 @@ setup_global_git_creds:
 	$(MY_DIR)/scripts/setup_git_global_creds.sh
 
 env:
-	python3 -m venv --system-site-packages $(INSTALLATION_DIR)/installations/env; . $(INSTALLATION_DIR)/installations/env/bin/activate; pip install --upgrade pip
+	python3 -m venv --system-site-packages $(INSTALLATION_DIR)/installations/env; . $(INSTALLATION_DIR)/installations/env/bin/activate; pip install --upgrade pip;
 
 update: env
 	. $(INSTALLATION_DIR)/installations/env/bin/activate; pip install -r $(MY_DIR)/scripts/requirements.txt
