@@ -3,6 +3,8 @@ import pandas as pd
 import re
 
 def import_wjsgainers(wjs_data):
+'''Function for normalizing the wjsgainers.csv file, determined by file name outside this function and confirmed by column count at function start. Returns normalized dataframe.
+'''
 	assert len(wjs_data.columns) == 6, f"\nExpected 6 columns, found {len(wjs_data.columns)}\n"
 
 	wjs_data = wjs_data[['Unnamed: 0', 'Last', 'Chg', '% Chg']].rename(columns={'Unnamed: 0':'symbol', 'Last':'price', 'Chg':'price_change', '% Chg':'price_percent_change'})
@@ -11,6 +13,8 @@ def import_wjsgainers(wjs_data):
 	return wjs_data
 
 def import_ygainers(y_data):
+'''Function for normalizing the ygainers.csv file, determined by file name outside this function and confirmed by column count at function start. Returns normalized dataframe.
+'''
 	assert len(y_data.columns) == 13, f"\nExpected 13 columns, found {len(y_data.columns)}\n"
 
 	y_data = y_data[['Symbol', 'Price', 'Change', 'Change %']].rename(columns={'Symbol':'symbol', 'Price':'price', 'Change':'price_change', 'Change %':'price_percent_change'})
@@ -19,8 +23,7 @@ def import_ygainers(y_data):
 
 	return y_data
 
-
-data_path = sys.argv[1]
+data_path = sys.argv[1] # The path passed when calling the script
 data_name = re.sub(r'[.]csv$', '', re.sub(r'^.*[/]', '', data_path))
 
 try: raw_data = pd.read_csv(data_path)
