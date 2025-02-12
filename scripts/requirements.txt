@@ -1,3 +1,5 @@
+wheel
+numpy
 pandas
 lxml
 html5lib

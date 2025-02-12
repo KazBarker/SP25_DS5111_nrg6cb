@@ -18,7 +18,7 @@ Spring 2025 MSDS Class: Software and Automation Skills
 5. Finish setting up the environment by typing `make quick_start`. Fill out the fields for your global GitHub credentials when prompted.
 
 > [!IMPORTANT]
-> Before committing changes with git, be sure to run `make cleanup` to remove large installation files.
+> An `installations` folder will be added to your system outside the main repository folder, and will contain larger package files and data downloads. It can be removed easily by running `make cleanup`.
 
 ## Script Details
 * `init.sh`: updates the environment and installs vital packages

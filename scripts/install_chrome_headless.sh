@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MY_DIR="${MY_DIR:-$(pwd)}"
+MY_DIR=$1
 
 sudo apt update
 sudo apt install fonts-liberation -y
