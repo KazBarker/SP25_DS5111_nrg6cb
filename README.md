@@ -75,6 +75,8 @@ Example CSV files can be found in the `examples` directory.
 ## Normalizing Raw CSV Files
 1. In the main repo directory, enter `make ygainers.csv` and `make wjsgainers.csv` to import the raw .csv data
 
-2. With the python environment activated (see **Setup Sequence** above) enter `python bin/normalize_csv.py $FILE_PATH/ygainers.csv` and `python bin/normalize_csv.py $FILE_PATH/wjsgainers.csv`
-	* `$FILE_PATH` can be replaced with `../files` if desired
-	* These commands produces normalized files for the datasets within the same `files` directory where the original CSVs can be found: normalized files will end in `_norm.csv`
+2. With the python environment activated (see **Setup Sequence** above) enter: 
+	* `python bin/normalize_csv.py $FILE_PATH/ygainers.csv`
+	* `python bin/normalize_csv.py $FILE_PATH/wjsgainers.csv`
+
+ `$FILE_PATH` can be replaced with `../files` here if desired.  These commands produces normalized files for the datasets within the same `\files` directory where the original CSVs can be found. Normalized files will end in `_norm.csv`
