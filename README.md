@@ -15,7 +15,9 @@ Spring 2025 MSDS Class: Software and Automation Skills
 
 4. Install required packages and set global variables by navigating into the main folder of the cloned repo and typing: `. ./scripts/init.sh`
 
-5. Finish setting up the environment by typing `make quick_start`. Fill out the fields for your global GitHub credentials when prompted. To activate the environment type `source $ENV_PATH`, to deactivate it type `deactivate`.
+5. Finish setting up the environment by typing `make quick_start`. Fill out the fields for your global GitHub credentials when prompted. 
+	* Type `source $ENV_PATH` to activate the environment
+	* Type `deactivate` to deactivate the environment
 
 > [!IMPORTANT]
 > An `installations` folder will be added to your system outside the main repository folder, and will contain larger package files and data downloads. It can be removed easily by running `make cleanup`.
