@@ -16,7 +16,7 @@ Spring 2025 MSDS Class: Software and Automation Skills
 4. Install required packages and set global variables by navigating into the main folder of the cloned repo and typing: `. ./scripts/init.sh`
 
 5. Finish setting up the environment by typing `make quick_start`. Fill out the fields for your global GitHub credentials when prompted
-	* Type `source $ENV_PATH` to activate the environment
+	* Type `source $(readlink activate)` to activate the environment
 	* Type `deactivate` to deactivate the environment
 
 > [!IMPORTANT]
@@ -40,6 +40,7 @@ Spring 2025 MSDS Class: Software and Automation Skills
 SP25_DS5111_nrg6cb/
 ├── LICENSE
 ├── README.md
+├── activate -> ../installations/env/bin/activate
 ├── bin
 │   └── normalize_csv.py
 ├── makefile
@@ -51,8 +52,6 @@ SP25_DS5111_nrg6cb/
     ├── install_chrome_headless.sh
     ├── requirements.txt
     └── setup_git_global_creds.sh
-
-4 directories, 10 files
 ```
 
 ## Example Raw Data: wjsgainers

@@ -4,11 +4,14 @@ INSTALLATION_DIR = $(abspath ..)
 default:
 	@cat makefile
 
+pathnames:
+	echo $MY_DIR; echo $INSTALLATION_DIR
+
 help:
 	@cat README.md
 
 init:
-	$(MY_DIR)/scripts/init.sh; mkdir $(INSTALLATION_DIR)/installations; mkdir $(INSTALLATION_DIR)/installations/env
+	. $(MY_DIR)/scripts/init.sh; mkdir -p $(INSTALLATION_DIR)/installations; mkdir -p $(INSTALLATION_DIR)/installations/env
 
 get_headless_browser:
 	$(MY_DIR)/scripts/install_chrome_headless.sh $(INSTALLATION_DIR)
