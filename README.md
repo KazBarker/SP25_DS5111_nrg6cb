@@ -54,6 +54,9 @@ SP25_DS5111_nrg6cb/
     └── setup_git_global_creds.sh
 ```
 
+> [!INFORMATION]
+> To update the tree structure above, navigate to the repo's parent directory and enter: `tree SP25_DS5111_nrg6cb/ -I env`
+
 ## Example Raw Data: wjsgainers
 Example CSV files can be found in the `examples` directory.
 
