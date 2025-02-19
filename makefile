@@ -43,7 +43,7 @@ wjsgainers.csv: wjsgainers.html
 	$(INSTALLATION_DIR)/installations/env/bin/python -c "import pandas as pd; raw = pd.read_html('$(INSTALLATION_DIR)/files/wjsgainers.html'); raw[0].to_csv('$(INSTALLATION_DIR)/files/wjsgainers.csv')"
 
 lint:
-	- find . -name "*.py" -printf '%p\n' -exec pylint option {} \;
+	- find . -name "*.py" -printf '%p\n' -exec pylint {} \;
 
 test: lint
 	- pytest -vv tests

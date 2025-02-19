@@ -1,10 +1,7 @@
 '''
-Simple module for testing pytest.
+A simple test file for setting up pytest.
 '''
-
-import sys
-sys.path.append('.')
-import bin.sample_adder as adder
+from bin import sample_adder as adder
 
 def test_04_lab():
     '''
