@@ -42,5 +42,11 @@ wjsgainers.html: build_file_home
 wjsgainers.csv: wjsgainers.html
 	$(INSTALLATION_DIR)/installations/env/bin/python -c "import pandas as pd; raw = pd.read_html('$(INSTALLATION_DIR)/files/wjsgainers.html'); raw[0].to_csv('$(INSTALLATION_DIR)/files/wjsgainers.csv')"
 
+lint:
+	- pylint bin/normalize_csv.py
+
+test: lint
+	- pytest -vv tests
+
 cleanup:
 	sudo rm -rf $(INSTALLATION_DIR)/installations; sudo rm -rf $(INSTALLATION_DIR)/files
