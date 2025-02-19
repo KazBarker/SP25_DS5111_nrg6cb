@@ -36,26 +36,37 @@ Spring 2025 MSDS Class: Software and Automation Skills
 * `requirements.txt`: a list of python packages to be installed (installation performed by the makefile when `make update` is run)
 
 ## Project Repo Structure
-```
 SP25_DS5111_nrg6cb/
 ├── LICENSE
 ├── README.md
 ├── activate -> ../installations/env/bin/activate
 ├── bin
-│   └── normalize_csv.py
+│   ├── __pycache__
+│   │   ├── normalize_csv.cpython-312.pyc
+│   │   └── sample_adder.cpython-312.pyc
+│   ├── normalize_csv.py
+│   └── sample_adder.py
 ├── makefile
+├── pylintrc
 ├── sample_data
 │   ├── example_wjsgainers.csv
 │   └── example_ygainers.csv
-└── scripts
-    ├── init.sh
-    ├── install_chrome_headless.sh
-    ├── requirements.txt
-    └── setup_git_global_creds.sh
-```
+├── scripts
+│   ├── init.sh
+│   ├── install_chrome_headless.sh
+│   ├── requirements.txt
+│   └── setup_git_global_creds.sh
+└── tests
+    ├── __pycache__
+    │   ├── test_LAB04.cpython-312-pytest-8.3.4.pyc
+    │   └── test_lab04.cpython-312-pytest-8.3.4.pyc
+    └── test_lab04.py
+
+7 directories, 18 files
 
 > [!TIP]
-> To update the tree structure above, navigate to the repo's parent directory and enter: `tree SP25_DS5111_nrg6cb/ -I env`
+> To update the tree structure above, navigate to the repo's parent directory and enter:
+> `tree SP25_DS5111_nrg6cb/ -I env`
 
 ## Example Raw Data: wjsgainers
 Example CSV files can be found in the `examples` directory.
