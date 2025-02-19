@@ -52,7 +52,7 @@ SP25_DS5111_nrg6cb/
 ├── makefile
 ├── pylintrc
 ├── sample_data
-│   ├── example_wjsgainers.csv
+│   ├── example_wsjgainers.csv
 │   └── example_ygainers.csv
 ├── scripts
 │   ├── init.sh
@@ -75,7 +75,7 @@ SP25_DS5111_nrg6cb/
 > 
 > `tree SP25_DS5111_nrg6cb/ -I env`
 
-## Example Raw Data: wjsgainers
+## Example Raw Data: wsjgainers
 Example CSV files can be found in the `examples` directory.
 
 |ID|Name|Volume|Last|Chg|% Chg|
@@ -93,9 +93,9 @@ Example CSV files can be found in the `examples` directory.
 10|Nuvve Holding Corp. (NVVE)|15.1M|3.31|0.66|24.91
 
 ## Normalizing Raw CSV Files
-This process normalizes the raw data imports for `ygainers` and `wjsgainers`, producing a pair of CSV files with identical column names and formats. Normalized files are named `FILENAME_norm.csv`, and are saved to the same `files` directory where the original CSVs can be found.
+This process normalizes the raw data imports for `ygainers` and `wsjgainers`, producing a pair of CSV files with identical column names and formats. Normalized files are named `FILENAME_norm.csv`, and are saved to the same `files` directory where the original CSVs can be found.
 
-1. In the main repo directory, enter `make ygainers.csv` and `make wjsgainers.csv` to import the raw .csv data
+1. In the main repo directory, enter `make ygainers.csv` and `make wsjgainers.csv` to import the raw .csv data
 
 2. With the python environment activated (see **Setup Sequence** above) enter: 
 	* `python bin/normalize_csv.py ..files/ygainers.csv`
