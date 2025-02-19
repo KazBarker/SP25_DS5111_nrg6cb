@@ -62,13 +62,13 @@ SP25_DS5111_nrg6cb/
     │   ├── test_LAB04.cpython-312-pytest-8.3.4.pyc
     │   └── test_lab04.cpython-312-pytest-8.3.4.pyc
     └── test_lab04.py
-```
 
 7 directories, 18 files
+```
 
 > [!TIP]
 > To update the tree structure above, navigate to the repo's parent directory and enter:
-> `tree SP25_DS5111_nrg6cb/ -I env`
+>   `tree SP25_DS5111_nrg6cb/ -I env`
 
 ## Example Raw Data: wjsgainers
 Example CSV files can be found in the `examples` directory.
