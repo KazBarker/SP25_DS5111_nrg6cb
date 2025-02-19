@@ -13,14 +13,14 @@ import sys
 import re
 import pandas as pd
 
-def import_wjsgainers(wjs_data):
+def import_wsjgainers(wsj_data):
     '''
-    Function for normalizing the wjsgainers.csv file, determined by file name outside this
+    Function for normalizing the wsjgainers.csv file, determined by file name outside this
     function and confirmed by column count at function start. Returns normalized dataframe.
     '''
-    assert len(wjs_data.columns) == 6, f"\nExpected 6 columns, found {len(wjs_data.columns)}\n"
+    assert len(wsj_data.columns) == 6, f"\nExpected 6 columns, found {len(wsj_data.columns)}\n"
 
-    wjs_data = wjs_data[['Unnamed: 0', 'Last', 'Chg', '% Chg']].rename(
+    wsj_data = wsj_data[['Unnamed: 0', 'Last', 'Chg', '% Chg']].rename(
             columns={
                 'Unnamed: 0':'symbol', 
                 'Last':'price', 
@@ -28,10 +28,10 @@ def import_wjsgainers(wjs_data):
                 '% Chg':'price_percent_change'
                 })
 
-    wjs_data['symbol'] = wjs_data['symbol'].replace(
+    wsj_data['symbol'] = wsj_data['symbol'].replace(
             r'.*[(]', '', regex=True).replace(r'[)].*', '', regex=True)
 
-    return wjs_data
+    return wsj_data
 
 def import_ygainers(y_data):
     '''
@@ -59,12 +59,12 @@ data_name = re.sub(r'[.]csv$', '', re.sub(r'^.*[/]', '', data_path))
 
 try:
     raw_data = pd.read_csv(data_path)
-except TypeError:
-    print('''\nThere was a problem importing the data
-          : make sure your file is a csv and check the path for errors.\n''')
+except FileNotFoundError:
+    print('''\nThere was a problem importing the data:
+          make sure your file is a csv and check the path for errors.\n''')
 
-if data_name == "wjsgainers":
-    normalized_data = import_wjsgainers(raw_data)
+if data_name == "wsjgainers":
+    normalized_data = import_wsjgainers(raw_data)
 else:
     normalized_data = import_ygainers(raw_data)
 
