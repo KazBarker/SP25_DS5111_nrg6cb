@@ -54,7 +54,7 @@ SP25_DS5111_nrg6cb/
 ├── makefile
 ├── pylintrc
 ├── sample_data
-│   ├── example_wsjgainers.csv
+│   ├── example_wjsgainers.csv
 │   └── example_ygainers.csv
 ├── scripts
 │   ├── init.sh
