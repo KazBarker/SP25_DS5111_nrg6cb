@@ -1,6 +1,8 @@
 # SP25_DS5111_nrg6cb
 Spring 2025 MSDS Class: Software and Automation Skills
 
+[![Feature Validation](https://github.com/KazBarker/SP25_DS5111_nrg6cb/actions/workflows/validtions.yml/badge.svg)](https://github.com/KazBarker/SP25_DS5111_nrg6cb/actions/workflows/validtions.yml)
+
 ## Setup Sequence:
 1. Run `sudo apt update`
 
