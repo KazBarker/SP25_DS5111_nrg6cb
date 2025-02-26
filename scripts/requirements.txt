@@ -26,7 +26,6 @@ colorama
 configobj
 constantly
 cryptography
-dbus-python
 dill
 distro
 distro-info
