@@ -9,7 +9,7 @@ def test_linux_os():
     '''
     Test for Linux OS.
     '''
-    if not (platform.system() == 'Linux'):
+    if not platform.system() == 'Linux':
         pytest.fail(f'Requires Linux but detected {platform.system()}')
 
 def test_python_version():
@@ -18,5 +18,5 @@ def test_python_version():
     '''
     my_python = Version(platform.python_version())
 
-    if not ((my_python >= Version('3.10')) & (my_python <= Version('3.11'))):
+    if not (my_python >= Version('3.10')) & (my_python <= Version('3.11')):
         pytest.fail(f'Requires python>=3.10,<=3.11 (currently using {my_python})')
