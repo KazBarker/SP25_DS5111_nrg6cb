@@ -45,10 +45,6 @@ SP25_DS5111_nrg6cb/
 ├── activate -> ../installations/env/bin/activate
 ├── bin
 │   ├── __init__.py
-│   ├── __pycache__
-│   │   ├── __init__.cpython-312.pyc
-│   │   ├── normalize_csv.cpython-312.pyc
-│   │   └── sample_adder.cpython-312.pyc
 │   ├── normalize_csv.py
 │   └── sample_adder.py
 ├── makefile
@@ -63,13 +59,10 @@ SP25_DS5111_nrg6cb/
 │   └── setup_git_global_creds.sh
 └── tests
     ├── __init__.py
-    ├── __pycache__
-    │   ├── __init__.cpython-312.pyc
-    │   ├── test_LAB04.cpython-312-pytest-8.3.4.pyc
-    │   └── test_lab04.cpython-312-pytest-8.3.4.pyc
-    └── test_lab04.py
+    ├── lab04_test.py
+    └── system_test.py
 
-7 directories, 22 files
+5 directories, 17 files
 ```
 
 > [!TIP]
