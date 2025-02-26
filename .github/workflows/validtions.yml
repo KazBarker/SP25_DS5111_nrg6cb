@@ -1,7 +1,6 @@
 name: Feature Validation
 
 on:
-  push:
   workflow_dispatch:
 
 jobs:
