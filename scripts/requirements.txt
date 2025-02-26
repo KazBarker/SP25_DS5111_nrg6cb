@@ -29,7 +29,6 @@ cryptography
 dill
 distro
 distro-info
-ec2-hibinit-agent
 git-filter-repo
 hibagent
 html5lib
