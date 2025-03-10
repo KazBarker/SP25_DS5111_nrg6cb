@@ -20,6 +20,7 @@ class GainerFactory:
         elif self.choice == 'wsj':
             return GainerProcessWSJ()
 
+
 # DOWNLOADER
 class GainerDownload(ABC):
     def __init__(self):
@@ -65,7 +66,7 @@ class GainerProcessYahoo(GainerProcess):
         print("Normalizing yahoo gainers")
 
     def save_with_timestamp(self):
-        print("Saving Yahoo gainers")
+        print("Saving yahoo gainers")
 
 # ITS OWN SEPARATE FILE
 class GainerProcessWSJ(GainerProcess):
