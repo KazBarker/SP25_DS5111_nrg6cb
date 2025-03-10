@@ -1,5 +1,7 @@
 import os
+import pandas as pd
 from abc import ABC, abstractmethod
+from io import StringIO
 
 # FACTORY
 class GainerFactory:
@@ -35,7 +37,7 @@ class GainerDownloadYahoo(GainerDownload):
         pass
 
     def download(self):
-        out_path = '../../../files/ygainers.html'
+        out_path = '../../../files/ygainers.csv'
         os.system(f'rm -f {out_path}')
 
         process_list = [
@@ -48,12 +50,22 @@ class GainerDownloadYahoo(GainerDownload):
                 'https://finance.yahoo.com/markets/stocks/gainers/?start=0&count=200'
                 ]
 
+        # read html from yahoo
         html_txt = os.popen(' '.join(process_list)).read()
         assert isinstance(html_txt, str), 'Yahoo gainers webpage filed to return text'
 
+        # convert html to data frame list
+        html_frames = pd.read_html(StringIO(html_txt))
+
+        # get frame for gainers
+        ygainers = html_frames[0]  
+        assert isinstance(ygainers, pd.DataFrame), 'Failed to build ygainers dataframe'
+        if ygainers.empty: raise Exception('ygainers dataframe is empty')
+
+        # write to csv
         with open(out_path, 'x') as file:
             try:
-                file.write(html_txt)
+                ygainers.to_csv(out_path)
             except Exception as e:
                 print(e)
 
