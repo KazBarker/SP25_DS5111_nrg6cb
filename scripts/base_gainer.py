@@ -33,7 +33,6 @@ class GainerDownloadYahoo(GainerDownload):
     def __init__(self):
         pass
         
-
     def download(self):
         print("Downloading yahoo gainers")
 
@@ -43,8 +42,6 @@ class GainerDownloadWSJ(GainerDownload):
 
     def download(self):
         print("Downloading WSJ gainers")
-
-
 
 
 # PROCESSORS 
@@ -69,6 +66,7 @@ class GainerProcessYahoo(GainerProcess):
 
     def save_with_timestamp(self):
         print("Saving Yahoo gainers")
+
 # ITS OWN SEPARATE FILE
 class GainerProcessWSJ(GainerProcess):
     def __init__(self):
@@ -115,7 +113,4 @@ if __name__=="__main__":
     # create our process
     runner = ProcessGainer(downloader, normalizer)
     runner.process()
-
-
-
 
