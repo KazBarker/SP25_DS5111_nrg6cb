@@ -1,3 +1,4 @@
+import os
 from abc import ABC, abstractmethod
 
 # FACTORY
@@ -20,7 +21,6 @@ class GainerFactory:
         elif self.choice == 'wsj':
             return GainerProcessWSJ()
 
-
 # DOWNLOADER
 class GainerDownload(ABC):
     def __init__(self):
@@ -33,8 +33,30 @@ class GainerDownload(ABC):
 class GainerDownloadYahoo(GainerDownload):
     def __init__(self):
         pass
-        
+
     def download(self):
+        out_path = '../../../files/ygainers.html'
+        os.system(f'rm -f {out_path}')
+
+        process_list = [
+                'google-chrome-stable', 
+                '--headless', 
+                '--disable-gpu', 
+                '--dump-dom', 
+                '--no-sandbox', 
+                '--timeout=5000',
+                'https://finance.yahoo.com/markets/stocks/gainers/?start=0&count=200'
+                ]
+
+        html_txt = os.popen(' '.join(process_list)).read()
+        assert isinstance(html_txt, str), 'Yahoo gainers webpage filed to return text'
+
+        with open(out_path, 'x') as file:
+            try:
+                file.write(html_txt)
+            except Exception as e:
+                print(e)
+
         print("Downloading yahoo gainers")
 
 class GainerDownloadWSJ(GainerDownload):
@@ -43,7 +65,6 @@ class GainerDownloadWSJ(GainerDownload):
 
     def download(self):
         print("Downloading WSJ gainers")
-
 
 # PROCESSORS 
 class GainerProcess(ABC):
@@ -68,7 +89,6 @@ class GainerProcessYahoo(GainerProcess):
     def save_with_timestamp(self):
         print("Saving yahoo gainers")
 
-# ITS OWN SEPARATE FILE
 class GainerProcessWSJ(GainerProcess):
     def __init__(self):
         pass
@@ -114,4 +134,7 @@ if __name__=="__main__":
     # create our process
     runner = ProcessGainer(downloader, normalizer)
     runner.process()
+
+
+
 
