@@ -1,4 +1,5 @@
 import os
+import numpy as np
 import pandas as pd
 from abc import ABC, abstractmethod
 from io import StringIO
@@ -117,6 +118,29 @@ class GainerDownloadWSJ(GainerDownload):
                 print(e)
 
         print("Downloading WSJ gainers")
+
+class GainerDownloadTest(GainerDownload):
+    def __init__(self):
+        pass
+
+    def download(self):
+        out_path = '../../../files/testgainers.csv'
+
+        # get fake frame 
+        fake_gainers = pd.DataFrame(np.random.randint(0, 1000, size=(20,5)),
+                                    columns=['C1', 'C2', 'C3', 'C4', 'C5'])
+
+        assert isinstance(fake_gainers, pd.DataFrame), 'Failed to build Test dataframe'
+        if fake_gainers.empty: raise Exception('Test dataframe is empty')
+
+        # write random data to csv
+        with open(out_path, 'x') as file:
+            try:
+                fake_gainers.to_csv(out_path)
+            except Exception as e:
+                print(e)
+
+        print("Downloading Test gainers")
 
 # PROCESSORS 
 class GainerProcess(ABC):
