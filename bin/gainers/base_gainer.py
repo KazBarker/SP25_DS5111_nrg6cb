@@ -58,14 +58,14 @@ class GainerDownloadYahoo(GainerDownload):
         html_frames = pd.read_html(StringIO(html_txt))
 
         # get frame for gainers
-        ygainers = html_frames[0]  
-        assert isinstance(ygainers, pd.DataFrame), 'Failed to build ygainers dataframe'
-        if ygainers.empty: raise Exception('ygainers dataframe is empty')
+        gainer_df = html_frames[0]  
+        assert isinstance(gainer_df, pd.DataFrame), 'Failed to build ygainers dataframe'
+        if gainer_df.empty: raise Exception('ygainers dataframe is empty')
 
         # write to csv
         with open(out_path, 'x') as file:
             try:
-                ygainers.to_csv(out_path)
+                gainer_df.to_csv(out_path)
             except Exception as e:
                 print(e)
 
@@ -76,6 +76,37 @@ class GainerDownloadWSJ(GainerDownload):
         pass
 
     def download(self):
+        out_path = '../../../files/wsjgainers.csv'
+        os.system(f'rm -rf {out_path}')
+        
+        process_list = [
+                'google-chrome-stable',
+                '--headless',
+                '--disable-gpu',
+                '--dump-dom',
+                '--no-sandbox',
+                '--timeout=15000',
+                'https://www.wsj.com/market-data/stocks/us/movers'
+                ]
+
+        html_txt = os.popen(' '.join(process_list)).read()
+        assert isinstance(html_txt, str), 'WSJ gainers webpage filed to return text'
+
+        # convert html to data frame list
+        html_frames = pd.read_html(StringIO(html_txt))
+
+        # get frame for gainers
+        gainer_df = html_frames[0]  
+        assert isinstance(gainer_df, pd.DataFrame), 'Failed to build WSJ dataframe'
+        if gainer_df.empty: raise Exception('WSJ dataframe is empty')
+
+        # write to csv
+        with open(out_path, 'x') as file:
+            try:
+                gainer_df.to_csv(out_path)
+            except Exception as e:
+                print(e)
+
         print("Downloading WSJ gainers")
 
 # PROCESSORS 
