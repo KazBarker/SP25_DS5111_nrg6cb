@@ -10,18 +10,27 @@ class GainerFactory:
         self.choice = choice 
 
     def get_downloader(self):
-        # trigger off url to return correct downloader
-        if self.choice == 'yahoo':
-            return GainerDownloadYahoo()
-        elif self.choice == 'wsj':
-            return GainerDownloadWSJ()
+        match self.choice:
+            case 'yahoo':
+                return GainerDownloadYahoo()
+
+            case 'wsj':
+                return GainerDownloadWSJ()
+
+            case 'test':
+                return GainerDownloadTest()
 
     def get_processor(self):
         # trigger off url to return correct downloader
-        if self.choice == 'yahoo':
-            return GainerProcessYahoo()
-        elif self.choice == 'wsj':
-            return GainerProcessWSJ()
+        match self.choice:
+            case 'yahoo':
+                return GainerProcessYahoo()
+
+            case 'wsj':
+                return GainerProcessWSJ()
+
+            case 'test':
+                return GainerProcessTest()
 
 # DOWNLOADER
 class GainerDownload(ABC):
