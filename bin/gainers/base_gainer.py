@@ -37,6 +37,8 @@ class GainerFactory:
 class GainerDownload(ABC):
     def __init__(self):
         self.url = url
+        self.out_path = out_path
+        self.name = data_name
 
     @abstractmethod
     def download(self):
@@ -44,12 +46,11 @@ class GainerDownload(ABC):
 
 class GainerDownloadYahoo(GainerDownload):
     def __init__(self):
-        pass
+        self.url = 'https://finance.yahoo.com/markets/stocks/gainers/?start=0&count=200'
+        self.out_path = '../../../files/ygainers.csv'
+        self.name = 'yahoo'
 
     def download(self):
-        out_path = '../../../files/ygainers.csv'
-        os.system(f'rm -f {out_path}')
-
         process_list = [
                 'google-chrome-stable', 
                 '--headless', 
@@ -57,38 +58,41 @@ class GainerDownloadYahoo(GainerDownload):
                 '--dump-dom', 
                 '--no-sandbox', 
                 '--timeout=5000',
-                'https://finance.yahoo.com/markets/stocks/gainers/?start=0&count=200'
+                self.url
                 ]
 
-        # read html from yahoo
+        # read html
         html_txt = os.popen(' '.join(process_list)).read()
-        assert isinstance(html_txt, str), 'Yahoo gainers webpage filed to return text'
+        assert isinstance(html_txt, str), f'{self.name} gainers webpage filed to return text'
 
         # convert html to data frame list
         html_frames = pd.read_html(StringIO(html_txt))
 
-        # get frame for gainers
+        # get data frame for gainers
         gainer_df = html_frames[0]  
-        assert isinstance(gainer_df, pd.DataFrame), 'Failed to build ygainers dataframe'
-        if gainer_df.empty: raise Exception('ygainers dataframe is empty')
+
+        assert isinstance(gainer_df, pd.DataFrame), f'failed to build {self.name} gainers dataframe'
+        if gainer_df.empty: raise Exception(f'{self.name} gainers dataframe is empty')
+
+        # ensure the output path is empty
+        os.system(f'rm -f {self.out_path}')
 
         # write to csv
-        with open(out_path, 'x') as file:
+        with open(self.out_path, 'x') as file:
             try:
-                gainer_df.to_csv(out_path)
+                gainer_df.to_csv(self.out_path)
             except Exception as e:
                 print(e)
 
-        print("Downloading yahoo gainers")
+        print(f'downloading {self.name} gainers')
 
 class GainerDownloadWSJ(GainerDownload):
     def __init__(self):
-        pass
+        self.url = 'https://www.wsj.com/market-data/stocks/us/movers'
+        self.out_path = '../../../files/wsjgainers.csv'
+        self.name = 'wsj'
 
     def download(self):
-        out_path = '../../../files/wsjgainers.csv'
-        os.system(f'rm -rf {out_path}')
-        
         process_list = [
                 'google-chrome-stable',
                 '--headless',
@@ -96,51 +100,58 @@ class GainerDownloadWSJ(GainerDownload):
                 '--dump-dom',
                 '--no-sandbox',
                 '--timeout=15000',
-                'https://www.wsj.com/market-data/stocks/us/movers'
+                self.url
                 ]
 
         html_txt = os.popen(' '.join(process_list)).read()
-        assert isinstance(html_txt, str), 'WSJ gainers webpage filed to return text'
+        assert isinstance(html_txt, str), f'{self.name} gainers webpage filed to return text'
 
         # convert html to data frame list
         html_frames = pd.read_html(StringIO(html_txt))
 
-        # get frame for gainers
+        # get data frame for gainers
         gainer_df = html_frames[0]  
-        assert isinstance(gainer_df, pd.DataFrame), 'Failed to build WSJ dataframe'
-        if gainer_df.empty: raise Exception('WSJ dataframe is empty')
+
+        # ensure the output path is empty
+        os.system(f'rm -f {self.out_path}')
+
+        assert isinstance(gainer_df, pd.DataFrame), f'failed to build {self.name} dataframe'
+        if gainer_df.empty: raise Exception(f'{self.name} dataframe is empty')
 
         # write to csv
-        with open(out_path, 'x') as file:
+        with open(self.out_path, 'x') as file:
             try:
-                gainer_df.to_csv(out_path)
+                gainer_df.to_csv(self.out_path)
             except Exception as e:
                 print(e)
 
-        print("Downloading WSJ gainers")
+        print(f'downloading {self.name} gainers')
 
 class GainerDownloadTest(GainerDownload):
     def __init__(self):
-        pass
+        self.url = 'none'
+        self.out_path = '../../../files/testgainers.csv'
+        self.name = 'test'
 
     def download(self):
-        out_path = '../../../files/testgainers.csv'
+        # get fake data frame 
+        gainer_df = pd.DataFrame(np.random.randint(0, 1000, size=(20,5)),
+                                 columns=['C1', 'C2', 'C3', 'C4', 'C5'])
 
-        # get fake frame 
-        fake_gainers = pd.DataFrame(np.random.randint(0, 1000, size=(20,5)),
-                                    columns=['C1', 'C2', 'C3', 'C4', 'C5'])
+        assert isinstance(gainer_df, pd.DataFrame), f'failed to build {self.name} dataframe'
+        if gainer_df.empty: raise Exception(f'{self.name} dataframe is empty')
 
-        assert isinstance(fake_gainers, pd.DataFrame), 'Failed to build Test dataframe'
-        if fake_gainers.empty: raise Exception('Test dataframe is empty')
+        # ensure the output path is empty
+        os.system(f'rm -f {self.out_path}')
 
-        # write random data to csv
-        with open(out_path, 'x') as file:
+        # write to csv
+        with open(self.out_path, 'x') as file:
             try:
-                fake_gainers.to_csv(out_path)
+                gainer_df.to_csv(self.out_path)
             except Exception as e:
                 print(e)
 
-        print("Downloading Test gainers")
+        print(f'downloading {self.name} gainers')
 
 # PROCESSORS 
 class GainerProcess(ABC):
@@ -174,6 +185,16 @@ class GainerProcessWSJ(GainerProcess):
 
     def save_with_timestamp(self):
         print("Saving WSJ gainers")
+
+class GainerProcessTest(GainerProcess):
+    def __init__(self):
+        pass
+
+    def normalize(self):
+        print("Normalizing Test gainers")
+
+    def save_with_timestamp(self):
+        print("Saving Test gainers")
 
 # TEMPLATE
 class ProcessGainer:
