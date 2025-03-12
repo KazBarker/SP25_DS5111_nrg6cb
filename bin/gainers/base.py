@@ -15,7 +15,7 @@ class GainerDownload(ABC):
     def download(self):
         pass
 
-# PROCESSORS 
+# PROCESSOR 
 class GainerProcess(ABC):
     def __init__(self):
         self.raw_path = raw_path

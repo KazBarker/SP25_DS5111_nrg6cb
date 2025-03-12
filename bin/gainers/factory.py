@@ -1,5 +1,6 @@
 from .yahoo import GainerDownloadYahoo, GainerProcessYahoo
 from .wsj import GainerDownloadWSJ, GainerProcessWSJ
+from .test import GainerDownloadTest, GainerProcessTest
 
 class GainerFactory:
     '''
