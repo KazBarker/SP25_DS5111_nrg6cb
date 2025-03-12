@@ -69,7 +69,6 @@ class GainerDownloadYahoo(GainerDownload):
 class GainerProcessYahoo(GainerProcess):
     def __init__(self):
         self.raw_path = '../files/ygainers.csv'
-        self.out_path = '../files/ygainers_norm.csv'
         self.col_count = 13
         self.name = 'yahoo'
 
@@ -135,9 +134,9 @@ class GainerProcessYahoo(GainerProcess):
 
         # set output path with current timestamp
         timestamp = datetime.now(pytz.timezone('America/New_York')).strftime('%Y-%m-%d-%H:%M')
-        self.out_path = f'../files/{self.name}_gainers_{timestamp}.csv'
+        out_path = f'../files/{self.name}_gainers_{timestamp}.csv'
 
         # save to csv
-        self.gainers_data.to_csv(self.out_path)
+        self.gainers_data.to_csv(out_path)
 
         print('done\n')

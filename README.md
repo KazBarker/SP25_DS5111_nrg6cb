@@ -70,6 +70,11 @@ SP25_DS5111_nrg6cb/
 > 
 > `tree SP25_DS5111_nrg6cb/ -I env`
 
+## Downloading Gainers
+* Gainers files can be downloaded by running `make gainers SRC=<type>`
+    * `type` can be "yahoo", "wsj", or "test"
+    * Normalized CSV files will be saved under /files within the repo's parent directory
+
 ## Example Raw Data: wsjgainers
 Example CSV files can be found in the `examples` directory.
 
