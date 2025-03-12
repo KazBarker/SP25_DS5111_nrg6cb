@@ -105,6 +105,19 @@ class GainerProcessYahoo(GainerProcess):
         self.gainers_data['price_percent_change'] = pd.to_numeric(
                 self.gainers_data['price_percent_change'].replace(r'[^0-9.]', '', regex=True))
 
+        # check normalized data format
+        assert isinstance(self.gainers_data['symbol'][0], str),\
+                f'Expected string in "symbol", instead found {type(self.gainers_data["symbol"][0]).__name__}'
+
+        assert isinstance(self.gainers_data['price'][0], float),\
+                f'Expected float in "price", instead found {type(self.gainers_data["price"][0]).__name__}'
+
+        assert isinstance(self.gainers_data['price_change'][0], float),\
+                f'Expected float in "price_change", instead found {type(self.gainers_data["price_change"][0]).__name__}'
+
+        assert isinstance(self.gainers_data['price_percent_change'][0], float), \
+                f'Expected float in "price_percent_change", instead found {type(self.gainers_data["price_percent_change"][0]).__name__}'
+
         # remove raw data file
         os.system(f'rm -f {self.raw_path}')
 

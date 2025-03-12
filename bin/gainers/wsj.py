@@ -81,7 +81,7 @@ class GainerProcessWSJ(GainerProcess):
         Function for normalizing the wsjgainers.csv file. File must contain 6 columns and
         must include columns with names: "Unnamed: 0", "Last", "Chg", and "% Chg".
         '''
-        print(f'normalizing {self.name} gainers data...', end='')
+        print(f'normalizing {self.name} gainers...', end='')
 
         # get the raw csv
         raw_csv = pd.read_csv(self.raw_path)
@@ -106,6 +106,19 @@ class GainerProcessWSJ(GainerProcess):
         self.gainers_data['symbol'] = self.gainers_data['symbol'].replace(
                 r'.*[(]', '', regex=True).replace(r'[)].*', '', regex=True)
         
+        # check normalized data format
+        assert isinstance(self.gainers_data['symbol'][0], str),\
+                f'Expected string in "symbol", instead found {type(self.gainers_data["symbol"][0]).__name__}'
+
+        assert isinstance(self.gainers_data['price'][0], float),\
+                f'Expected float in "price", instead found {type(self.gainers_data["price"][0]).__name__}'
+
+        assert isinstance(self.gainers_data['price_change'][0], float),\
+                f'Expected float in "price_change", instead found {type(self.gainers_data["price_change"][0]).__name__}'
+
+        assert isinstance(self.gainers_data['price_percent_change'][0], float), \
+                f'Expected float in "price_percent_change", instead found {type(self.gainers_data["price_percent_change"][0]).__name__}'
+
         # remove raw data file
         os.system(f'rm -f {self.raw_path}')
 
