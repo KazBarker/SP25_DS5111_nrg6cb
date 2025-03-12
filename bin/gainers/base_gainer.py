@@ -156,7 +156,7 @@ class GainerDownloadTest(GainerDownload):
 # PROCESSORS 
 class GainerProcess(ABC):
     def __init__(self):
-        pass
+        self.path = path
 
     @abstractmethod
     def normalize(self):
