@@ -1,7 +1,9 @@
 import os
+import pytz
 import numpy as np
 import pandas as pd
 from abc import ABC, abstractmethod
+from datetime import datetime
 from io import StringIO
 from .base import GainerDownload, GainerProcess 
 
@@ -90,7 +92,7 @@ class GainerProcessYahoo(GainerProcess):
                 }.issubset(raw_csv.columns), f'\nRaw {self.name} gainers csv is missing a required column\n'
 
         # fix column names
-        gainers_data = raw_csv[['Symbol', 'Price', 'Change', 'Change %']].rename(
+        self.gainers_data = raw_csv[['Symbol', 'Price', 'Change', 'Change %']].rename(
                 columns={
                     'Symbol':'symbol', 
                     'Price':'price', 
@@ -99,13 +101,9 @@ class GainerProcessYahoo(GainerProcess):
                     })
         
         # tidy up data
-        gainers_data['price'] = pd.to_numeric(gainers_data['price'].str.split(' ').str[0])
-        gainers_data['price_percent_change'] = pd.to_numeric(
-                gainers_data['price_percent_change'].replace(r'[^0-9.]', '', regex=True))
-
-        # write normalized data to csv
-        os.system(f'rm -f {self.out_path}')
-        gainers_data.to_csv(self.out_path)
+        self.gainers_data['price'] = pd.to_numeric(self.gainers_data['price'].str.split(' ').str[0])
+        self.gainers_data['price_percent_change'] = pd.to_numeric(
+                self.gainers_data['price_percent_change'].replace(r'[^0-9.]', '', regex=True))
 
         # remove raw data file
         os.system(f'rm -f {self.raw_path}')
@@ -114,5 +112,19 @@ class GainerProcessYahoo(GainerProcess):
 
     def save_with_timestamp(self):
         print(f'saving {self.name} gainers...', end='')
-        print('done\n')
+        assert len(self.gainers_data.columns) == 4, f'\nExpected 4 columns, found {len(self.gainers_data.columns)}\n'
+        assert {
+                'symbol',
+                'price',
+                'price_change',
+                'price_percent_change'
+                }.issubset(self.gainers_data.columns), f'\n{self.name} gainers data is missing a required column\n'
 
+        # set output path with current timestamp
+        timestamp = datetime.now(pytz.timezone('America/New_York')).strftime('%Y-%m-%d-%H:%M')
+        self.out_path = f'../files/{self.name}_gainers_{timestamp}.csv'
+
+        # save to csv
+        self.gainers_data.to_csv(self.out_path)
+
+        print('done\n')
