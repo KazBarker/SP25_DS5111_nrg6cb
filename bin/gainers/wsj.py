@@ -71,20 +71,28 @@ class GainerProcessWSJ(GainerProcess):
     '''
     def __init__(self):
         self.raw_path = '../files/wsjgainers.csv'
+        self.out_path = '../files/wsjgainers_norm.csv'
         self.col_count = 6
         self.name = 'wsj'
 
     def normalize(self):
         '''
-        Function for normalizing the wsjgainers.csv file, determined by file name outside this
-        function and confirmed by column count at function start. Returns normalized dataframe.
+        Function for normalizing the wsjgainers.csv file. File must contain 6 columns and
+        must include columns with names: "Unnamed: 0", "Last", "Chg", and "% Chg".
         '''
         print(f'normalizing {self.name} gainers data...', end='')
 
         # get the raw csv
         raw_csv = pd.read_csv(self.raw_path)
         assert len(raw_csv.columns) == self.col_count, f"\nExpected {self.col_count} columns, found {len(raw_csv.columns)}\n"
-
+        assert {
+                'Unnamed: 0',
+                'Last',
+                'Chg',
+                '% Chg'
+                }.issubset(raw_csv.columns), f'\nRaw {self.name} gainers csv is missing a required column\n'
+        
+        # fix column names
         gainers_data = raw_csv[['Unnamed: 0', 'Last', 'Chg', '% Chg']].rename(
                 columns={
                     'Unnamed: 0':'symbol', 
@@ -93,12 +101,18 @@ class GainerProcessWSJ(GainerProcess):
                     '% Chg':'price_percent_change'
                     })
 
+        # tidy up data
         gainers_data['symbol'] = gainers_data['symbol'].replace(
                 r'.*[(]', '', regex=True).replace(r'[)].*', '', regex=True)
+        
+        # write normalized data to csv
+        os.system(f'rm -f {self.out_path}')
+        gainers_data.to_csv(self.out_path)
+        
+        # remove raw data file
+        os.system(f'rm -f {self.raw_path}')
 
         print('done\n')
-
-        return gainers_data
 
     def save_with_timestamp(self):
         print(f'saving {self.name} gainers...', end='')

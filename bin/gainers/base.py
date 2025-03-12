@@ -19,6 +19,7 @@ class GainerDownload(ABC):
 class GainerProcess(ABC):
     def __init__(self):
         self.raw_path = raw_path
+        self.out_path = out_path
         self.col_count = col_count
         self.name = name
 
