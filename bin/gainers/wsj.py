@@ -3,12 +3,10 @@ Gainer Factory methods for WSJ data. Includes classes for downloading from
 a url and for normalizing and saving as a timestamped csv file.
 '''
 import os
-import pytz
-import numpy as np
-import pandas as pd
-from abc import ABC, abstractmethod
 from datetime import datetime
 from io import StringIO
+import pytz
+import pandas as pd
 from .base import GainerDownload, GainerProcess
 
 class GainerDownloadWSJ(GainerDownload):
@@ -61,15 +59,14 @@ class GainerDownloadWSJ(GainerDownload):
             raise ValueError(f'{self.name} dataframe is empty')
 
         # write to csv
-        with open(self.out_path, 'x', encoding='utf-8') as file:
-            try:
-                gainer_df.to_csv(self.out_path)
-            except FileExistsError:
-                print(f"Error: The file '{self.out_path}' already exists.")
-            except PermissionError:
-                print(f"Error: Permission denied when trying to write to '{self.out_path}'.")
-            except OSError as e:
-                print(f"OS error occurred: {e}")
+        try:
+            gainer_df.to_csv(self.out_path)
+        except FileExistsError:
+            print(f"Error: The file '{self.out_path}' already exists.")
+        except PermissionError:
+            print(f"Error: Permission denied when trying to write to '{self.out_path}'.")
+        except OSError as e:
+            print(f"OS error occurred: {e}")
 
         print('done\n')
 
@@ -142,7 +139,7 @@ class GainerProcessWSJ(GainerProcess):
 
     def save_with_timestamp(self):
         print(f'saving {self.name} gainers...', end='')
- 
+
         assert len(self.gainers_data.columns) == 4, f'\nExpected 4 columns, found {
         len(self.gainers_data.columns)}\n'
 
