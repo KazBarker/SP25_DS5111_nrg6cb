@@ -6,10 +6,10 @@ and saving of data to a timestamped csv file.
 '''
 import os
 from datetime import datetime
+from io import StringIO
 import pytz
-import numpy as np
 import pandas as pd
-from .base import GainerDownload, GainerProcess 
+from .base import GainerDownload, GainerProcess
 
 class GainerDownloadYahoo(GainerDownload):
     '''
@@ -40,23 +40,22 @@ class GainerDownloadYahoo(GainerDownload):
         assert isinstance(html_txt, str), f'{self.name} gainers webpage filed to return text'
 
         # convert html to data frame list
-        for ii in list(range(0, 10)):
+        for ii in list(range(0, 11)):
             try:
                 html_frames = pd.read_html(StringIO(html_txt))
                 break
-            except Exception as e:
+            except UnboundLocalError:
                 if ii < 10:
                     print(f'{self.name} gainers download failed, trying again...')
-                else:
-                    print(f'all {self.name} download attempts failed!\n')
-                    print(e)
-                continue
+                    continue
+                print(f'all {self.name} download attempts failed!\n')
 
         # get data frame for gainers
-        gainer_df = html_frames[0]  
+        gainer_df = html_frames[0]
 
         assert isinstance(gainer_df, pd.DataFrame), f'failed to build {self.name} gainers dataframe'
-        if gainer_df.empty: raise Exception(f'{self.name} gainers dataframe is empty')
+        if gainer_df.empty:
+            raise ValueError(f'{self.name} gainers dataframe is empty')
 
         # ensure the output path is empty
         os.system(f'rm -f {self.out_path}')
@@ -92,7 +91,7 @@ class GainerProcessYahoo(GainerProcess):
         "Change %".
         '''
         print(f"normalizing {self.name} gainers...", end='')
-        
+
         # get the raw csv
         raw_csv = pd.read_csv(self.raw_path)
         assert len(raw_csv.columns) == 13, f"\nExpected 13 columns, found {len(raw_csv.columns)}\n"
@@ -101,7 +100,8 @@ class GainerProcessYahoo(GainerProcess):
                 'Price', 
                 'Change', 
                 'Change %'
-                }.issubset(raw_csv.columns), f'\nRaw {self.name} gainers csv is missing a required column\n'
+                }.issubset(raw_csv.columns), f'\nRaw {
+        self.name} gainers csv is missing a required column\n'
 
         # fix column names
         self.gainers_data = raw_csv[['Symbol', 'Price', 'Change', 'Change %']].rename(
@@ -111,7 +111,7 @@ class GainerProcessYahoo(GainerProcess):
                     'Change':'price_change', 
                     'Change %':'price_percent_change'
                     })
-        
+
         # tidy up data
         self.gainers_data['price'] = pd.to_numeric(self.gainers_data['price'].str.split(' ').str[0])
         self.gainers_data['price_percent_change'] = pd.to_numeric(
@@ -141,13 +141,17 @@ class GainerProcessYahoo(GainerProcess):
 
     def save_with_timestamp(self):
         print(f'saving {self.name} gainers...', end='')
-        assert len(self.gainers_data.columns) == 4, f'\nExpected 4 columns, found {len(self.gainers_data.columns)}\n'
+
+        assert len(self.gainers_data.columns) == 4, f'\nExpected 4 columns, found {
+        len(self.gainers_data.columns)}\n'
+
         assert {
                 'symbol',
                 'price',
                 'price_change',
                 'price_percent_change'
-                }.issubset(self.gainers_data.columns), f'\n{self.name} gainers data is missing a required column\n'
+                }.issubset(self.gainers_data.columns), f'\n{
+        self.name} gainers data is missing a required column\n'
 
         # set output path with current timestamp
         timestamp = datetime.now(pytz.timezone('America/New_York')).strftime('%Y-%m-%d-%H:%M')
