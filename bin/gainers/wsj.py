@@ -1,3 +1,7 @@
+'''
+Gainer Factory methods for WSJ data. Includes classes for downloading from
+a url and for normalizing and saving as a timestamped csv file.
+'''
 import os
 import pytz
 import numpy as np
@@ -39,28 +43,33 @@ class GainerDownloadWSJ(GainerDownload):
             try:
                 html_frames = pd.read_html(StringIO(html_txt))
                 break
-            except Exception as e:
-                if ii < 10: 
+            except UnboundLocalError:
+                if ii < 10:
                     print(f'{self.name} gainers download failed, trying again...')
                     continue
-                else:
-                    print(f'all {self.name} download attempts failed!\n')
+                print(f'all {self.name} download attempts failed!\n')
 
         # get data frame for gainers
-        gainer_df = html_frames[0]  
+        gainer_df = html_frames[0]
 
         # ensure the output path is empty
         os.system(f'rm -f {self.out_path}')
 
         assert isinstance(gainer_df, pd.DataFrame), f'failed to build {self.name} dataframe'
-        if gainer_df.empty: raise Exception(f'{self.name} dataframe is empty')
+
+        if gainer_df.empty:
+            raise ValueError(f'{self.name} dataframe is empty')
 
         # write to csv
-        with open(self.out_path, 'x') as file:
+        with open(self.out_path, 'x', encoding='utf-8') as file:
             try:
                 gainer_df.to_csv(self.out_path)
-            except Exception as e:
-                print(e)
+            except FileExistsError:
+                print(f"Error: The file '{self.out_path}' already exists.")
+            except PermissionError:
+                print(f"Error: Permission denied when trying to write to '{self.out_path}'.")
+            except OSError as e:
+                print(f"OS error occurred: {e}")
 
         print('done\n')
 
@@ -84,14 +93,18 @@ class GainerProcessWSJ(GainerProcess):
 
         # get the raw csv
         raw_csv = pd.read_csv(self.raw_path)
-        assert len(raw_csv.columns) == self.col_count, f"\nExpected {self.col_count} columns, found {len(raw_csv.columns)}\n"
+
+        assert len(raw_csv.columns) == self.col_count, f"\nExpected {
+        self.col_count} columns, found {len(raw_csv.columns)}\n"
+
         assert {
                 'Unnamed: 0',
                 'Last',
                 'Chg',
                 '% Chg'
-                }.issubset(raw_csv.columns), f'\nRaw {self.name} gainers csv is missing a required column\n'
-        
+                }.issubset(raw_csv.columns), f'\nRaw {
+        self.name} gainers csv is missing a required column\n'
+
         # fix column names
         self.gainers_data = raw_csv[['Unnamed: 0', 'Last', 'Chg', '% Chg']].rename(
                 columns={
@@ -104,19 +117,23 @@ class GainerProcessWSJ(GainerProcess):
         # tidy up data
         self.gainers_data['symbol'] = self.gainers_data['symbol'].replace(
                 r'.*[(]', '', regex=True).replace(r'[)].*', '', regex=True)
-        
+
         # check normalized data format
         assert isinstance(self.gainers_data['symbol'][0], str),\
-                f'Expected string in "symbol", instead found {type(self.gainers_data["symbol"][0]).__name__}'
+                f'Expected string in "symbol", instead found {
+                type(self.gainers_data["symbol"][0]).__name__}'
 
         assert isinstance(self.gainers_data['price'][0], float),\
-                f'Expected float in "price", instead found {type(self.gainers_data["price"][0]).__name__}'
+                f'Expected float in "price", instead found {
+                type(self.gainers_data["price"][0]).__name__}'
 
         assert isinstance(self.gainers_data['price_change'][0], float),\
-                f'Expected float in "price_change", instead found {type(self.gainers_data["price_change"][0]).__name__}'
+                f'Expected float in "price_change", instead found {
+                type(self.gainers_data["price_change"][0]).__name__}'
 
         assert isinstance(self.gainers_data['price_percent_change'][0], float), \
-                f'Expected float in "price_percent_change", instead found {type(self.gainers_data["price_percent_change"][0]).__name__}'
+                f'Expected float in "price_percent_change", instead found {
+                type(self.gainers_data["price_percent_change"][0]).__name__}'
 
         # remove raw data file
         os.system(f'rm -f {self.raw_path}')
@@ -125,13 +142,17 @@ class GainerProcessWSJ(GainerProcess):
 
     def save_with_timestamp(self):
         print(f'saving {self.name} gainers...', end='')
-        assert len(self.gainers_data.columns) == 4, f'\nExpected 4 columns, found {len(self.gainers_data.columns)}\n'
+ 
+        assert len(self.gainers_data.columns) == 4, f'\nExpected 4 columns, found {
+        len(self.gainers_data.columns)}\n'
+
         assert {
                 'symbol',
                 'price',
                 'price_change',
                 'price_percent_change'
-                }.issubset(self.gainers_data.columns), f'\n{self.name} gainers data is missing a required column\n'
+                }.issubset(self.gainers_data.columns), f'\n{
+        self.name} gainers data is missing a required column\n'
 
         # set output path with current timestamp
         timestamp = datetime.now(pytz.timezone('America/New_York')).strftime('%Y-%m-%d-%H:%M')
@@ -139,6 +160,5 @@ class GainerProcessWSJ(GainerProcess):
 
         # save to csv
         self.gainers_data.to_csv(out_path)
-        
-        print('done\n')
 
+        print('done\n')

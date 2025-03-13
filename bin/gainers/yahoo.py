@@ -1,10 +1,14 @@
+'''
+Gainer Factory Yahoo Methods
+
+Includes methods for download of html yahoo gainers data, and for normalization
+and saving of data to a timestamped csv file.
+'''
 import os
+from datetime import datetime
 import pytz
 import numpy as np
 import pandas as pd
-from abc import ABC, abstractmethod
-from datetime import datetime
-from io import StringIO
 from .base import GainerDownload, GainerProcess 
 
 class GainerDownloadYahoo(GainerDownload):
@@ -58,17 +62,26 @@ class GainerDownloadYahoo(GainerDownload):
         os.system(f'rm -f {self.out_path}')
 
         # write to csv
-        with open(self.out_path, 'x') as file:
-            try:
-                gainer_df.to_csv(self.out_path)
-            except Exception as e:
-                print(e)
+        try:
+            gainer_df.to_csv(self.out_path)
+        except FileExistsError:
+            print(f"Error: The file '{self.out_path}' already exists.")
+        except PermissionError:
+            print(f"Error: Permission denied when trying to write to '{self.out_path}'.")
+        except OSError as e:
+            print(f"OS error occurred: {e}")
 
         print('done\n')
 
 class GainerProcessYahoo(GainerProcess):
+    '''
+    PROCESSOR (yahoo)
+    Normalizes the yahoo gainers data and saves to a timestamped csv file - the 
+    original raw csv (ygainers.csv) is removed after normalization.
+    '''
     def __init__(self):
         self.raw_path = '../files/ygainers.csv'
+        self.gainers_data = pd.read_csv(self.raw_path)
         self.col_count = 13
         self.name = 'yahoo'
 
@@ -106,16 +119,20 @@ class GainerProcessYahoo(GainerProcess):
 
         # check normalized data format
         assert isinstance(self.gainers_data['symbol'][0], str),\
-                f'Expected string in "symbol", instead found {type(self.gainers_data["symbol"][0]).__name__}'
+                f'Expected string in "symbol", instead found {
+                type(self.gainers_data["symbol"][0]).__name__}'
 
         assert isinstance(self.gainers_data['price'][0], float),\
-                f'Expected float in "price", instead found {type(self.gainers_data["price"][0]).__name__}'
+                f'Expected float in "price", instead found {
+                type(self.gainers_data["price"][0]).__name__}'
 
         assert isinstance(self.gainers_data['price_change'][0], float),\
-                f'Expected float in "price_change", instead found {type(self.gainers_data["price_change"][0]).__name__}'
+                f'Expected float in "price_change", instead found {
+                type(self.gainers_data["price_change"][0]).__name__}'
 
         assert isinstance(self.gainers_data['price_percent_change'][0], float), \
-                f'Expected float in "price_percent_change", instead found {type(self.gainers_data["price_percent_change"][0]).__name__}'
+                f'Expected float in "price_percent_change", instead found {
+                type(self.gainers_data["price_percent_change"][0]).__name__}'
 
         # remove raw data file
         os.system(f'rm -f {self.raw_path}')

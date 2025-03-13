@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from abc import ABC, abstractmethod
 from io import StringIO
+import pandas as pd
 
 # DOWNLOADER
 class GainerDownload(ABC):
@@ -19,6 +20,7 @@ class GainerDownload(ABC):
 class GainerProcess(ABC):
     def __init__(self):
         self.raw_path = raw_path
+        self.gainers_data = pd.read_csv(self.raw_path)
         self.col_count = col_count
         self.name = name
 
