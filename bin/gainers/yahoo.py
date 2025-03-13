@@ -94,9 +94,9 @@ class GainerProcessYahoo(GainerProcess):
 
         # get the raw csv
         raw_csv = pd.read_csv(self.raw_path)
-        
+
         assert len(raw_csv.columns) == 13, f"\nExpected 13 columns, found {len(raw_csv.columns)}\n"
-        assert {'Symbol', 
+        assert {'Symbol',
                 'Price', 
                 'Change', 
                 'Change %'
