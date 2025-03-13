@@ -20,13 +20,22 @@ class GainerFactory:
         '''
         match self.choice:
             case 'yahoo':
-                return GainerDownloadYahoo()
+                return GainerDownloadYahoo(
+                        'https://finance.yahoo.com/markets/stocks/gainers/?start=0&count=200',
+                        '../files/ygainers.csv',
+                        'yahoo')
 
             case 'wsj':
-                return GainerDownloadWSJ()
+                return GainerDownloadWSJ(
+                        'https://www.wsj.com/market-data/stocks/us/movers',
+                        '../files/wsjgainers.csv',
+                        'wsj')
 
             case 'test':
-                return GainerDownloadTest()
+                return GainerDownloadTest(
+                        'none',
+                        '../files/testgainers.csv',
+                        'test')
 
     def get_processor(self):
         '''
@@ -34,10 +43,19 @@ class GainerFactory:
         '''
         match self.choice:
             case 'yahoo':
-                return GainerProcessYahoo()
+                return GainerProcessYahoo(
+                        '../files/ygainers.csv',
+                        13,
+                        'yahoo')
 
             case 'wsj':
-                return GainerProcessWSJ()
+                return GainerProcessWSJ(
+                        '../files/wsjgainers.csv',
+                        6,
+                        'wsj')
 
             case 'test':
-                return GainerProcessTest()
+                return GainerProcessTest(
+                        '../files/testgainers.csv',
+                        6,
+                        'test')

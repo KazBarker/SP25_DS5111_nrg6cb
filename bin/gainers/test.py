@@ -15,10 +15,10 @@ class GainerDownloadTest(GainerDownload):
     '''
     DOWNLOADER (test)
     '''
-    def __init__(self):
-        self.url = 'none'
-        self.out_path = '../files/testgainers.csv'
-        self.name = 'test'
+    def __init__(self, url, out_path, name):
+        self.url = url
+        self.out_path = out_path
+        self.name = name
 
     def download(self):
         print(f'downloading {self.name} gainers...')
@@ -54,11 +54,11 @@ class GainerProcessTest(GainerProcess):
     Normalizes the test gainers data - the original raw csv (testgainers.csv) is removed
     after normalization.
     '''
-    def __init__(self):
-        self.raw_path = '../files/testgainers.csv'
-        self.gainers_data = pd.read_csv(self.raw_path)
-        self.col_count = 6
-        self.name = 'test'
+    def __init__(self, raw_path, col_count, name):
+        self.raw_path = raw_path
+        self.raw_csv = 'none'
+        self.col_count = col_count
+        self.name = name
 
     def normalize(self):
         '''
@@ -67,11 +67,13 @@ class GainerProcessTest(GainerProcess):
         '''
         print(f'normalizing {self.name} gainers ...', end='')
 
+        # get raw csv
+        self.gainers_data = pd.read_csv(self.raw_path)
+
         assert len(self.gainers_data.columns) == self.col_count, f"\nExpected {
         self.col_count} columns, found {len(self.gainers_data.columns)}\n"
 
-        assert {
-                'C1',
+        assert {'C1',
                 'C2',
                 'C3',
                 'C4'
@@ -80,12 +82,10 @@ class GainerProcessTest(GainerProcess):
 
         # fix column names
         self.gainers_data = self.gainers_data[['C1', 'C2', 'C3', 'C4']].rename(
-                columns={
-                    'C1':'symbol', 
-                    'C2':'price', 
-                    'C3':'price_change', 
-                    'C4':'price_percent_change'
-                    })
+                columns={'C1':'symbol',
+                         'C2':'price',
+                         'C3':'price_change',
+                         'C4':'price_percent_change'})
 
         # check normalized data format
         assert isinstance(self.gainers_data['symbol'][0], str),\
@@ -111,11 +111,11 @@ class GainerProcessTest(GainerProcess):
 
     def save_with_timestamp(self):
         print(f'saving {self.name} gainers...', end='')
+
         assert len(self.gainers_data.columns) == 4, f'\nExpected 4 columns, found {
         len(self.gainers_data.columns)}\n'
 
-        assert {
-                'symbol',
+        assert {'symbol',
                 'price',
                 'price_change',
                 'price_percent_change'

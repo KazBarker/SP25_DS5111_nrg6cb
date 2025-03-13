@@ -17,10 +17,10 @@ class GainerDownloadYahoo(GainerDownload):
     Class to download ygainer html from yahoo finance, convert to a dataframe
     and save the dataframe to a csv file.
     '''
-    def __init__(self):
-        self.url = 'https://finance.yahoo.com/markets/stocks/gainers/?start=0&count=200'
-        self.out_path = '../files/ygainers.csv'
-        self.name = 'yahoo'
+    def __init__(self, url, out_path, name):
+        self.url = url
+        self.out_path = out_path
+        self.name = name
 
     def download(self):
         print(f'downloading {self.name} gainers...')
@@ -78,11 +78,11 @@ class GainerProcessYahoo(GainerProcess):
     Normalizes the yahoo gainers data and saves to a timestamped csv file - the 
     original raw csv (ygainers.csv) is removed after normalization.
     '''
-    def __init__(self):
-        self.raw_path = '../files/ygainers.csv'
-        self.gainers_data = pd.read_csv(self.raw_path)
-        self.col_count = 13
-        self.name = 'yahoo'
+    def __init__(self, raw_path, col_count, name):
+        self.raw_path = raw_path
+        self.gainers_data = 'none'
+        self.col_count = col_count
+        self.name = name
 
     def normalize(self):
         '''
@@ -94,9 +94,9 @@ class GainerProcessYahoo(GainerProcess):
 
         # get the raw csv
         raw_csv = pd.read_csv(self.raw_path)
+        
         assert len(raw_csv.columns) == 13, f"\nExpected 13 columns, found {len(raw_csv.columns)}\n"
-        assert {
-                'Symbol', 
+        assert {'Symbol', 
                 'Price', 
                 'Change', 
                 'Change %'
@@ -105,12 +105,10 @@ class GainerProcessYahoo(GainerProcess):
 
         # fix column names
         self.gainers_data = raw_csv[['Symbol', 'Price', 'Change', 'Change %']].rename(
-                columns={
-                    'Symbol':'symbol', 
-                    'Price':'price', 
-                    'Change':'price_change', 
-                    'Change %':'price_percent_change'
-                    })
+                columns={'Symbol':'symbol',
+                         'Price':'price',
+                         'Change':'price_change',
+                         'Change %':'price_percent_change'})
 
         # tidy up data
         self.gainers_data['price'] = pd.to_numeric(self.gainers_data['price'].str.split(' ').str[0])
@@ -145,8 +143,7 @@ class GainerProcessYahoo(GainerProcess):
         assert len(self.gainers_data.columns) == 4, f'\nExpected 4 columns, found {
         len(self.gainers_data.columns)}\n'
 
-        assert {
-                'symbol',
+        assert {'symbol',
                 'price',
                 'price_change',
                 'price_percent_change'

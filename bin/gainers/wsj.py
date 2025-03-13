@@ -15,10 +15,10 @@ class GainerDownloadWSJ(GainerDownload):
     Class to download ygainer html from yahoo finance, convert to a dataframe
     and save the dataframe to a csv file.
     '''
-    def __init__(self):
-        self.url = 'https://www.wsj.com/market-data/stocks/us/movers'
-        self.out_path = '../files/wsjgainers.csv'
-        self.name = 'wsj'
+    def __init__(self, url, out_path, name):
+        self.url = url
+        self.out_path = out_path
+        self.name = name
 
     def download(self):
         print(f'downloading {self.name} gainers...')
@@ -76,10 +76,10 @@ class GainerProcessWSJ(GainerProcess):
     Normalizes the WSJ gainers data - the original raw csv (wsjgainers.csv) is removed
     after normalization.
     '''
-    def __init__(self):
-        self.raw_path = '../files/wsjgainers.csv'
-        self.col_count = 6
-        self.name = 'wsj'
+    def __init__(self, raw_path, col_count, name):
+        self.raw_path = raw_path
+        self.col_count = col_count
+        self.name = name
 
     def normalize(self):
         '''
@@ -94,8 +94,7 @@ class GainerProcessWSJ(GainerProcess):
         assert len(raw_csv.columns) == self.col_count, f"\nExpected {
         self.col_count} columns, found {len(raw_csv.columns)}\n"
 
-        assert {
-                'Unnamed: 0',
+        assert {'Unnamed: 0',
                 'Last',
                 'Chg',
                 '% Chg'
@@ -143,8 +142,7 @@ class GainerProcessWSJ(GainerProcess):
         assert len(self.gainers_data.columns) == 4, f'\nExpected 4 columns, found {
         len(self.gainers_data.columns)}\n'
 
-        assert {
-                'symbol',
+        assert {'symbol',
                 'price',
                 'price_change',
                 'price_percent_change'
