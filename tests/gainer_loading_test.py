@@ -32,6 +32,7 @@ def test_gainer_format():
     for file in os.listdir('../files'):
         if file.startswith(partial_name):
             test_data = pd.read_csv(f'../files/{file}')
+            os.system(f'rm -f ../files/{file}')
 
     checks = [ptypes.is_numeric_dtype(test_data[cc]) for cc in ['price', 'price_change','price_percent_change']]
     checks.append(ptypes.is_string_dtype(test_data['symbol']))
