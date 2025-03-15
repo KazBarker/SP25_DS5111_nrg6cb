@@ -1,5 +1,5 @@
 '''
-Gainer Factory methods for WSJ data. Includes classes for downloading from
+Gainer Factory methods for Stock Analysis data. Includes classes for downloading from
 a url and for normalizing and saving as a timestamped csv file.
 '''
 import os
@@ -9,11 +9,10 @@ import pytz
 import pandas as pd
 from .base import GainerDownload, GainerProcess
 
-class GainerDownloadWSJ(GainerDownload):
+class GainerDownloadStockAnalysis(GainerDownload):
     '''
-    DOWNLOADER (wsj)
-    Class to download WSJ html, convert to a dataframe
-    and save the dataframe to a csv file.
+    DOWNLOADER
+    Class to download html, convert to a dataframe and save the dataframe to a csv file.
     '''
     def __init__(self, url, out_path, name):
         self.url = url
@@ -70,11 +69,10 @@ class GainerDownloadWSJ(GainerDownload):
 
         print('done\n')
 
-class GainerProcessWSJ(GainerProcess):
+class GainerProcessStockAnalysis(GainerProcess):
     '''
-    PROCESSOR (wsj)
-    Normalizes the WSJ gainers data - the original raw csv (wsjgainers.csv) is removed
-    after normalization.
+    PROCESSOR
+    Normalizes the gainers data - the original raw csv is removed after normalization.
     '''
     def __init__(self, raw_path, col_count, name):
         self.raw_path = raw_path
@@ -94,25 +92,29 @@ class GainerProcessWSJ(GainerProcess):
         assert len(raw_csv.columns) == self.col_count, f"\nExpected {
         self.col_count} columns, found {len(raw_csv.columns)}\n"
 
-        assert {'Unnamed: 0',
-                'Last',
-                'Chg',
-                '% Chg'
+        assert {'Symbol',
+                '% Change',
+                'Stock Price'
                 }.issubset(raw_csv.columns), f'\nRaw {
         self.name} gainers csv is missing a required column\n'
 
         # fix column names
-        self.gainers_data = raw_csv[['Unnamed: 0', 'Last', 'Chg', '% Chg']].rename(
+        self.gainers_data = raw_csv[['Symbol', '% Change', 'Stock Price']].rename(
                 columns={
-                    'Unnamed: 0':'symbol', 
-                    'Last':'price', 
-                    'Chg':'price_change', 
-                    '% Chg':'price_percent_change'
+                    'Symbol': 'symbol', 
+                    'Stock Price':'price', 
+                    '% Change':'price_percent_change'
                     })
 
         # tidy up data
-        self.gainers_data['symbol'] = self.gainers_data['symbol'].replace(
-                r'.*[(]', '', regex=True).replace(r'[)].*', '', regex=True)
+        self.gainers_data['price_percent_change'] = self.gainers_data['price_percent_change'].replace(
+                r'%', '', regex=True).replace(r' ', '', regex=True).astype(float)
+        
+        self.gainers_data['price_change'] = self.gainers_data['price'] - (
+                self.gainers_data['price'] / (1 + (self.gainers_data['price_percent_change'] / 100))
+                )
+
+        self.gainers_data['price_change'] = self.gainers_data['price_change'].round(2)
 
         # check normalized data format
         assert isinstance(self.gainers_data['symbol'][0], str),\

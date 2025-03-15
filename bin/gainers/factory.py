@@ -4,6 +4,7 @@ Executes commands passed from the get_gainers.py file in the home directory.
 '''
 from .yahoo import GainerDownloadYahoo, GainerProcessYahoo
 from .wsj import GainerDownloadWSJ, GainerProcessWSJ
+from .stockanalysis import GainerDownloadStockAnalysis, GainerProcessStockAnalysis
 from .test import GainerDownloadTest, GainerProcessTest
 
 class GainerFactory:
@@ -11,7 +12,7 @@ class GainerFactory:
     FACTORY
     '''
     def __init__(self, choice):
-        assert choice in ['yahoo', 'wsj', 'test'], f"Unrecognized gainer type {choice}"
+        assert choice in ['yahoo', 'wsj', 'stockanalysis', 'test'], f"Unrecognized gainer type {choice}"
         self.choice = choice
 
     def get_downloader(self):
@@ -30,6 +31,12 @@ class GainerFactory:
                         'https://www.wsj.com/market-data/stocks/us/movers',
                         '../files/wsjgainers.csv',
                         'wsj')
+
+            case 'stockanalysis':
+                return GainerDownloadStockAnalysis(
+                        'https://stockanalysis.com/markets/gainers/',
+                        '../files/stockanalysisgainers.csv',
+                        'stockanalysis')
 
             case 'test':
                 return GainerDownloadTest(
@@ -53,6 +60,12 @@ class GainerFactory:
                         '../files/wsjgainers.csv',
                         6,
                         'wsj')
+
+            case 'stockanalysis':
+                return GainerProcessStockAnalysis(
+                        '../files/stockanalysisgainers.csv',
+                        8,
+                        'stockanalysis')
 
             case 'test':
                 return GainerProcessTest(
