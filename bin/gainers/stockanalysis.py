@@ -107,9 +107,11 @@ class GainerProcessStockAnalysis(GainerProcess):
                     })
 
         # tidy up data
-        self.gainers_data['price_percent_change'] = self.gainers_data['price_percent_change'].replace(
-                r'%', '', regex=True).replace(r' ', '', regex=True).astype(float)
-        
+        self.gainers_data['price_percent_change'] = self.gainers_data[
+                'price_percent_change'].replace(
+                        r'%', '', regex=True).replace(
+                                r' ', '', regex=True).astype(float)
+
         self.gainers_data['price_change'] = self.gainers_data['price'] - (
                 self.gainers_data['price'] / (1 + (self.gainers_data['price_percent_change'] / 100))
                 )
