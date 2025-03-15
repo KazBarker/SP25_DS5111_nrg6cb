@@ -4,9 +4,6 @@ INSTALLATION_DIR = $(abspath ..)
 default:
 	@cat makefile
 
-pathnames:
-	echo $MY_DIR; echo $INSTALLATION_DIR
-
 help:
 	@cat README.md
 
@@ -30,18 +27,6 @@ quick_start: init get_headless_browser setup_global_git_creds update
 build_file_home:
 	mkdir -p $(INSTALLATION_DIR)/files
 
-ygainers.html: build_file_home
-	google-chrome-stable --headless --disable-gpu --dump-dom --no-sandbox --timeout=5000 'https://finance.yahoo.com/markets/stocks/gainers/?start=0&count=200' > $(INSTALLATION_DIR)/files/ygainers.html
-
-ygainers.csv: ygainers.html
-	$(INSTALLATION_DIR)/installations/env/bin/python -c "import pandas as pd; raw = pd.read_html('$(INSTALLATION_DIR)/files/ygainers.html'); raw[0].to_csv('$(INSTALLATION_DIR)/files/ygainers.csv')"
-
-wsjgainers.html: build_file_home
-	google-chrome-stable --headless --disable-gpu --dump-dom --no-sandbox --timeout=15000 https://www.wsj.com/market-data/stocks/us/movers > $(INSTALLATION_DIR)/files/wsjgainers.html
-
-wsjgainers.csv: wsjgainers.html
-	$(INSTALLATION_DIR)/installations/env/bin/python -c "import pandas as pd; raw = pd.read_html('$(INSTALLATION_DIR)/files/wsjgainers.html'); raw[0].to_csv('$(INSTALLATION_DIR)/files/wsjgainers.csv')"
-
 lint:
 	- find . -name "*.py" -printf '%p\n' -exec pylint {} \;
 
@@ -49,7 +34,7 @@ test: lint
 	- pytest -vv tests
 
 gainers:
-	python get_gainer.py $(SRC)
+	. ../installations/env/bin/activate; python get_gainer.py $(SRC)
 
 cleanup:
 	sudo rm -rf $(INSTALLATION_DIR)/installations; sudo rm -rf $(INSTALLATION_DIR)/files
