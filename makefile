@@ -27,13 +27,16 @@ quick_start: init get_headless_browser setup_global_git_creds update
 build_file_home:
 	mkdir -p $(INSTALLATION_DIR)/files
 
-lint:
+set_tz:
+	sudo ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
+
+lint: build_file_home
 	- find . -name "*.py" -printf '%p\n' -exec pylint {} \;
 
 test: lint
 	- pytest -vv tests
 
-gainers:
+gainers: build_file_home
 	. $(INSTALLATION_DIR)/installations/env/bin/activate; python get_gainer.py $(SRC)
 #	. ../installations/env/bin/activate; python get_gainer.py $(SRC)
 
