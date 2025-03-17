@@ -1,0 +1,12 @@
+# m h  dom mon dow   command
+31 9 * * 1-5 cd /home/ubuntu/SP25_DS5111_nrg6cb/; make gainers SRC=wsj
+31 9 * * 1-5 cd /home/ubuntu/SP25_DS5111_nrg6cb/; make gainers SRC=yahoo
+31 9 * * 1-5 cd /home/ubuntu/SP25_DS5111_nrg6cb/; make gainers SRC=stockanalysis
+
+30 12 * * 1-5 cd /home/ubuntu/SP25_DS5111_nrg6cb/; make gainers SRC=wsj
+30 12 * * 1-5 cd /home/ubuntu/SP25_DS5111_nrg6cb/; make gainers SRC=yahoo
+30 12 * * 1-5 cd /home/ubuntu/SP25_DS5111_nrg6cb/; make gainers SRC=stockanalysis
+
+01 16 * * 1-5 cd /home/ubuntu/SP25_DS5111_nrg6cb/; make gainers SRC=wsj
+01 16 * * 1-5 cd /home/ubuntu/SP25_DS5111_nrg6cb/; make gainers SRC=yahoo
+01 16 * * 1-5 cd /home/ubuntu/SP25_DS5111_nrg6cb/; make gainers SRC=stockanalysis
