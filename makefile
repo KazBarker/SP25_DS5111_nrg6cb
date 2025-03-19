@@ -38,7 +38,9 @@ test: lint
 
 gainers: build_file_home
 	. $(INSTALLATION_DIR)/installations/env/bin/activate; python get_gainer.py $(SRC)
-#	. ../installations/env/bin/activate; python get_gainer.py $(SRC)
+
+all_gainers: build_file_home
+	. $(INSTALLATION_DIR)/installations/env/bin/activate; python get_gainer.py wsj; python get_gainer.py yahoo; python get_gainer.py stockanalysis
 
 cleanup:
 	sudo rm -rf $(INSTALLATION_DIR)/installations; sudo rm -rf $(INSTALLATION_DIR)/files
