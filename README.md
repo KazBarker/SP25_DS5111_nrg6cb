@@ -45,11 +45,18 @@ SP25_DS5111_nrg6cb/
 ├── activate -> ../installations/env/bin/activate
 ├── bin
 │   ├── __init__.py
-│   ├── __pycache__/
-│   ├── crontab_contents.txt
+│   ├── __pycache__
+│   │   └── __init__.cpython-312.pyc
 │   ├── gainers
 │   │   ├── __init__.py
-│   │   ├── __pycache__/
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── base.cpython-312.pyc
+│   │   │   ├── factory.cpython-312.pyc
+│   │   │   ├── stockanalysis.cpython-312.pyc
+│   │   │   ├── test.cpython-312.pyc
+│   │   │   ├── wsj.cpython-312.pyc
+│   │   │   └── yahoo.cpython-312.pyc
 │   │   ├── base.py
 │   │   ├── factory.py
 │   │   ├── stockanalysis.py
@@ -58,7 +65,9 @@ SP25_DS5111_nrg6cb/
 │   │   └── yahoo.py
 │   ├── normalize_csv.py
 │   └── sample_adder.py
-├── files/
+├── files
+│   ├── crontab_contents.txt
+│   └── (gainers files)
 ├── get_gainer.py
 ├── makefile
 ├── pylintrc
