@@ -39,19 +39,21 @@ class GainerDownloadYahoo(GainerDownload):
         html_txt = os.popen(' '.join(process_list)).read()
         assert isinstance(html_txt, str), f'{self.name} gainers webpage filed to return text'
 
-        # convert html to data frame list
-        for ii in list(range(0, 11)):
+        # initialize empty dataframe to attempt retrieval
+        gainer_df = pd.DataFrame()
+        check_empty = True
+
+        # loop until data is retrieved 
+        while check_empty:
+            # convert html to data frame list
             try:
                 html_frames = pd.read_html(StringIO(html_txt))
-                break
+                check_empty = False
             except UnboundLocalError:
-                if ii < 10:
-                    print(f'{self.name} gainers download failed, trying again...')
-                    continue
-                print(f'all {self.name} download attempts failed!\n')
+                print(f'{self.name} gainers download failed, trying again...')
 
-        # get data frame for gainers
-        gainer_df = html_frames[0]
+            # get data frame for gainers
+            gainer_df = html_frames[0]
 
         assert isinstance(gainer_df, pd.DataFrame), f'failed to build {self.name} gainers dataframe'
         if gainer_df.empty:
