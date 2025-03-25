@@ -45,6 +45,8 @@ class GainerDownloadStockAnalysis(GainerDownload):
             try:
                 html_frames = pd.read_html(StringIO(html_txt))
                 check_emtpy = False
+            except ValueError:
+                print(f'{self.name} gainers download failed, trying again...')
             except UnboundLocalError:
                 print(f'{self.name} gainers download failed, trying again...')
 
@@ -157,7 +159,7 @@ class GainerProcessStockAnalysis(GainerProcess):
 
         # set output path with current timestamp
         timestamp = datetime.now(pytz.timezone('America/New_York')).strftime('%Y-%m-%d-%H:%M')
-        out_path = f'../files/{self.name}_gainers_{timestamp}.csv'
+        out_path = f'files/{self.name}_gainers_{timestamp}.csv'
 
         # save to csv
         self.gainers_data.to_csv(out_path)
