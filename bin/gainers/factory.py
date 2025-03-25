@@ -23,25 +23,25 @@ class GainerFactory:
             case 'yahoo':
                 return GainerDownloadYahoo(
                         'https://finance.yahoo.com/markets/stocks/gainers/?start=0&count=200',
-                        '../files/ygainers.csv',
+                        'files/ygainers.csv',
                         'yahoo')
 
             case 'wsj':
                 return GainerDownloadWSJ(
                         'https://www.wsj.com/market-data/stocks/us/movers',
-                        '../files/wsjgainers.csv',
+                        'files/wsjgainers.csv',
                         'wsj')
 
             case 'stockanalysis':
                 return GainerDownloadStockAnalysis(
                         'https://stockanalysis.com/markets/gainers/',
-                        '../files/stockanalysisgainers.csv',
+                        'files/stockanalysisgainers.csv',
                         'stockanalysis')
 
             case 'test':
                 return GainerDownloadTest(
                         'none',
-                        '../files/testgainers.csv',
+                        'files/testgainers.csv',
                         'test')
 
     def get_processor(self):
@@ -51,24 +51,24 @@ class GainerFactory:
         match self.choice:
             case 'yahoo':
                 return GainerProcessYahoo(
-                        '../files/ygainers.csv',
+                        'files/ygainers.csv',
                         13,
                         'yahoo')
 
             case 'wsj':
                 return GainerProcessWSJ(
-                        '../files/wsjgainers.csv',
+                        'files/wsjgainers.csv',
                         6,
                         'wsj')
 
             case 'stockanalysis':
                 return GainerProcessStockAnalysis(
-                        '../files/stockanalysisgainers.csv',
+                        'files/stockanalysisgainers.csv',
                         8,
                         'stockanalysis')
 
             case 'test':
                 return GainerProcessTest(
-                        '../files/testgainers.csv',
+                        'files/testgainers.csv',
                         6,
                         'test')

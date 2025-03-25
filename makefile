@@ -25,7 +25,7 @@ update: env
 quick_start: init get_headless_browser setup_global_git_creds update
 
 build_file_home:
-	mkdir -p $(INSTALLATION_DIR)/files
+	mkdir -p $(MY_DIR)/files
 
 set_tz:
 	sudo ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
@@ -43,4 +43,4 @@ all_gainers: build_file_home
 	. $(INSTALLATION_DIR)/installations/env/bin/activate; python get_gainer.py wsj; python get_gainer.py yahoo; python get_gainer.py stockanalysis
 
 cleanup:
-	sudo rm -rf $(INSTALLATION_DIR)/installations; sudo rm -rf $(INSTALLATION_DIR)/files
+	sudo rm -rf $(INSTALLATION_DIR)/installations
