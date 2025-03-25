@@ -38,20 +38,26 @@ class GainerDownloadStockAnalysis(GainerDownload):
         # initialize empty dataframe to attempt retrieval
         gainer_df = pd.DataFrame()
         check_empty = True
+        ii = 0
         
         # loop until data is retrieved 
         while check_empty:
             # convert html to data frame list
             try:
+                check_empty = False
                 html_frames = pd.read_html(StringIO(html_txt))
-                check_emtpy = False
             except ValueError:
+                if ii == 1000:
+                    break
                 print(f'{self.name} gainers download failed, trying again...')
             except UnboundLocalError:
+                if ii == 1000:
+                    break
                 print(f'{self.name} gainers download failed, trying again...')
 
             # get data frame for gainers
             gainer_df = html_frames[0]
+            ii+=1
 
         # ensure the output path is empty
         os.system(f'rm -f {self.out_path}')

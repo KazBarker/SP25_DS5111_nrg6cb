@@ -42,6 +42,7 @@ class GainerDownloadYahoo(GainerDownload):
         # initialize empty dataframe to attempt retrieval
         gainer_df = pd.DataFrame()
         check_empty = True
+        ii = 0
 
         # loop until data is retrieved 
         while check_empty:
@@ -50,12 +51,17 @@ class GainerDownloadYahoo(GainerDownload):
                 html_frames = pd.read_html(StringIO(html_txt))
                 check_empty = False
             except ValueError:
+                if ii == 1000:
+                    break
                 print(f'{self.name} gainers download failed, trying again...')
             except UnboundLocalError:
+                if ii == 1000:
+                    break
                 print(f'{self.name} gainers download failed, trying again...')
 
             # get data frame for gainers
             gainer_df = html_frames[0]
+            ii+=1
 
         assert isinstance(gainer_df, pd.DataFrame), f'failed to build {self.name} gainers dataframe'
         if gainer_df.empty:
