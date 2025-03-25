@@ -45,13 +45,23 @@ SP25_DS5111_nrg6cb/
 ├── activate -> ../installations/env/bin/activate
 ├── bin
 │   ├── __init__.py
+│   ├── __pycache__/
+│   ├── crontab_contents.txt
+│   ├── gainers
+│   │   ├── __init__.py
+│   │   ├── __pycache__/
+│   │   ├── base.py
+│   │   ├── factory.py
+│   │   ├── stockanalysis.py
+│   │   ├── test.py
+│   │   ├── wsj.py
+│   │   └── yahoo.py
 │   ├── normalize_csv.py
 │   └── sample_adder.py
+├── files/
+├── get_gainer.py
 ├── makefile
 ├── pylintrc
-├── sample_data
-│   ├── example_wjsgainers.csv
-│   └── example_ygainers.csv
 ├── scripts
 │   ├── init.sh
 │   ├── install_chrome_headless.sh
@@ -59,10 +69,9 @@ SP25_DS5111_nrg6cb/
 │   └── setup_git_global_creds.sh
 └── tests
     ├── __init__.py
+    ├── gainer_loading_test.py
     ├── lab04_test.py
     └── system_test.py
-
-5 directories, 17 files
 ```
 
 > [!TIP]
@@ -70,14 +79,14 @@ SP25_DS5111_nrg6cb/
 > 
 > `tree SP25_DS5111_nrg6cb/ -I env`
 
-## Downloading Gainers
-* Gainers files can be downloaded by running `make gainers SRC=<type>`
-    * `type` can be "yahoo", "wsj", or "test"
-    * Normalized CSV files will be saved under /files within the repo's parent directory
+## Downloading and Normalizing Gainers
+* Gainers files can be downloaded and normalized by running `make gainers SRC=<type>`
+    * `type` can be "yahoo", "wsj", "stockanalysis", or "test"
+    * Normalized CSV files will be saved to the files directory
+
+* To download and normalize all available gainer types at once, run `make all_gainers`
 
 ## Example Raw Data: wsjgainers
-Example CSV files can be found in the `examples` directory.
-
 |ID|Name|Volume|Last|Chg|% Chg|
 |:----------|:-|:------|:----|:---|:-----|
 0|Quantum Biopharma Ltd. (QNTM)|78.6M|6.71|3.53|111.01
@@ -91,12 +100,3 @@ Example CSV files can be found in the `examples` directory.
 8|Exagen Inc. (XGN)|1.1M|5.02|1.14|29.38
 9|ModivCare Inc. (MODV)|2.1M|4.8|0.96|25.0
 10|Nuvve Holding Corp. (NVVE)|15.1M|3.31|0.66|24.91
-
-## Normalizing Raw CSV Files
-This process normalizes the raw data imports for `ygainers` and `wsjgainers`, producing a pair of CSV files with identical column names and formats. Normalized files are named `FILENAME_norm.csv`, and are saved to the same `files` directory where the original CSVs can be found.
-
-1. In the main repo directory, enter `make ygainers.csv` and `make wsjgainers.csv` to import the raw .csv data
-
-2. With the python environment activated (see **Setup Sequence** above) enter: 
-	* `python bin/normalize_csv.py ..files/ygainers.csv`
-	* `python bin/normalize_csv.py ..files/wsjgainers.csv`
