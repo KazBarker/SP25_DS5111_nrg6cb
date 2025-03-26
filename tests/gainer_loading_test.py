@@ -23,7 +23,7 @@ def test_gainer_download():
     downloader = factory.get_downloader()
     downloader.download()
 
-    assert any(iter(filename == 'testgainers.csv' for filename in os.listdir('../files')))
+    assert any(iter(filename == 'testgainers.csv' for filename in os.listdir('files')))
 
 def test_gainer_normalize_and_save():
     '''
@@ -39,7 +39,7 @@ def test_gainer_normalize_and_save():
     partial_name = f'test_gainers_{
     datetime.now(pytz.timezone('America/New_York')).strftime('%Y-%m-%d-%H')}'
 
-    assert any(iter(filename.startswith(partial_name) for filename in os.listdir('../files')))
+    assert any(iter(filename.startswith(partial_name) for filename in os.listdir('files')))
 
 def test_gainer_format():
     '''
@@ -49,10 +49,10 @@ def test_gainer_format():
     partial_name = f'test_gainers_{
     datetime.now(pytz.timezone('America/New_York')).strftime('%Y-%m-%d-%H')}'
 
-    for file in os.listdir('../files'):
+    for file in os.listdir('files'):
         if file.startswith(partial_name):
-            test_data = pd.read_csv(f'../files/{file}')
-            os.system(f'rm -f ../files/{file}')
+            test_data = pd.read_csv(f'files/{file}')
+            os.system(f'rm -f files/{file}')
 
     checks = [ptypes.is_numeric_dtype(test_data[cc]) for cc in
               ['price', 'price_change','price_percent_change']]

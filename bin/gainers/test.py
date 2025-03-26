@@ -132,7 +132,7 @@ class GainerProcessTest(GainerProcess):
 
         # set output path with current timestamp
         timestamp = datetime.now(pytz.timezone('America/New_York')).strftime('%Y-%m-%d-%H:%M')
-        out_path = f'../files/{self.name}_gainers_{timestamp}.csv'
+        out_path = f'files/{self.name}_gainers_{timestamp}.csv'
 
         # save to csv
         self.gainers_data.to_csv(out_path)
