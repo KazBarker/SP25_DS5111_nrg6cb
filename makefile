@@ -22,13 +22,13 @@ env:
 update: env
 	. $(INSTALLATION_DIR)/installations/env/bin/activate; pip install -r $(MY_DIR)/scripts/requirements.txt
 
-quick_start: init get_headless_browser setup_global_git_creds update
-
 build_file_home:
 	mkdir -p $(MY_DIR)/files
 
 set_tz:
 	sudo ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
+
+quick_start: init get_headless_browser setup_global_git_creds update set_tz
 
 lint: build_file_home
 	- find . -name "*.py" -printf '%p\n' -exec pylint {} \;
