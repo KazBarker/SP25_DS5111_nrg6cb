@@ -39,7 +39,7 @@ def test_gainer_normalize_and_save():
     partial_name = f'test_gainers_{
     datetime.now(pytz.timezone('America/New_York')).strftime('%Y-%m-%d-%H')}'
 
-    assert any(iter(filename.startswith(partial_name) for filename in os.listdir('files')))
+    assert any(iter(filename.startswith(partial_name) for filename in os.listdir('BROKENfiles')))
 
 def test_gainer_format():
     '''
