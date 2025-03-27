@@ -31,10 +31,10 @@ set_tz:
 quick_start: init get_headless_browser setup_global_git_creds update set_tz
 
 lint: build_file_home
-	- find . -name "*.py" -printf '%p\n' -exec pylint {} \;
+	. $(INSTALLATION_DIR)/installations/env/bin/activate; find . -name "*.py" -printf '%p\n' -exec pylint {} \;
 
 test: lint
-	- pytest -vv tests
+	. $(INSTALLATION_DIR)/installations/env/bin/activate; pytest -vv tests
 
 gainers: build_file_home
 	. $(INSTALLATION_DIR)/installations/env/bin/activate; python get_gainer.py $(SRC)
