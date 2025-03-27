@@ -46,17 +46,11 @@ SP25_DS5111_nrg6cb/
 ├── bin
 │   ├── __init__.py
 │   ├── __pycache__
-│   │   └── __init__.cpython-312.pyc
+│   │   └── ...
 │   ├── gainers
 │   │   ├── __init__.py
 │   │   ├── __pycache__
-│   │   │   ├── __init__.cpython-312.pyc
-│   │   │   ├── base.cpython-312.pyc
-│   │   │   ├── factory.cpython-312.pyc
-│   │   │   ├── stockanalysis.cpython-312.pyc
-│   │   │   ├── test.cpython-312.pyc
-│   │   │   ├── wsj.cpython-312.pyc
-│   │   │   └── yahoo.cpython-312.pyc
+│   │   │   └── ...
 │   │   ├── base.py
 │   │   ├── factory.py
 │   │   ├── stockanalysis.py
@@ -67,9 +61,47 @@ SP25_DS5111_nrg6cb/
 │   └── sample_adder.py
 ├── files
 │   ├── crontab_contents.txt
-│   └── (gainers files)
+│   └── messy_files
+│       └── ...
 ├── get_gainer.py
 ├── makefile
+├── projects
+│   ├── gainers
+│   │   ├── README.md
+│   │   ├── analyses
+│   │   ├── dbt_project.yml
+│   │   ├── logs
+│   │   │   └── dbt.log
+│   │   ├── macros
+│   │   ├── models
+│   │   │   └── example
+│   │   │       ├── my_first_dbt_model.sql
+│   │   │       ├── my_second_dbt_model.sql
+│   │   │       └── schema.yml
+│   │   ├── seeds
+│   │   ├── snapshots
+│   │   ├── target
+│   │   │   ├── compiled
+│   │   │   │   └── gainers
+│   │   │   │       └── models
+│   │   │   │           └── example
+│   │   │   │               ├── my_first_dbt_model.sql
+│   │   │   │               └── my_second_dbt_model.sql
+│   │   │   ├── graph.gpickle
+│   │   │   ├── graph_summary.json
+│   │   │   ├── manifest.json
+│   │   │   ├── partial_parse.msgpack
+│   │   │   ├── run
+│   │   │   │   └── gainers
+│   │   │   │       └── models
+│   │   │   │           └── example
+│   │   │   │               ├── my_first_dbt_model.sql
+│   │   │   │               └── my_second_dbt_model.sql
+│   │   │   ├── run_results.json
+│   │   │   └── semantic_manifest.json
+│   │   └── tests
+│   └── logs
+│       └── dbt.log
 ├── pylintrc
 ├── scripts
 │   ├── init.sh
@@ -78,6 +110,8 @@ SP25_DS5111_nrg6cb/
 │   └── setup_git_global_creds.sh
 └── tests
     ├── __init__.py
+    ├── __pycache__
+    │   └── ...
     ├── gainer_loading_test.py
     ├── lab04_test.py
     └── system_test.py
