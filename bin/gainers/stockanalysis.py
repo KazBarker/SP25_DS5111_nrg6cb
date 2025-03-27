@@ -34,13 +34,13 @@ class GainerDownloadStockAnalysis(GainerDownload):
 
         html_txt = os.popen(' '.join(process_list)).read()
         assert isinstance(html_txt, str), f'{self.name} gainers webpage filed to return text'
-        
+
         # initialize empty dataframe to attempt retrieval
         gainer_df = pd.DataFrame()
         check_empty = True
         ii = 0
-        
-        # loop until data is retrieved 
+
+        # loop until data is retrieved
         while check_empty:
             # convert html to data frame list
             try:

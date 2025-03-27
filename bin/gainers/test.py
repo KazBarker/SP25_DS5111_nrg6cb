@@ -6,6 +6,8 @@ normalization and saving of test data to a timestamped csv file.
 '''
 import os
 from datetime import datetime
+import string
+import random
 import pytz
 import numpy as np
 import pandas as pd
@@ -22,20 +24,20 @@ class GainerDownloadTest(GainerDownload):
 
     def download(self):
         print(f'downloading {self.name} gainers...')
-        
+
         # initialize empty dataframe to attempt retrieval
         gainer_df = pd.DataFrame()
         ii = 0
 
-        # loop until data is retrieved 
+        # loop until data is retrieved
         while gainer_df.empty and ii < 50:
             # get fake data frame
-            if ii > 20: 
+            if ii > 20:
                 gainer_df = pd.DataFrame(np.random.randint(0, 128, size=(20,5)).astype(float),
                                          columns=['C1', 'C2', 'C3', 'C4', 'C5'])
             ii+=1
 
-        gainer_df['C1'] = [chr(int(xx)) for xx in gainer_df['C1']]
+        gainer_df['C1'] = [random.choice(string.ascii_letters) for xx in gainer_df['C1']]
 
         # ensure the output path is empty
         os.system(f'rm -f {self.out_path}')

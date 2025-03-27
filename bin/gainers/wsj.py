@@ -40,8 +40,8 @@ class GainerDownloadWSJ(GainerDownload):
         gainer_df = pd.DataFrame()
         check_empty = True
         ii = 0
-        
-        # loop until data is retrieved 
+
+        # loop until data is retrieved
         while check_empty:
             # convert html to data frame list
             try:
