@@ -80,7 +80,7 @@ class GainerDownloadYahoo(GainerDownload):
         except OSError as e:
             print(f"OS error occurred: {e}")
 
-        print('done\n')
+        print('done')
 
 class GainerProcessYahoo(GainerProcess):
     '''
@@ -105,13 +105,12 @@ class GainerProcessYahoo(GainerProcess):
         # get the raw csv
         raw_csv = pd.read_csv(self.raw_path)
 
-        assert len(raw_csv.columns) == 13, f"\nExpected 13 columns, found {len(raw_csv.columns)}\n"
-        assert {'Symbol',
-                'Price', 
-                'Change', 
-                'Change %'
-                }.issubset(raw_csv.columns), f'\nRaw {
-        self.name} gainers csv is missing a required column\n'
+        count_message = f'Expected {self.col_count}, found {len(raw_csv.columns)}'
+        assert len(raw_csv.columns) == self.col_count, count_message
+
+        name_message = f'Raw {self.name} gainers csv is missing a required column'
+        assert {'Symbol', 'Price', 'Change', 'Change %'
+                }.issubset(raw_csv.columns), name_message
 
         # fix column names
         self.gainers_data = raw_csv[['Symbol', 'Price', 'Change', 'Change %']].rename(
@@ -126,39 +125,39 @@ class GainerProcessYahoo(GainerProcess):
                 self.gainers_data['price_percent_change'].replace(r'[^0-9.]', '', regex=True))
 
         # check normalized data format
+        symbol_type = type(self.gainers_data["symbol"][0]).__name__
         assert isinstance(self.gainers_data['symbol'][0], str),\
-                f'Expected string in "symbol", instead found {
-                type(self.gainers_data["symbol"][0]).__name__}'
+                f'Expected string in "symbol", instead found {symbol_type}'
 
+        price_type = type(self.gainers_data["price"][0]).__name__
         assert isinstance(self.gainers_data['price'][0], float),\
-                f'Expected float in "price", instead found {
-                type(self.gainers_data["price"][0]).__name__}'
+                f'Expected float in "price", instead found {price_type}'
 
+        price_change_type = type(self.gainers_data["price_change"][0]).__name__
         assert isinstance(self.gainers_data['price_change'][0], float),\
-                f'Expected float in "price_change", instead found {
-                type(self.gainers_data["price_change"][0]).__name__}'
+                f'Expected float in "price_change", instead found {price_change_type}'
 
+        perc_change_type = type(self.gainers_data["price_percent_change"][0]).__name__
         assert isinstance(self.gainers_data['price_percent_change'][0], float), \
-                f'Expected float in "price_percent_change", instead found {
-                type(self.gainers_data["price_percent_change"][0]).__name__}'
+                f'Expected float in "price_percent_change", instead found {perc_change_type}'
 
         # remove raw data file
         os.system(f'rm -f {self.raw_path}')
 
-        print('done\n')
+        print('done')
 
     def save_with_timestamp(self):
         print(f'saving {self.name} gainers...', end='')
 
-        assert len(self.gainers_data.columns) == 4, f'\nExpected 4 columns, found {
-        len(self.gainers_data.columns)}\n'
+        count_message = f'Expected 4 columns, found {len(self.gainers_data.columns)}'
+        assert len(self.gainers_data.columns) == 4, count_message
 
+        name_message = f'{self.name} gainers data is missing a required column'
         assert {'symbol',
                 'price',
                 'price_change',
                 'price_percent_change'
-                }.issubset(self.gainers_data.columns), f'\n{
-        self.name} gainers data is missing a required column\n'
+                }.issubset(self.gainers_data.columns), name_message
 
         # set output path with current timestamp
         timestamp = datetime.now(pytz.timezone('America/New_York')).strftime('%Y-%m-%d-%H:%M')
@@ -167,4 +166,4 @@ class GainerProcessYahoo(GainerProcess):
         # save to csv
         self.gainers_data.to_csv(out_path)
 
-        print('done\n')
+        print('done')

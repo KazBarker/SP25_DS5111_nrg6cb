@@ -12,7 +12,9 @@ class GainerFactory:
     FACTORY
     '''
     def __init__(self, choice):
-        assert choice in ['yahoo', 'wsj', 'stockanalysis', 'test'], f"Unrecognized gainer type {choice}"
+        choices = ['yahoo', 'wsj', 'stockanalysis', 'test']
+        assert choice in choices, f"Unrecognized gainer type {choice}"
+
         self.choice = choice
 
     def get_downloader(self):
