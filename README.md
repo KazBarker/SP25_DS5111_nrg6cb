@@ -24,6 +24,9 @@ Spring 2025 MSDS Class: Software and Automation Skills
 > [!IMPORTANT]
 > An `installations` folder will be added to your system outside the main repository folder, and will contain larger package files and data downloads. It can be removed easily by running `make cleanup`.
 
+> [!TIP]
+> Running `make quick_start` will run several other makefile methods, one of which is `make set_tz`: this method sets the instance timezone to Eastern/New York time. If a different timezone is desired, edit the makefile then rerun `make set_tz`.
+
 ## Script Details
 * `init.sh`: updates the environment and installs vital packages
 
@@ -128,6 +131,9 @@ SP25_DS5111_nrg6cb/
     * Normalized CSV files will be saved to the files directory
 
 * To download and normalize all available gainer types at once, run `make all_gainers`
+
+## Crontab Setup
+* To regularly download all gainers data at 09:31, 12:30, and 16:01 daily, type `crontab -e` and enter the text found in the file `files/crontab_contents.txt`
 
 ## Example Raw Data: wsjgainers
 |ID|Name|Volume|Last|Chg|% Chg|
