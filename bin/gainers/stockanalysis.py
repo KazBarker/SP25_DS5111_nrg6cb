@@ -47,11 +47,11 @@ class GainerDownloadStockAnalysis(GainerDownload):
                 check_empty = False
                 html_frames = pd.read_html(StringIO(html_txt))
             except ValueError:
-                if ii == 1000:
+                if ii == 100000:
                     break
                 print(f'{self.name} gainers download failed, trying again...')
             except UnboundLocalError:
-                if ii == 1000:
+                if ii == 100000:
                     break
                 print(f'{self.name} gainers download failed, trying again...')
 

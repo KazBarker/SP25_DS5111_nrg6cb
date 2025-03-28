@@ -48,11 +48,11 @@ class GainerDownloadWSJ(GainerDownload):
                 html_frames = pd.read_html(StringIO(html_txt))
                 check_empty = False
             except ValueError:
-                if ii == 1000:
+                if ii == 100000:
                     break
                 print(f'{self.name} gainers download failed, trying again...')
             except UnboundLocalError:
-                if ii == 1000:
+                if ii == 100000:
                     break
                 print(f'{self.name} gainers download failed, trying again...')
 
