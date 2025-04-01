@@ -64,7 +64,7 @@ erDiagram
         float price_percent_change
     }
 
-    GAINER-DETAILS one or more to one DOWNLOAD-DETAILS : "groupby source, download_id, symbol\ngroupby symbol"
+    GAINER-DETAILS one or more to one DOWNLOAD-DETAILS : "groupby source, download_id, symbol<br>&nbsp;\ngroupby symbol"
     DOWNLOAD-DETAILS {
         string source FK "From the SOURCE table"
         float percent_duplicate "Percentage of the source's gainers that are found in the other sources"
