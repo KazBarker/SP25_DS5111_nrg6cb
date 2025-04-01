@@ -34,7 +34,9 @@ erDiagram
         int hour
         string source
     }
+```
 
+```
     TIMESTAMP-WSJ-GAINERS many to only one WSJ-GAINERS : "compile"
     TIMESTAMP-Y-GAINERS many to only one Y-GAINERS : "compile"
     TIMESTAMP-STOCKANALYSIS-GAINERS many to only one STOCKANALYSIS-GAINERS : "compile"
