@@ -6,22 +6,22 @@ erDiagram
     "STOCK ANALYSIS" only one to zero or more TIMESTAMP-STOCKANALYSIS-GAINERS : "download 3x daily"
     
     TIMESTAMP-WSJ-GAINERS {
-        string symbol PK
-        float price
-        float price_change
+        string symbol PK "The stock symbol"
+        float price "Current price"
+        float price_change "Current price vs price at opening"
         float price_percent_change
     }
     TIMESTAMP-Y-GAINERS {
-        string symbol PK
-        float price
-        float price_change
+        string symbol PK "The stock symbol"
+        float price "Current price"
+        float price_change "Current price vs price at opening"
         float price_percent_change
     }
     TIMESTAMP-STOCKANALYSIS-GAINERS {
         string symbol PK "The stock symbol"
-        float price "Current stock price"
-        float price_change "Daily change in price"
-        float price_percent_change "Daily change in price as a percentage"
+        float price "Current price"
+        float price_change "Current price vs price at opening"
+        float price_percent_change
     }
  
     TIMESTAMP-WSJ-GAINERS many to only one GAINERS : "compile"
