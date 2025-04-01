@@ -49,6 +49,7 @@ erDiagram
 
     DOWNLOADS one to one or more GAINER-DETAILS : "link"
     SOURCES one to one or more GAINER-DETAILS : "link"
+    GAINERS one to one or more GAINER-DETAILS : "link"
     TIMESTAMP-WSJ-GAINERS one to one GAINER-DETAILS : "parse"
     TIMESTAMP-Y-GAINERS one to one GAINER-DETAILS : "parse"
     TIMESTAMP-STOCKANALYSIS-GAINERS one to one GAINER-DETAILS : "parse"
