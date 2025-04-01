@@ -32,7 +32,7 @@ erDiagram
         int ID PK
         date date
         int hour
-        string source
+        string source "wsj, yahoo, or stockanalysis"
     }
 ```
 
