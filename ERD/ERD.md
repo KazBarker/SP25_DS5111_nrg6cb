@@ -18,22 +18,27 @@ erDiagram
         float price_percent_change
     }
     TIMESTAMP-STOCKANALYSIS-GAINERS {
-        string symbol PK
-        float price
-        float price_change
-        float price_percent_change
+        string symbol PK "The stock symbol"
+        float price "Current stock price"
+        float price_change "Daily change in price"
+        float price_percent_change "Daily change in price as a percentage"
     }
  
-    TIMESTAMP-WSJ-GAINERS many to only one DOWNLOADS : "compile"
-    TIMESTAMP-Y-GAINERS many to only one DOWNLOADS : "compile"
-    TIMESTAMP-STOCKANALYSIS-GAINERS many to only one DOWNLOADS : "compile"
+    TIMESTAMP-WSJ-GAINERS many to only one GAINERS : "compile"
+    TIMESTAMP-Y-GAINERS many to only one GAINERS : "compile"
+    TIMESTAMP-STOCKANALYSIS-GAINERS many to only one GAINERS : "compile"
 
-    DOWNLOADS {
+    GAINERS {
         int download_id PK
-        date date
-        int hour
-        string source "'wsj', 'yahoo', or 'stockanalysis'"
+        date date "Date of download"
+        int hour "Hour of download"
+        string symbol "The stock symbol"
+        int instances "Number of gainer sources the symbol is found in for this timepoint"
     }
+    
+    TIMESTAMP-WSJ-GAINERS many to only one GAINERS : "compile"
+    TIMESTAMP-Y-GAINERS many to only one GAINERS : "compile"
+    TIMESTAMP-STOCKANALYSIS-GAINERS many to only one GAINERS : "compile"
 ```
 
 ```
