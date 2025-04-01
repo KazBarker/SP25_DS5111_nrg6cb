@@ -64,7 +64,8 @@ erDiagram
         float price_percent_change
     }
 
-    GAINER-DETAILS one or more to one DOWNLOAD-DETAILS : "groupby source, download_id >> num_symbols = count >> groupby symbol >> overlap = count >> ungroup >> remove symbol >> groupby source, download_id, num_symbols >> overlap = sum overlap >> percent_duplicate = 100 x (overlap / num_symbols)"
+    GAINER-DETAILS one or more to one DOWNLOAD-DETAILS : "groupby source, download_id >> num_symbols = count >> groupby symbol >> overlap = count >> ungroup >> remove symbol >> groupby source, download_id, num_symbols >> overlap = sum overlap >> percent_duplicate = 100 x (overlap / num_symbols) >> remove overlap and num_symbols"
+
     DOWNLOAD-DETAILS {
         string source FK "From the SOURCE table"
         float percent_duplicate "Percentage of the source's gainers that are found in the other sources"
