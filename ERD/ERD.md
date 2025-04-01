@@ -24,24 +24,47 @@ erDiagram
         float price_percent_change
     }
  
-    TIMESTAMP-WSJ-GAINERS many to only one GAINERS : "compile"
-    TIMESTAMP-Y-GAINERS many to only one GAINERS : "compile"
-    TIMESTAMP-STOCKANALYSIS-GAINERS many to only one GAINERS : "compile"
+    TIMESTAMP-WSJ-GAINERS many to only one DOWNLOADS : "compile"
+    TIMESTAMP-Y-GAINERS many to only one DOWNLOADS : "compile"
+    TIMESTAMP-STOCKANALYSIS-GAINERS many to only one DOWNLOADS : "compile"
 
-    GAINERS {
+    DOWNLOADS {
+        int download_id PK
+        date date "Date of download"
+        int hour "Hour of download"
+    }
+
+    SOURCES {
+        string source PK "'wsj', 'yahoo', or 'stockanalysis'"
+    }
+
+    DOWNLOADS many to one or more SOURCE-DOWNLOAD
+    SOURCES many to one or more SOURCE-DOWNLOAD
+
+    SOURCE-DOWNLOAD {
+        int gainer_id PK
+        int download_id FK "From the DOWNLOADS table"
+        string source FK "From the SOURCE table"
+    }
+```
+
+
+```
+    TIMESTAMP-WSJ-GAINERS many to only one GAINER-DOWNLOADS : "compile"
+    TIMESTAMP-Y-GAINERS many to only one GAINER-DOWNLOADS : "compile"
+    TIMESTAMP-STOCKANALYSIS-GAINERS many to only one GAINER-DOWNLOADS : "compile"
+
+    GAINER-DOWNLOADS {
         int download_id PK
         date date "Date of download"
         int hour "Hour of download"
         string symbol "The stock symbol"
         int instances "Number of gainer sources the symbol is found in for this timepoint"
     }
-    
-    TIMESTAMP-WSJ-GAINERS many to only one GAINERS : "compile"
-    TIMESTAMP-Y-GAINERS many to only one GAINERS : "compile"
-    TIMESTAMP-STOCKANALYSIS-GAINERS many to only one GAINERS : "compile"
 ```
 
 ```
+
     TIMESTAMP-WSJ-GAINERS many to only one WSJ-GAINERS : "compile"
     TIMESTAMP-Y-GAINERS many to only one Y-GAINERS : "compile"
     TIMESTAMP-STOCKANALYSIS-GAINERS many to only one STOCKANALYSIS-GAINERS : "compile"
