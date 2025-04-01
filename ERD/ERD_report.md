@@ -11,3 +11,13 @@ This report describes the "gainers" stock data, including data collection, data 
 Gainers data was downloaded at regular intervals during trading hours from 3 sources: [Stock Analysis](https://stockanalysis.com/markets/gainers/), [The Wall Street Journal](https://www.wsj.com/market-data/stocks/us/movers), and [Yahoo Finance](https://finance.yahoo.com/markets/stocks/gainers/?start=0&count=200). Downloads were normalized to contain only the columns `symbol`, `price`, `price_percent_change`, and `price_change` and saved as CSV files with filenames containing the date and time of download.  
 
 ## Summary
+
+
+## TESTING:
+```mermaid
+  graph TD;
+      A-->B;
+      A-->C;
+      B-->D;
+      C-->D;
+```
