@@ -1,8 +1,8 @@
 # ERD
 ```mermaid
 erDiagram
-    WSJ only one to zero or more TIMESTAMP-WSJ-GAINERS" : makes
-    YAHOO only one to zero or more TIMESTAMP-Y-GAINERS: : makes
+    WSJ only one to zero or more TIMESTAMP-WSJ-GAINERS : makes
+    YAHOO only one to zero or more TIMESTAMP-Y-GAINERS : makes
     "STOCK ANALYSIS" only one to zero or more TIMESTAMP-STOCKANALYSIS-GAINERS : makes
 ```
 
