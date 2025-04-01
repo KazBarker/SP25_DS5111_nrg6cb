@@ -1,6 +1,6 @@
 # ERD
 ```mermaid
-erDiagram;
+erDiagram
     CAR ||--o{ NAMED-DRIVER : allows
     CAR {
         string registrationNumber PK
