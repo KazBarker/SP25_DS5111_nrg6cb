@@ -24,22 +24,22 @@ erDiagram
         float price_percent_change
     }
  
-    TIMESTAMP-WSJ-GAINERS many to only one DOWNLOADS : "compile"
-    TIMESTAMP-Y-GAINERS many to only one DOWNLOADS : "compile"
-    TIMESTAMP-STOCKANALYSIS-GAINERS many to only one DOWNLOADS : "compile"
+    TIMESTAMP-WSJ-GAINERS many to only one DOWNLOADS : "extract"
+    TIMESTAMP-Y-GAINERS many to only one DOWNLOADS : "extract"
+    TIMESTAMP-STOCKANALYSIS-GAINERS many to only one DOWNLOADS : "extract"
 
     DOWNLOADS {
         int download_id PK
-        date date "Date of download"
-        int hour "Hour of download"
+        date date "Date of download (date+hour should be unique when combined)"
+        int hour "Hour of download (date+hour should be unique when combined"
     }
 
     SOURCES {
         string source PK "'wsj', 'yahoo', or 'stockanalysis'"
     }
 
-    DOWNLOADS many to one or more SOURCE-DOWNLOAD : "link"
-    SOURCES many to one or more SOURCE-DOWNLOAD : "link"
+    DOWNLOADS one to one or more SOURCE-DOWNLOAD : "link"
+    SOURCES one to one or more SOURCE-DOWNLOAD : "link"
 
     SOURCE-DOWNLOAD {
         int gainer_id PK
