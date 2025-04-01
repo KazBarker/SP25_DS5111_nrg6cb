@@ -18,7 +18,9 @@ A "sources" table was compiled, listing all gainers data sources - currently WSJ
 
 * **Gainer Details**: Contains the primary keys from Sources, Downloads, and Gainers as well as the specific data associated with a particular gainer instance (price, price change, and price percent change) parsed from the downloaded gainers csv files.
 
-* **Download Details**: Derived from the Gainer Details table - contains the primary keys from Sources and Downloads and the calculated value "percent_duplicate", the percentage of the given source's download that had symbols also found in other sources at the same timepoint. 
+* **Source Overlap**: Derived from the Gainer Details table - contains the primary keys from Sources and Downloads and the calculated value "percent_duplicate", the percentage of the given source's download that had symbols also found in other sources at the same timepoint. 
+
+* **Repeats**: Derived from the Gainer Details table - contains the primary key from the Gainers table and the calculated value "repeat_count", the number of times a stock symbol was found across different timepoints.
 
 ## Summary
 The first use-case is addressed in the Repeats table, which contains all stock symbols observed in the downloads data, and the number of times those symbols repeat across timepoints. The second use-case is addressed in the Source-Overlap table, which - for each download timepoint - contains the percentage of a source's symbols that were present in one of the other sources. These percentages can be further averaged to provide a more global overview of the uniqueness or consistancy of a source's gainer data.
