@@ -33,4 +33,5 @@ erDiagram
         float price
         float price_change
         float percent_price_change
+    }
 ```
