@@ -23,6 +23,7 @@ erDiagram
         float price_change "Current price vs price at opening"
         float price_percent_change
     }
+
     SOURCES {
         string source PK "'wsj', 'yahoo', or 'stockanalysis'"
     }
@@ -33,8 +34,8 @@ erDiagram
 
     DOWNLOADS {
         int download_id PK
-        date date "Date of download (date+hour should be unique when combined)"
-        int hour "Hour of download (date+hour should be unique when combined"
+        date date "Date of download"
+        int hour "Hour of download"
     }
 
     TIMESTAMP-WSJ-GAINERS many optionally to only one GAINERS : "unique"
