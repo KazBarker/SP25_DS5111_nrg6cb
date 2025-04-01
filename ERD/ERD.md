@@ -29,10 +29,10 @@ erDiagram
     TIMESTAMP-STOCKANALYSIS-GAINERS many to only one DOWNLOADS : "compile"
 
     DOWNLOADS {
-        int ID PK
+        int download_id PK
         date date
         int hour
-        string source "wsj, yahoo, or stockanalysis"
+        string source "'wsj', 'yahoo', or 'stockanalysis'"
     }
 ```
 
