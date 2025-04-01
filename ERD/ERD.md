@@ -3,7 +3,7 @@
 erDiagram
     WSJ only one to zero or more TIMESTAMPED-WSJ-GAINERS : makes
     YAHOO only one to zero or more TIMESTAMPED-Y-GAINERS : makes
-    STOCK-ANALYSIS only one to zero or more TIMESTAMPED-STOCKANALYSIS-GAINERS : makes
+    STOCK ANALYSIS only one to zero or more TIMESTAMPED-STOCKANALYSIS-GAINERS : makes
 ```
 
 ```mermaid
