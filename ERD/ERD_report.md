@@ -12,12 +12,3 @@ Gainers data was downloaded at regular intervals during trading hours from 3 sou
 
 ## Summary
 
-
-## TESTING:
-```mermaid
-  graph TD;
-      A-->B;
-      A-->C;
-      B-->D;
-      C-->D;
-```
