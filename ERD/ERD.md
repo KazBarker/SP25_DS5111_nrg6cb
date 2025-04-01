@@ -23,6 +23,9 @@ erDiagram
         float price_change "Current price vs price at opening"
         float price_percent_change
     }
+    SOURCES {
+        string source PK "'wsj', 'yahoo', or 'stockanalysis'"
+    }
  
     TIMESTAMP-WSJ-GAINERS many optionally to only one DOWNLOADS : "extract"
     TIMESTAMP-Y-GAINERS many optionally to only one DOWNLOADS : "extract"
@@ -41,10 +44,6 @@ erDiagram
     GAINERS {
         string symbol PK "Unique stock symbol"
         int instances "Number of times the stock has appeared in a download"
-    }
-
-    SOURCES {
-        string source PK "'wsj', 'yahoo', or 'stockanalysis'"
     }
 
     DOWNLOADS one to one or more GAINER-DETAILS : "link"
