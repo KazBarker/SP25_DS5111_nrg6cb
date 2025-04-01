@@ -67,7 +67,8 @@ erDiagram
     GAINER-DETAILS one or more to one DOWNLOAD-DETAILS : "groupby source, download_id >> num_symbols = count >> groupby symbol >> overlap = count >> ungroup >> remove symbol >> groupby source, download_id, num_symbols >> overlap = sum overlap >> percent_duplicate = 100 x (overlap / num_symbols) >> remove overlap and num_symbols"
 
     DOWNLOAD-DETAILS {
-        string source
+        int download_id FK "FK from the DOWNLOADS table via the GAINER-DETAILS table"
+        string source FK "FK from the SOURCE table via the GAINER-DETAILS table"
         float percent_duplicate "Percentage of the source's gainers that are found in the other sources"
     }
 ```
