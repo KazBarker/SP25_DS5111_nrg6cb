@@ -8,7 +8,15 @@ This report describes the "gainers" stock data, including data collection, data 
 * Assess data source consistency: are the same stocks identified as gainers simultaneously across data sources?
 
 ## Methods
-Gainers data was downloaded at regular intervals during trading hours from 3 sources: [Stock Analysis](https://stockanalysis.com/markets/gainers/), [The Wall Street Journal](https://www.wsj.com/market-data/stocks/us/movers), and [Yahoo Finance](https://finance.yahoo.com/markets/stocks/gainers/?start=0&count=200). Downloads were normalized to contain only the columns `symbol`, `price`, `price_percent_change`, and `price_change` and saved as CSV files with filenames containing the date and time of download.  
+Gainers data were downloaded at regular intervals during trading hours from 3 sources: [Stock Analysis](https://stockanalysis.com/markets/gainers/), [The Wall Street Journal](https://www.wsj.com/market-data/stocks/us/movers), and [Yahoo Finance](https://finance.yahoo.com/markets/stocks/gainers/?start=0&count=200). Downloads were normalized to contain only the columns `symbol`, `price`, `price_percent_change`, and `price_change` and saved as CSV files with filenames containing the date and time of download.  
+
+A "sources" table was compiled, listing all gainers data sources - currently WSJ, Yahoo, and Stock Analysis. Downloaded gainers CSV files were compiled and parsed into 3 tables: "downloads", "gainers", and "gainer detials": 
+
+* **Downloads**: Contains the date and the hour of all downloads carried out for one or more gainer sources.
+
+* **Gainers**: Contains all stock symbols that appear anywhere within the gainers data, as well as a count of the number of times each symbol has appeared.
+
+* **Gainer Details**: Contains the primary keys from Sources, Downloads, and Gainers as well as the specific data associated with a particular gainer instance (price, price change, and price percent change)
 
 ## Summary
 
