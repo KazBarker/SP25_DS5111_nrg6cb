@@ -23,6 +23,14 @@ erDiagram
         float price_change
         float price_percent_change
     }
+ 
+    TIMESTAMP-WSJ-GAINERS many to only one WSJ-OBSERVATIONS : "compile"
+
+    WSJ-OBSERVATIONS {
+        int ID PK
+        date date
+        int hour
+    }
 
     TIMESTAMP-WSJ-GAINERS many to only one WSJ-GAINERS : "compile"
     TIMESTAMP-Y-GAINERS many to only one Y-GAINERS : "compile"
