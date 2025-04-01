@@ -23,4 +23,14 @@ erDiagram
         float price_change
         float price_percent_change
     }
+
+    TIMESTAMP-WSJ-GAINERS many to only one WSJ-GAINERS : "compile"
+
+    WSJ-GAINERS {
+        date date PK
+        int hour PK
+        string symbol PK
+        float price
+        float price_change
+        float percent_price_change
 ```
