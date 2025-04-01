@@ -34,6 +34,15 @@ erDiagram
         int hour "Hour of download (date+hour should be unique when combined"
     }
 
+    TIMESTAMP-WSJ-GAINERS many optionally to only one GAINERS : "unique"
+    TIMESTAMP-Y-GAINERS many optionally to only one GAINERS : "unique"
+    TIMESTAMP-STOCKANALYSIS-GAINERS many optionally to only one GAINERS : "unique"
+
+    GAINERS {
+        string symbol PK "Unique stock symbol"
+        int instances "Number of times the stock has appeared in a download"
+    }
+
     SOURCES {
         string source PK "'wsj', 'yahoo', or 'stockanalysis'"
     }
