@@ -38,8 +38,8 @@ erDiagram
         string source PK "'wsj', 'yahoo', or 'stockanalysis'"
     }
 
-    DOWNLOADS many to one or more SOURCE-DOWNLOAD
-    SOURCES many to one or more SOURCE-DOWNLOAD
+    DOWNLOADS many to one or more SOURCE-DOWNLOAD : "link"
+    SOURCES many to one or more SOURCE-DOWNLOAD : "link"
 
     SOURCE-DOWNLOAD {
         int gainer_id PK
