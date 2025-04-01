@@ -1,6 +1,13 @@
 # ERD
 ```mermaid
 erDiagram
+    WSJ only one to zero or more TIMESTAMPED-WSJ-GAINERS : makes
+    YAHOO only one to zero or more TIMESTAMPED-Y-GAINERS : makes
+    STOCK-ANALYSIS only one to zero or more TIMESTAMPED-STOCKANALYSIS-GAINERS : makes
+```
+
+```mermaid
+erDiagram
     CAR ||--o{ NAMED-DRIVER : allows
     CAR {
         string registrationNumber PK
@@ -21,13 +28,4 @@ erDiagram
         string driverLicence PK, FK
     }
     MANUFACTURER only one to zero or more CAR : makes
-```
-
-
-```mermaid
-  graph TD;
-      A-->B;
-      A-->C;
-      B-->D;
-      C-->D;
 ```
