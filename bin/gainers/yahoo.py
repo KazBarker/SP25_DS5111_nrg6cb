@@ -164,6 +164,6 @@ class GainerProcessYahoo(GainerProcess):
         out_path = f'files/{self.name}_gainers_{timestamp}.csv'
 
         # save to csv
-        self.gainers_data.to_csv(out_path)
+        self.gainers_data.to_csv(out_path, index=False)
 
         print('done')
