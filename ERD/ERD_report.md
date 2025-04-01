@@ -18,5 +18,7 @@ A "sources" table was compiled, listing all gainers data sources - currently WSJ
 
 * **Gainer Details**: Contains the primary keys from Sources, Downloads, and Gainers as well as the specific data associated with a particular gainer instance (price, price change, and price percent change) parsed from the downloaded gainers csv files.
 
-## Summary
+* **Download Details**: Derived from the Gainer Details table - contains the primary keys from Sources and Downloads and the calculated value "percent_duplicate", the percentage of the given source's download that had symbols also found in other sources at the same timepoint. 
 
+## Summary
+The first use case is addressed in the Gainers table, which contains the total number of times a particular stock has appeared in a download. This 

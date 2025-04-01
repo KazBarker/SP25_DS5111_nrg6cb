@@ -44,7 +44,6 @@ erDiagram
 
     GAINERS {
         string symbol PK "Unique stock symbol"
-        int instances "Number of times the stock has appeared in a download"
     }
     
     DOWNLOADS one to one or more GAINER-DETAILS : "link"
@@ -64,11 +63,18 @@ erDiagram
         float price_percent_change
     }
 
-    GAINER-DETAILS one or more to one DOWNLOAD-DETAILS : "groupby source, download_id >> num_symbols = count >> groupby symbol >> overlap = count >> ungroup >> remove symbol >> groupby source, download_id, num_symbols >> overlap = sum overlap >> percent_duplicate = 100 x (overlap / num_symbols) >> remove overlap and num_symbols"
+    GAINER-DETAILS one or more to one SOURCE-OVERLAP : "groupby source, download_id >> num_symbols = count >> groupby symbol >> overlap = count >> ungroup >> remove symbol >> groupby source, download_id, num_symbols >> overlap = sum overlap >> percent_duplicate = 100 x (overlap / num_symbols) >> remove overlap and num_symbols"
 
-    DOWNLOAD-DETAILS {
+    SOURCE-OVERLAP {
         int download_id FK "FK from the DOWNLOADS table via the GAINER-DETAILS table"
         string source FK "FK from the SOURCE table via the GAINER-DETAILS table"
         float percent_duplicate "Percentage of the source's gainers that are found in the other sources"
+    }
+
+    GAINER-DETAILS one or more to one REPEATS : "groupby symbol, download_id >> unique >> groupby symbol >> repeat_count = count"
+
+    REPEATS {
+        str symbol FK "FK from the GAINERS table via the GAINER-DETAILS table"
+        int repeat_count "Number of times the stock has appeared across different timepoints"
     }
 ```
