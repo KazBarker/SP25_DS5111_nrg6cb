@@ -16,7 +16,7 @@ A "sources" table was compiled, listing all gainers data sources - currently WSJ
 
 * **Gainers**: Contains all stock symbols that appear anywhere within the gainers data, as well as a count of the number of times each symbol has appeared.
 
-* **Gainer Details**: Contains the primary keys from Sources, Downloads, and Gainers as well as the specific data associated with a particular gainer instance (price, price change, and price percent change)
+* **Gainer Details**: Contains the primary keys from Sources, Downloads, and Gainers as well as the specific data associated with a particular gainer instance (price, price change, and price percent change) parsed from the downloaded gainers csv files.
 
 ## Summary
 

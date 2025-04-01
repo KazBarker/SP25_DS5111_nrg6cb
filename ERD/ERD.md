@@ -46,7 +46,7 @@ erDiagram
         string symbol PK "Unique stock symbol"
         int instances "Number of times the stock has appeared in a download"
     }
-
+    
     DOWNLOADS one to one or more GAINER-DETAILS : "link"
     SOURCES one to one or more GAINER-DETAILS : "link"
     GAINERS one to one or more GAINER-DETAILS : "link"
@@ -62,5 +62,11 @@ erDiagram
         float price "Current price"
         float price_change "Current price vs price at opening"
         float price_percent_change
+    }
+
+    GAINER-DETAILS one or more to one DOWNLOAD-DETAILS : "groupby source, download_id, symbol\ngroupby symbol"
+    DOWNLOAD-DETAILS {
+        string source FK "From the SOURCE table"
+        float percent_duplicate "Percentage of the source's gainers that are found in the other sources"
     }
 ```
