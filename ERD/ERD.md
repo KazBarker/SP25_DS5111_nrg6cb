@@ -24,9 +24,9 @@ erDiagram
         float price_percent_change
     }
  
-    TIMESTAMP-WSJ-GAINERS many to only one DOWNLOADS : "extract"
-    TIMESTAMP-Y-GAINERS many to only one DOWNLOADS : "extract"
-    TIMESTAMP-STOCKANALYSIS-GAINERS many to only one DOWNLOADS : "extract"
+    TIMESTAMP-WSJ-GAINERS many optionally to only one DOWNLOADS : "extract"
+    TIMESTAMP-Y-GAINERS many optionally to only one DOWNLOADS : "extract"
+    TIMESTAMP-STOCKANALYSIS-GAINERS many optionally to only one DOWNLOADS : "extract"
 
     DOWNLOADS {
         int download_id PK
