@@ -26,6 +26,8 @@ def test_gainer_download():
     assert any(iter(filename == 'testgainers.csv' for filename in os.listdir('files')))
 
 def test_gainer_normalize_and_save():
+    # good description messages!  They don't just parrot the name of the function and really do give more info.
+    # I would say give the given/when/then format a try, but you seem to get the gist of using the docstring, so all good.
     '''
     Checks that the Gainer Factory creates a timestamped csv file when the 
     normalizer methods are called.
