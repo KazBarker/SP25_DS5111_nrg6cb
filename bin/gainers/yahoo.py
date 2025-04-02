@@ -22,6 +22,9 @@ class GainerDownloadYahoo(GainerDownload):
         self.out_path = out_path
         self.name = name
 
+    # good work.  I did put out the shortcut for those that were having trouble, (using os.system and reusing the code in makefile)
+    # but undertaking this is a plus.  I'll add some extra credit for going the extra mile.  In the end we would want an
+    # all python implementation which is more portable so this is a good thing.
     def download(self):
         print(f'downloading {self.name} gainers...')
 
