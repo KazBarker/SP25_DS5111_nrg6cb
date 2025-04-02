@@ -1,4 +1,7 @@
 MY_DIR := $(abspath .)
+# I like the variable setups. One question here though, you're istalling the virtual environment in a folder
+# outside the repo folder, is that to avoid having it sucked into git? or is to share the environment elsewhere 
+# on the VM
 INSTALLATION_DIR = $(abspath ..)
 
 default:
