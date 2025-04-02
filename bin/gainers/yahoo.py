@@ -139,7 +139,7 @@ class GainerProcessYahoo(GainerProcess):
         price_change_type = type(self.gainers_data["price_change"][0]).__name__
         assert isinstance(self.gainers_data['price_change'][0], float),\
                 f'Expected float in "price_change", instead found {price_change_type}'
-
+# good mix of using asserts and exceptions in this file.  
         perc_change_type = type(self.gainers_data["price_percent_change"][0]).__name__
         assert isinstance(self.gainers_data['price_percent_change'][0], float), \
                 f'Expected float in "price_percent_change", instead found {perc_change_type}'
