@@ -18,6 +18,6 @@ def test_python_version():
     '''
     my_python = Version(platform.python_version())
 
-    if not (my_python >= Version('3.10')) & (my_python < Version('3.12')):
+    if not (my_python >= Version('3.12')) & (my_python <= Version('3.13')):
         # pytest.fail(f'Requires python>=3.10,<3.12 (currently using {my_python})')
         pytest.fail(f'Requires python>=3.12,<=3.13 (currently using {my_python})')
