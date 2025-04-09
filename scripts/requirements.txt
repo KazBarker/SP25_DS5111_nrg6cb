@@ -18,5 +18,5 @@ tomlkit==0.13.2
 tzdata==2025.1
 webencodings==0.5.1
 wheel==0.45.1
-dbt-core
-dbt-snowflake
+dbt-core==1.9.3
+dbt-snowflake==1.9.2
