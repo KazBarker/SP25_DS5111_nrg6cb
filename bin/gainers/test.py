@@ -57,7 +57,7 @@ class GainerDownloadTest(GainerDownload):
             print(f"OS error occurred: {e}")
 
         print('done')
-
+# awesome.  Once you have the OOP architecture with the design patterns, adding a mock is clean.
 class GainerProcessTest(GainerProcess):
     '''
     PROCESSOR (test)

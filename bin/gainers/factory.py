@@ -21,6 +21,11 @@ class GainerFactory:
         '''
         Retrieves the appropriate downloader method for the gainer choice passed.
         '''
+        # wow this is awesome... I've always missed not having a case statement in python... I was surprised to see
+        # this actually.  Looked it up and it seems it was introduced in python 3.10.  Cool.  Good use of it here!
+        # also a great point for checking python versions.  If you used 3.10, and production was stuck in 3.9 there would be
+        # an issue.  And that's what the github action test would have caught... 
+        # learned something new today!  thanks for introducing me to the match/case, going to have to find code to use it!
         match self.choice:
             case 'yahoo':
                 return GainerDownloadYahoo(

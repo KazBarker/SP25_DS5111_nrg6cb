@@ -22,6 +22,9 @@ class GainerDownloadYahoo(GainerDownload):
         self.out_path = out_path
         self.name = name
 
+    # good work.  I did put out the shortcut for those that were having trouble, (using os.system and reusing the code in makefile)
+    # but undertaking this is a plus.  I'll add some extra credit for going the extra mile.  In the end we would want an
+    # all python implementation which is more portable so this is a good thing.
     def download(self):
         print(f'downloading {self.name} gainers...')
 
@@ -136,7 +139,7 @@ class GainerProcessYahoo(GainerProcess):
         price_change_type = type(self.gainers_data["price_change"][0]).__name__
         assert isinstance(self.gainers_data['price_change'][0], float),\
                 f'Expected float in "price_change", instead found {price_change_type}'
-
+# good mix of using asserts and exceptions in this file.  
         perc_change_type = type(self.gainers_data["price_percent_change"][0]).__name__
         assert isinstance(self.gainers_data['price_percent_change'][0], float), \
                 f'Expected float in "price_percent_change", instead found {perc_change_type}'
