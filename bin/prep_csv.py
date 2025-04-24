@@ -11,7 +11,6 @@ CSV files still contain the following features:
 import os
 import sys
 import re
-import pandas as pd
 
 def reformat_gainers_files(directory_path):
     '''
@@ -19,7 +18,7 @@ def reformat_gainers_files(directory_path):
     are expected to originally be in the format: "[source]_gainers_[YYYY-MM-DD]-[HH:MM].csv"
     '''
     csv_list = None
-    
+
     try:
         csv_list = [ff for ff in os.listdir(directory_path) if ff.endswith('.csv')]
     except FileNotFoundError:
