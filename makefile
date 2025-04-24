@@ -40,7 +40,13 @@ gainers: build_file_home
 	. $(INSTALLATION_DIR)/installations/env/bin/activate; python get_gainer.py $(SRC)
 
 all_gainers: build_file_home
-	. $(INSTALLATION_DIR)/installations/env/bin/activate; python get_gainer.py wsj; python get_gainer.py yahoo; python get_gainer.py stockanalysis
+	. $(INSTALLATION_DIR)/installations/env/bin/activate; python get_gainer.py wsj; python get_gainer.py yahoo; python get_gainer.py stockanalysis; python bin/prep_csv.py "files/"
+
+prep_gainers:
+	. $(INSTALLATION_DIR)/installations/env/bin/activate; python bin/prep_csv.py "files/"
+
+seed_gainers: prep_gainers
+	rm -rf $(MY_DIR)/projects/gainers/seeds; cp -r $(MY_DIR)/files $(MY_DIR)/projects/gainers/; mv $(MY_DIR)/projects/gainers/files $(MY_DIR)/projects/gainers/seeds
 
 cleanup:
 	sudo rm -rf $(INSTALLATION_DIR)/installations
