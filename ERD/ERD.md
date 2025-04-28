@@ -33,7 +33,7 @@ erDiagram
     TIMESTAMP-STOCKANALYSIS-GAINERS many optionally to only one DOWNLOADS : "extract"
 
     DOWNLOADS {
-        int download_id PK
+        str download_id PK "Download timestamp in Date, Hour format"
         date date "Date of download"
         int hour "Hour of download"
     }
