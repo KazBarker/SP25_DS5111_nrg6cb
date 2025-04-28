@@ -35,7 +35,7 @@ erDiagram
     DOWNLOADS {
         str download_id PK "Download timestamp in Date, Hour format"
         int year "Year of download"
-        int month "Month of download (1-12)
+        int month "Month of download (1-12)"
         int day "Day of download"
         int time "Hour of download (HHMM, 24-hour time)"
     }
