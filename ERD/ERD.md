@@ -34,8 +34,10 @@ erDiagram
 
     DOWNLOADS {
         str download_id PK "Download timestamp in Date, Hour format"
-        date date "Date of download"
-        int hour "Hour of download"
+        int year "Year of download"
+        int month "Month of download (1-12)
+        int day "Day of download"
+        int time "Hour of download (HHMM, 24-hour time)"
     }
 
     TIMESTAMP-WSJ-GAINERS many optionally to only one GAINERS : "unique"
