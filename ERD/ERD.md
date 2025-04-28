@@ -54,7 +54,7 @@ erDiagram
     TIMESTAMP-STOCKANALYSIS-GAINERS one to one GAINER-DETAILS : "parse"
 
     GAINER-DETAILS {
-        int gain_id PK
+        int gain_id PK "Row number"
         int download_id FK "From the DOWNLOADS table"
         string source FK "From the SOURCE table"
         string symbol FK "From the GAINERS table"
