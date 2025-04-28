@@ -42,10 +42,11 @@ gainers: build_file_home
 all_gainers: build_file_home
 	. $(INSTALLATION_DIR)/installations/env/bin/activate; python get_gainer.py wsj; python get_gainer.py yahoo; python get_gainer.py stockanalysis; python bin/prep_csv.py "files/"
 
-prep_gainers:
-	. $(INSTALLATION_DIR)/installations/env/bin/activate; python bin/prep_csv.py "files/"
+export_gainers:
+	. $(INSTALLATION_DIR)/installations/env/bin/activate; python bin/flake_gainers.py "files/"
 
-seed_gainers: prep_gainers
-	rm -rf $(MY_DIR)/projects/gainers/seeds; cp -r $(MY_DIR)/files $(MY_DIR)/projects/gainers/; mv $(MY_DIR)/projects/gainers/files $(MY_DIR)/projects/gainers/seeds 
+rebuild_snowflake:
+	. $(INSTALLATION_DIR)/installations/env/bin/activate; python bin/rebuild_snowflake.py
+
 cleanup:
 	sudo rm -rf $(INSTALLATION_DIR)/installations

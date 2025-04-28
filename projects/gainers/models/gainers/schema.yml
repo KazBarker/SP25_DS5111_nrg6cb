@@ -1,0 +1,30 @@
+
+version: 2
+
+models:
+  - name: downloads
+    description: 'Gainer download date/time information'
+    columns: 
+      - name: date_time
+        description: 'The combined date and timestamp, primary key'
+        data_tests:
+          - not_null
+          - unique
+
+  - name: sources
+    description: 'Gainer data sources'
+    columns:
+      - name: source
+        description: 'The name of the download source'
+        data_tests:
+          - not_null
+          - unique
+
+  - name: gainers
+    description: 'Stock tickers found in the gainers data'
+    columns: 
+      - name: symbol
+        description: 'The stock ticker'
+        data_tests:
+          - not_null
+          - unique
