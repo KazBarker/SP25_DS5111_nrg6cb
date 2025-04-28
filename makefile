@@ -43,10 +43,10 @@ all_gainers: build_file_home
 	. $(INSTALLATION_DIR)/installations/env/bin/activate; python get_gainer.py wsj; python get_gainer.py yahoo; python get_gainer.py stockanalysis; python bin/prep_csv.py "files/"
 
 export_gainers:
-	. $(INSTALLATION_DIR)/installations/env/bin/activate; python bin/flake_gainers.py "files/"
+	. $(INSTALLATION_DIR)/installations/env/bin/activate; python bin/snowflake/flake_gainers.py "files/"
 
 rebuild_snowflake:
-	. $(INSTALLATION_DIR)/installations/env/bin/activate; python bin/rebuild_snowflake.py
+	. $(INSTALLATION_DIR)/installations/env/bin/activate; python bin/snowflake/rebuild_snowflake.py
 
 cleanup:
 	sudo rm -rf $(INSTALLATION_DIR)/installations
