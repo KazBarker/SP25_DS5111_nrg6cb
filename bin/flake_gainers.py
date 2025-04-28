@@ -104,6 +104,12 @@ def seed_gainers(project_dir):
     seed_path.mkdir()
 
 if __name__ == "__main__":
+    '''
+    Executes the export process for all gainer files within the directory
+    provided (should usually be /files). After each file's data is exported
+    to Snowflake, the original file is moved to the snowflake_cache directory
+    outside the repo.
+    '''
     project_dir = 'projects/gainers'
     assert os.path.isdir(project_dir), f'{project_dir} was not found'
 

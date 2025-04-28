@@ -109,6 +109,11 @@ def seed_gainers(project_dir, ii):
     seed_path.mkdir()
 
 if __name__ == "__main__":
+    '''
+    Runs the export process for a fresh rebuild of all Snowflake tables (using
+    only the files within the snowflake_cache/ directory). No files are moved
+    during this process.
+    '''
     project_dir = 'projects/gainers'
     assert os.path.isdir(project_dir), f'{project_dir} was not found'
 
