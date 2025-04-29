@@ -78,9 +78,9 @@ erDiagram
         int counts "Number of times the stock has appeared across different timepoints"
     }
 
-    GAINER-DETAILS one or more to one RELIABILITY: "aggregate & view"
+    GAINER-DETAILS one or more to one SOURCE-RELIABILITY: "aggregate & view"
 
-    RELIABILITY {
+    SOURCE-RELIABILITY {
         str source FK "Data download source"
         int download_count "Total successful downloads for the source"
         float reliability_score "Proportion of the total attempted downloads successfully executed for the source"
