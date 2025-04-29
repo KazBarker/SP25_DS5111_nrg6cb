@@ -67,9 +67,8 @@ erDiagram
     GAINER-DETAILS one or more to one SOURCE-OVERLAP : "aggregate & view"
 
     SOURCE-OVERLAP {
-        int download_id FK "FK from the DOWNLOADS table via the GAINER-DETAILS table"
         string source FK "FK from the SOURCE table via the GAINER-DETAILS table"
-        float percent_duplicate "Percentage of the source's gainers that are found in the other sources"
+        float avg_proportion_overlapping "Average proprtion of the source's gainers that are found in the other sources at the time of each download"
     }
 
     GAINER-DETAILS one or more to one REPEATS : "aggregate & view"

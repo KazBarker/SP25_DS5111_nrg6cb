@@ -11,19 +11,15 @@ models:
           - not_null
           - unique
 
-  - name: repeats
+  - name: ticker_repeats
     description: 'All unique stock tickers observed by source and the number of times they recur'
     columns:
-      - name: source
-        description: 'Data source'
-        tests:
-          - not_null
       - name: symbol
         description: 'The stock ticker'
         tests: 
           - not_null
 
-  - name: reliability
+  - name: source_reliability
     description: 'The proportion of total attempted downloads successfully executed for each data source'
     columns:
       - name: source
