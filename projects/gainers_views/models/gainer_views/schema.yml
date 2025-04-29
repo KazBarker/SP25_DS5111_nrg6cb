@@ -1,0 +1,36 @@
+
+version: 2
+
+models:
+  - name: source_overlap
+    description: 'Overlap between sources on each download'
+    columns: 
+      - name: source
+        description: 'The data download source'
+        data_tests:
+          - not_null
+          - unique
+
+  - name: ticker_repeats
+    description: 'All unique stock tickers observed by source and the number of times they recur'
+    columns:
+      - name: symbol
+        description: 'The stock ticker'
+        tests: 
+          - not_null
+
+  - name: source_reliability
+    description: 'The proportion of total attempted downloads successfully executed for each data source'
+    columns:
+      - name: source
+        description: 'Data source'
+        tests:
+          - not_null
+
+  - name: ticker_price_range
+    description: 'The minimum, maximum, and greatest difference in all recorded prices for a stock ticker'
+    columns:
+      - name: price_range
+        description: 'The difference between max observed price and min observed price'
+        tests:
+          - not_null
