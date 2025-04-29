@@ -36,14 +36,14 @@ ygainers.html: build_file_home
 ygainers.csv: ygainers.html
 	$(INSTALLATION_DIR)/installations/env/bin/python -c "import pandas as pd; raw = pd.read_html('$(INSTALLATION_DIR)/files/ygainers.html'); raw[0].to_csv('$(INSTALLATION_DIR)/files/ygainers.csv')"
 
-wjsgainers.html: build_file_home
-	google-chrome-stable --headless --disable-gpu --dump-dom --no-sandbox --timeout=15000 https://www.wsj.com/market-data/stocks/us/movers > $(INSTALLATION_DIR)/files/wjsgainers.html
+wsjgainers.html: build_file_home
+	google-chrome-stable --headless --disable-gpu --dump-dom --no-sandbox --timeout=15000 https://www.wsj.com/market-data/stocks/us/movers > $(INSTALLATION_DIR)/files/wsjgainers.html
 
-wjsgainers.csv: wjsgainers.html
-	$(INSTALLATION_DIR)/installations/env/bin/python -c "import pandas as pd; raw = pd.read_html('$(INSTALLATION_DIR)/files/wjsgainers.html'); raw[0].to_csv('$(INSTALLATION_DIR)/files/wjsgainers.csv')"
+wsjgainers.csv: wsjgainers.html
+	$(INSTALLATION_DIR)/installations/env/bin/python -c "import pandas as pd; raw = pd.read_html('$(INSTALLATION_DIR)/files/wsjgainers.html'); raw[0].to_csv('$(INSTALLATION_DIR)/files/wsjgainers.csv')"
 
 lint:
-	- pylint bin/normalize_csv.py
+	- find . -name "*.py" -printf '%p\n' -exec pylint {} \;
 
 test: lint
 	- pytest -vv tests
