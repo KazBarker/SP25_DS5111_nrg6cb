@@ -78,4 +78,12 @@ erDiagram
         str symbol FK "FK from the GAINERS table via the GAINER-DETAILS table"
         int repeat_count "Number of times the stock has appeared across different timepoints"
     }
+
+    GAINER-DETAILS one or more to one RELIABILITY: "aggregate"
+
+    RELIABILITY {
+        str source FK "Data download source"
+        int download_count "Total successful downloads for the source"
+        float reliability_score "Proportion of the total attempted downloads successfully executed for the source"
+}
 ```
