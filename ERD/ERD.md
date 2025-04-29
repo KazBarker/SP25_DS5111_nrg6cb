@@ -64,7 +64,7 @@ erDiagram
         float price_percent_change
     }
 
-    GAINER-DETAILS one or more to one SOURCE-OVERLAP : "groupby source, download_id >> num_symbols = count >> groupby symbol >> overlap = count >> ungroup >> remove symbol >> groupby source, download_id, num_symbols >> overlap = sum overlap >> percent_duplicate = 100 x (overlap / num_symbols) >> remove overlap and num_symbols"
+    GAINER-DETAILS one or more to one SOURCE-OVERLAP : "aggregate & view"
 
     SOURCE-OVERLAP {
         int download_id FK "FK from the DOWNLOADS table via the GAINER-DETAILS table"
@@ -72,14 +72,14 @@ erDiagram
         float percent_duplicate "Percentage of the source's gainers that are found in the other sources"
     }
 
-    GAINER-DETAILS one or more to one REPEATS : "groupby symbol, download_id >> unique >> groupby symbol >> repeat_count = count"
+    GAINER-DETAILS one or more to one REPEATS : "aggregate & view"
 
     REPEATS {
         str symbol FK "FK from the GAINERS table via the GAINER-DETAILS table"
         int repeat_count "Number of times the stock has appeared across different timepoints"
     }
 
-    GAINER-DETAILS one or more to one RELIABILITY: "aggregate"
+    GAINER-DETAILS one or more to one RELIABILITY: "aggregate & view"
 
     RELIABILITY {
         str source FK "Data download source"
