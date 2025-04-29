@@ -71,11 +71,11 @@ erDiagram
         float avg_proportion_overlapping "Average proprtion of the source's gainers that are found in the other sources at the time of each download"
     }
 
-    GAINER-DETAILS one or more to one REPEATS : "aggregate & view"
+    GAINER-DETAILS one or more to one TICKER_REPEATS : "aggregate & view"
 
-    REPEATS {
+    TICKER_REPEATS {
         str symbol FK "FK from the GAINERS table via the GAINER-DETAILS table"
-        int repeat_count "Number of times the stock has appeared across different timepoints"
+        int counts "Number of times the stock has appeared across different timepoints"
     }
 
     GAINER-DETAILS one or more to one RELIABILITY: "aggregate & view"
