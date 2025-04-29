@@ -6,6 +6,8 @@ normalization and saving of test data to a timestamped csv file.
 '''
 import os
 from datetime import datetime
+import string
+import random
 import pytz
 import numpy as np
 import pandas as pd
@@ -23,11 +25,19 @@ class GainerDownloadTest(GainerDownload):
     def download(self):
         print(f'downloading {self.name} gainers...')
 
-        # get fake data frame
-        gainer_df = pd.DataFrame(np.random.randint(0, 128, size=(20,5)).astype(float),
-                                 columns=['C1', 'C2', 'C3', 'C4', 'C5'])
+        # initialize empty dataframe to attempt retrieval
+        gainer_df = pd.DataFrame()
+        ii = 0
 
-        gainer_df['C1'] = [chr(int(xx)) for xx in gainer_df['C1']]
+        # loop until data is retrieved
+        while gainer_df.empty and ii < 50:
+            # get fake data frame
+            if ii > 20:
+                gainer_df = pd.DataFrame(np.random.randint(0, 128, size=(20,5)).astype(float),
+                                         columns=['C1', 'C2', 'C3', 'C4', 'C5'])
+            ii+=1
+
+        gainer_df['C1'] = [random.choice(string.ascii_letters) for xx in gainer_df['C1']]
 
         # ensure the output path is empty
         os.system(f'rm -f {self.out_path}')
@@ -46,7 +56,7 @@ class GainerDownloadTest(GainerDownload):
         except OSError as e:
             print(f"OS error occurred: {e}")
 
-        print('done\n')
+        print('done')
 
 class GainerProcessTest(GainerProcess):
     '''
@@ -70,15 +80,15 @@ class GainerProcessTest(GainerProcess):
         # get raw csv
         self.gainers_data = pd.read_csv(self.raw_path)
 
-        assert len(self.gainers_data.columns) == self.col_count, f"\nExpected {
-        self.col_count} columns, found {len(self.gainers_data.columns)}\n"
+        count_message = f'Expected {self.col_count} columns, found {len(self.gainers_data.columns)}'
+        assert len(self.gainers_data.columns) == self.col_count, count_message
 
+        names_message = f'Raw {self.name} gainers csv is missing a required column'
         assert {'C1',
                 'C2',
                 'C3',
                 'C4'
-                }.issubset(self.gainers_data.columns), f'\nRaw {
-        self.name} gainers csv is missing a required column\n'
+                }.issubset(self.gainers_data.columns), names_message
 
         # fix column names
         self.gainers_data = self.gainers_data[['C1', 'C2', 'C3', 'C4']].rename(
@@ -88,45 +98,45 @@ class GainerProcessTest(GainerProcess):
                          'C4':'price_percent_change'})
 
         # check normalized data format
+        symbol_type = type(self.gainers_data["symbol"][0]).__name__
         assert isinstance(self.gainers_data['symbol'][0], str),\
-                f'Expected string in "symbol", instead found {
-                type(self.gainers_data["symbol"][0]).__name__}'
+                f'Expected string in "symbol", instead found {symbol_type}'
 
+        price_type = type(self.gainers_data["price"][0]).__name__
         assert isinstance(self.gainers_data['price'][0], float),\
-                f'Expected float in "price", instead found {
-                type(self.gainers_data["price"][0]).__name__}'
+                f'Expected float in "price", instead found {price_type}'
 
+        price_change_type = type(self.gainers_data["price_change"][0]).__name__
         assert isinstance(self.gainers_data['price_change'][0], float),\
-                f'Expected float in "price_change", instead found {
-                type(self.gainers_data["price_change"][0]).__name__}'
+                f'Expected float in "price_change", instead found {price_change_type}'
 
+        perc_change_type = type(self.gainers_data["price_percent_change"][0]).__name__
         assert isinstance(self.gainers_data['price_percent_change'][0], float), \
-                f'Expected float in "price_percent_change", instead found {
-                type(self.gainers_data["price_percent_change"][0]).__name__}'
+                f'Expected float in "price_percent_change", instead found {perc_change_type}'
 
         # remove raw data file
         os.system(f'rm -f {self.raw_path}')
 
-        print('done\n')
+        print('done')
 
     def save_with_timestamp(self):
         print(f'saving {self.name} gainers...', end='')
 
-        assert len(self.gainers_data.columns) == 4, f'\nExpected 4 columns, found {
-        len(self.gainers_data.columns)}\n'
+        count_message = f'Expected 4 columns, found {len(self.gainers_data.columns)}'
+        assert len(self.gainers_data.columns) == 4, count_message
 
+        name_message = f'{self.name} gainers data is missing a required column'
         assert {'symbol',
                 'price',
                 'price_change',
                 'price_percent_change'
-                }.issubset(self.gainers_data.columns), f'\n{
-        self.name} gainers data is missing a required column\n'
+                }.issubset(self.gainers_data.columns), name_message
 
         # set output path with current timestamp
         timestamp = datetime.now(pytz.timezone('America/New_York')).strftime('%Y-%m-%d-%H:%M')
-        out_path = f'../files/{self.name}_gainers_{timestamp}.csv'
+        out_path = f'files/{self.name}_gainers_{timestamp}.csv'
 
         # save to csv
         self.gainers_data.to_csv(out_path)
 
-        print('done\n')
+        print('done')

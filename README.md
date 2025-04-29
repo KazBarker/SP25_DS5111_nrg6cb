@@ -24,6 +24,9 @@ Spring 2025 MSDS Class: Software and Automation Skills
 > [!IMPORTANT]
 > An `installations` folder will be added to your system outside the main repository folder, and will contain larger package files and data downloads. It can be removed easily by running `make cleanup`.
 
+> [!TIP]
+> Running `make quick_start` will run several other makefile methods, one of which is `make set_tz`: this method sets the instance timezone to Eastern/New York time. If a different timezone is desired, edit the makefile then rerun `make set_tz`.
+
 ## Script Details
 * `init.sh`: updates the environment and installs vital packages
 
@@ -45,13 +48,64 @@ SP25_DS5111_nrg6cb/
 ├── activate -> ../installations/env/bin/activate
 ├── bin
 │   ├── __init__.py
+│   ├── __pycache__
+│   │   └── ...
+│   ├── gainers
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   └── ...
+│   │   ├── base.py
+│   │   ├── factory.py
+│   │   ├── stockanalysis.py
+│   │   ├── test.py
+│   │   ├── wsj.py
+│   │   └── yahoo.py
 │   ├── normalize_csv.py
 │   └── sample_adder.py
+├── files
+│   ├── crontab_contents.txt
+│   └── messy_files
+│       └── ...
+├── get_gainer.py
 ├── makefile
+├── projects
+│   ├── gainers
+│   │   ├── README.md
+│   │   ├── analyses
+│   │   ├── dbt_project.yml
+│   │   ├── logs
+│   │   │   └── dbt.log
+│   │   ├── macros
+│   │   ├── models
+│   │   │   └── example
+│   │   │       ├── my_first_dbt_model.sql
+│   │   │       ├── my_second_dbt_model.sql
+│   │   │       └── schema.yml
+│   │   ├── seeds
+│   │   ├── snapshots
+│   │   ├── target
+│   │   │   ├── compiled
+│   │   │   │   └── gainers
+│   │   │   │       └── models
+│   │   │   │           └── example
+│   │   │   │               ├── my_first_dbt_model.sql
+│   │   │   │               └── my_second_dbt_model.sql
+│   │   │   ├── graph.gpickle
+│   │   │   ├── graph_summary.json
+│   │   │   ├── manifest.json
+│   │   │   ├── partial_parse.msgpack
+│   │   │   ├── run
+│   │   │   │   └── gainers
+│   │   │   │       └── models
+│   │   │   │           └── example
+│   │   │   │               ├── my_first_dbt_model.sql
+│   │   │   │               └── my_second_dbt_model.sql
+│   │   │   ├── run_results.json
+│   │   │   └── semantic_manifest.json
+│   │   └── tests
+│   └── logs
+│       └── dbt.log
 ├── pylintrc
-├── sample_data
-│   ├── example_wjsgainers.csv
-│   └── example_ygainers.csv
 ├── scripts
 │   ├── init.sh
 │   ├── install_chrome_headless.sh
@@ -59,10 +113,11 @@ SP25_DS5111_nrg6cb/
 │   └── setup_git_global_creds.sh
 └── tests
     ├── __init__.py
+    ├── __pycache__
+    │   └── ...
+    ├── gainer_loading_test.py
     ├── lab04_test.py
     └── system_test.py
-
-5 directories, 17 files
 ```
 
 > [!TIP]
@@ -70,14 +125,17 @@ SP25_DS5111_nrg6cb/
 > 
 > `tree SP25_DS5111_nrg6cb/ -I env`
 
-## Downloading Gainers
-* Gainers files can be downloaded by running `make gainers SRC=<type>`
-    * `type` can be "yahoo", "wsj", or "test"
-    * Normalized CSV files will be saved under /files within the repo's parent directory
+## Downloading and Normalizing Gainers
+* Gainers files can be downloaded and normalized by running `make gainers SRC=<type>`
+    * `type` can be "yahoo", "wsj", "stockanalysis", or "test"
+    * Normalized CSV files will be saved to the files directory
+
+* To download and normalize all available gainer types at once, run `make all_gainers`
+
+## Crontab Setup
+* To regularly download all gainers data at 09:31, 12:30, and 16:01 daily, type `crontab -e` and enter the text found in the file `files/crontab_contents.txt`
 
 ## Example Raw Data: wsjgainers
-Example CSV files can be found in the `examples` directory.
-
 |ID|Name|Volume|Last|Chg|% Chg|
 |:----------|:-|:------|:----|:---|:-----|
 0|Quantum Biopharma Ltd. (QNTM)|78.6M|6.71|3.53|111.01
@@ -91,12 +149,3 @@ Example CSV files can be found in the `examples` directory.
 8|Exagen Inc. (XGN)|1.1M|5.02|1.14|29.38
 9|ModivCare Inc. (MODV)|2.1M|4.8|0.96|25.0
 10|Nuvve Holding Corp. (NVVE)|15.1M|3.31|0.66|24.91
-
-## Normalizing Raw CSV Files
-This process normalizes the raw data imports for `ygainers` and `wsjgainers`, producing a pair of CSV files with identical column names and formats. Normalized files are named `FILENAME_norm.csv`, and are saved to the same `files` directory where the original CSVs can be found.
-
-1. In the main repo directory, enter `make ygainers.csv` and `make wsjgainers.csv` to import the raw .csv data
-
-2. With the python environment activated (see **Setup Sequence** above) enter: 
-	* `python bin/normalize_csv.py ..files/ygainers.csv`
-	* `python bin/normalize_csv.py ..files/wsjgainers.csv`

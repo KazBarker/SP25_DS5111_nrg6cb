@@ -23,7 +23,7 @@ def test_gainer_download():
     downloader = factory.get_downloader()
     downloader.download()
 
-    assert any(iter(filename == 'testgainers.csv' for filename in os.listdir('../files')))
+    assert any(iter(filename == 'testgainers.csv' for filename in os.listdir('files')))
 
 def test_gainer_normalize_and_save():
     '''
@@ -36,23 +36,23 @@ def test_gainer_normalize_and_save():
     normalizer.normalize()
     normalizer.save_with_timestamp()
 
-    partial_name = f'test_gainers_{
-    datetime.now(pytz.timezone('America/New_York')).strftime('%Y-%m-%d-%H')}'
+    timestamp = datetime.now(pytz.timezone('America/New_York')).strftime('%Y-%m-%d-%H')
+    partial_name = f'test_gainers_{timestamp}'
 
-    assert any(iter(filename.startswith(partial_name) for filename in os.listdir('../files')))
+    assert any(iter(filename.startswith(partial_name) for filename in os.listdir('files')))
 
 def test_gainer_format():
     '''
     Checks that the Gainer Factory has created a timestamped csv file with the correct
     column formats. This final test removes the testing csv file when executed.
     '''
-    partial_name = f'test_gainers_{
-    datetime.now(pytz.timezone('America/New_York')).strftime('%Y-%m-%d-%H')}'
+    timestamp = datetime.now(pytz.timezone('America/New_York')).strftime('%Y-%m-%d-%H')
+    partial_name = f'test_gainers_{timestamp}'
 
-    for file in os.listdir('../files'):
+    for file in os.listdir('files'):
         if file.startswith(partial_name):
-            test_data = pd.read_csv(f'../files/{file}')
-            os.system(f'rm -f ../files/{file}')
+            test_data = pd.read_csv(f'files/{file}')
+            os.system(f'rm -f files/{file}')
 
     checks = [ptypes.is_numeric_dtype(test_data[cc]) for cc in
               ['price', 'price_change','price_percent_change']]
