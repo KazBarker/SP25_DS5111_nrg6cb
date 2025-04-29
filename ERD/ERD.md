@@ -33,7 +33,7 @@ erDiagram
     TIMESTAMP-STOCKANALYSIS-GAINERS many optionally to only one DOWNLOADS : "extract"
 
     DOWNLOADS {
-        str download_id PK "Download timestamp in Date, Hour format"
+        str date_time PK "Download timestamp in Date, Hour format"
         int year "Year of download"
         int month "Month of download (1-12)"
         int day "Day of download"
@@ -56,7 +56,7 @@ erDiagram
     TIMESTAMP-STOCKANALYSIS-GAINERS one to one GAINER-DETAILS : "parse"
 
     GAINER-DETAILS {
-        int download_id FK "From the DOWNLOADS table"
+        int date_time FK "From the DOWNLOADS table"
         string source FK "From the SOURCE table"
         string symbol FK "From the GAINERS table"
         float price "Current price"
