@@ -6,12 +6,11 @@ Intended to be used to fully recreate Snowflake tables from scratch, using the c
 gainer files.
 '''
 import os
-import sys
 import re
-from pathlib import Path
-import pandas as pd
 import shutil
 import subprocess
+from pathlib import Path
+import pandas as pd
 
 def get_frame(gainer_path):
     '''
@@ -25,11 +24,11 @@ def get_frame(gainer_path):
     assert isinstance(gainers_df, pd.DataFrame), '{gainer_path} could not be imported.'
 
     # extract source and timestamp info
-    file = Path(gainer_path).name
+    gainer_file = Path(gainer_path).name
     pattern = r'^[a-zA-Z]*_gainers_[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{2}:[0-9]{2}.csv'
 
-    if re.fullmatch(pattern, file) is not None:
-        name_data = re.sub(r'(?P<dash>-)(?=[0-9]{2}:[0-9]{2}.csv$)', r'\g<dash>_', file)
+    if re.fullmatch(pattern, gainer_file) is not None:
+        name_data = re.sub(r'(?P<dash>-)(?=[0-9]{2}:[0-9]{2}.csv$)', r'\g<dash>_', gainer_file)
         name_data = name_data.replace("-", "").replace(":", "").replace("_gainers_", "_")
         source = re.sub(r'_.*', '', name_data)
         date_time = name_data.replace(source, '').replace('.csv', '')
@@ -43,29 +42,29 @@ def get_frame(gainer_path):
 
     return gainers_df
 
-def parse_frame(gainer_df, project_dir):
+def parse_frame(gainer_frame, project_path):
     '''
     Takes a normalized gainers data frame with added columns "source" and "date_time"
     and parses to Snowflake/ERD format dataframes: sources, downloads, gainers, and
     gainer_details. All 4 data frames are saved to the dbt seed directory belonging to
     the project directory defined in the main clause.
     '''
-    seed_dir = f'{project_dir}/seeds'
+    seed_dir = f'{project_path}/seeds'
 
     # extract appropriate columns to data frames
-    gainer_details = gainer_df.copy()
-    sources = pd.DataFrame(gainer_df['source'])
-    downloads = pd.DataFrame(gainer_df['date_time'])
-    gainers = pd.DataFrame(gainer_df['symbol'])
+    gainer_details = gainer_frame.copy()
+    sources = pd.DataFrame(gainer_frame['source'])
+    downloads = pd.DataFrame(gainer_frame['date_time'])
+    gainers = pd.DataFrame(gainer_frame['symbol'])
 
     # parse downloads contents
-    pattern = r'(?P<year>[0-9]{4})(?P<month>[0-9]{2})(?P<day>[0-9]{2})_(?P<time>[0-9]{4})' 
-    
+    pattern = r'(?P<year>[0-9]{4})(?P<month>[0-9]{2})(?P<day>[0-9]{2})_(?P<time>[0-9]{4})'
+
     downloads['year'] = downloads['date_time'].str.replace(pattern, r'\g<year>', regex=True)
     downloads['month'] = downloads['date_time'].str.replace(pattern, r'\g<month>', regex=True)
     downloads['day'] = downloads['date_time'].str.replace(pattern, r'\g<day>', regex=True)
     downloads['time'] = downloads['date_time'].str.replace(pattern, r'\g<time>', regex=True)
-    
+
     # ensure the seed directory is empty
     seed_path = Path(seed_dir)
 
@@ -80,7 +79,7 @@ def parse_frame(gainer_df, project_dir):
     downloads.to_csv(f'{seed_dir}/downloads_seed.csv', index=False)
     gainers.to_csv(f'{seed_dir}/gainers_seed.csv', index=False)
 
-def seed_gainers(project_dir, ii):
+def seed_gainers(project_path, passed_ii):
     '''
     Pushes the contents of the seed directory to Snowflake, then applies the incremental
     model to append the new data to the existing tables in Snowflake (unless its the
@@ -90,48 +89,51 @@ def seed_gainers(project_dir, ii):
     # push data to Snowflake
     seed_cmd = [
             'dbt', 'seed',
-            '--project-dir', project_dir]
-    
-    subprocess.run(seed_cmd)
+            '--project-dir', project_path] 
+
+    try:
+        subprocess.run(seed_cmd, check=True)
+    except subprocess.CalledProcessError as e:
+        print(f'dbt seed failed to run. Exit code: {e.returncode}')
 
     # apply models
     for model in ['downloads', 'gainer_details', 'gainers', 'sources']:
-        if ii > 0:
-            model_cmd = ['dbt', 'run', '--project-dir', project_dir, '--select', model]
+        if passed_ii > 0:
+            model_cmd = ['dbt', 'run', '--project-dir', project_path, '--select', model]
         else:
-            model_cmd = ['dbt', 'run', '--project-dir', project_dir, '--select', model, '--full-refresh']
+            model_cmd = [
+                    'dbt', 'run', '--project-dir', project_path, 
+                    '--select', model, '--full-refresh']
 
-        subprocess.run(model_cmd)
+        try:
+            subprocess.run(model_cmd, check=True)
+        except subprocess.CalledProcessError as e:
+            print(f'dbt run failed to execute. Exit code: {e.returncode}')
 
     # remove and recreate path to project seeds
-    seed_path = Path(f'{project_dir}/seeds')
+    seed_path = Path(f'{project_path}/seeds')
     shutil.rmtree(seed_path)
     seed_path.mkdir()
 
 if __name__ == "__main__":
-    '''
-    Runs the export process for a fresh rebuild of all Snowflake tables (using
-    only the files within the snowflake_cache/ directory). No files are moved
-    during this process.
-    '''
-    project_dir = 'projects/gainers_export'
-    assert os.path.isdir(project_dir), f'{project_dir} was not found'
+    PROJECT_DIR = 'projects/gainers_export'
+    assert os.path.isdir(PROJECT_DIR), f'{PROJECT_DIR} was not found'
 
-    directory_path = '../snowflake_cache'
-    assert os.path.isdir(directory_path), f'{directory_path} was not found'
+    DIRECTORY_PATH = '../snowflake_cache'
+    assert os.path.isdir(DIRECTORY_PATH), f'{DIRECTORY_PATH} was not found'
 
-    csv_list = None
+    CSV_LIST = None
 
     try:
-        csv_list = [ff for ff in os.listdir(directory_path) if ff.endswith('.csv')]
+        CSV_LIST = [ff for ff in os.listdir(DIRECTORY_PATH) if ff.endswith('.csv')]
     except FileNotFoundError:
-        print(f'{directory_path} is not a recognized directory')
+        print(f'{DIRECTORY_PATH} is not a recognized directory')
 
-    assert csv_list is not None, f'Unable to parse the files in {directory_path}'
-    assert len(csv_list) > 0, f'No CSV files were found in {directory_path}'
+    assert CSV_LIST is not None, f'Unable to parse the files in {DIRECTORY_PATH}'
+    assert len(CSV_LIST) > 0, f'No CSV files were found in {DIRECTORY_PATH}'
 
-    for ii, file in enumerate(csv_list):
+    for ii, file in enumerate(CSV_LIST):
         # parse and export data
-        gainer_df = get_frame(f'{directory_path}/{file}')
-        parse_frame(gainer_df, project_dir)
-        seed_gainers(project_dir, ii)
+        gainer_df = get_frame(f'{DIRECTORY_PATH}/{file}')
+        parse_frame(gainer_df, PROJECT_DIR)
+        seed_gainers(PROJECT_DIR, ii)
