@@ -48,5 +48,8 @@ lint:
 test: lint
 	- pytest -vv tests
 
+gainers:
+	python get_gainer.py $(SRC)
+
 cleanup:
 	sudo rm -rf $(INSTALLATION_DIR)/installations; sudo rm -rf $(INSTALLATION_DIR)/files
