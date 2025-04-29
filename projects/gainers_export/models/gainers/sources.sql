@@ -1,7 +1,4 @@
-{{ config(
-	materialized='incremental',
-	unique_key='source'
-) }}
+{{ config(unique_key='source') }}
 
 select distinct *
 from {{ ref('sources_seed')}}

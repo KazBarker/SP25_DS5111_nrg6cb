@@ -1,4 +1,3 @@
-
 version: 2
 
 models:
@@ -7,7 +6,7 @@ models:
     columns: 
       - name: date_time
         description: 'The combined date and timestamp, primary key'
-        data_tests:
+        tests:
           - not_null
           - unique
 
@@ -16,7 +15,7 @@ models:
     columns:
       - name: source
         description: 'The name of the download source'
-        data_tests:
+        tests:
           - not_null
           - unique
 
@@ -25,7 +24,7 @@ models:
     columns: 
       - name: symbol
         description: 'The stock ticker'
-        data_tests:
+        tests:
           - not_null
           - unique
 
@@ -34,34 +33,34 @@ models:
     columns:
       - name: date_time
         description: 'FK: YYYYMMDD_HHMM matching value in Downloads table'
-        data_tests:
+        tests:
           - not_null
           - relationships:
               to: ref('downloads')
               field: date_time
       - name: source
         description: 'FK: data source matching value in Sources table'
-        data_tests:
+        tests:
           - not_null
           - relationships:
               to: ref('sources')
               field: source
       - name: symbol
         description: 'FK: stock ticker matching value in Gainers table'
-        data_tests:
+        tests:
           - not_null
           - relationships:
               to: ref('gainers')
               field: symbol
       - name: price
         description: 'Price of gainer on given day/time'
-        data_tests:
+        tests:
           - not_null
       - name: price_change
         description: 'Change in price of gainer on given day/time'
-        data_tests:
+        tests:
           - not_null
       - name: price_percent_change
         description: 'Percent change in price of gainer on given day/time'
-        data_tests:
+        tests:
           - not_null

@@ -1,0 +1,13 @@
+
+version: 2
+
+sources:
+  - name: snowflake
+    description: 'Preloaded tables from Snowflake'
+    database: 'DATA_SCIENCE'
+    schema: 'NRG6CB_FINAL'
+    tables:
+      - name: snowflake_downloads
+        identifier: downloads
+      - name: snowflake_gainer_details
+        identifier: gainer_details

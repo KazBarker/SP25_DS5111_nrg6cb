@@ -1,7 +1,4 @@
-{{ config(
-	materialized='incremental',
-	unique_key='date_time'
-) }}
+{{ config(unique_key='date_time') }}
 
 select distinct *
 from {{ ref('downloads_seed')}}

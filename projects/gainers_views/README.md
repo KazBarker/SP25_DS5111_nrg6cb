@@ -1,11 +1,5 @@
-Welcome to your new dbt project!
-
-### Using the starter project
-
-Try running the following commands:
-- dbt run
-- dbt test
-
+# Gainer Views
+Builds views using the existing snowflake tables. Gainers should be exported to snowflake prior to creating views.
 
 ### Resources:
 - Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)

@@ -1,7 +1,4 @@
-{{ config(
-	materialized='incremental',
-	unique_key='symbol'
-) }}
+{{ config(unique_key='symbol') }}
 
 select distinct *
 from {{ ref('gainers_seed')}}

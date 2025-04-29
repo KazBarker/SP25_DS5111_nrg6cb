@@ -1,0 +1,12 @@
+
+version: 2
+
+models:
+  - name: source_overlap
+    description: 'Overlap between sources on each download'
+    columns: 
+      - name: date_time
+        description: 'The combined date and timestamp, foreign key'
+        data_tests:
+          - not_null
+          - unique
