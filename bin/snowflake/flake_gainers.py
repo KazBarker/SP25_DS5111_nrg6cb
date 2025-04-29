@@ -114,7 +114,7 @@ if __name__ == "__main__":
     to Snowflake, the original file is moved to the snowflake_cache directory
     outside the repo.
     '''
-    project_dir = 'projects/gainers'
+    project_dir = 'projects/gainers_export'
     assert os.path.isdir(project_dir), f'{project_dir} was not found'
 
     directory_path = sys.argv[1]
@@ -130,11 +130,13 @@ if __name__ == "__main__":
     assert csv_list is not None, f'Unable to parse the files in {directory_path}'
     assert len(csv_list) > 0, f'No CSV files were found in {directory_path}'
 
+    snowflake = SnowflakeGainers()
+
     for file in csv_list:
         # parse and export data
-        gainer_df = SnowflakeGainers.get_frame(f'{directory_path}/{file}')
-        SnowflakeGainers.parse_frame(gainer_df, project_dir)
-        SnowflakeGainers.seed_gainers(project_dir)
+        gainer_df = snowflake.get_frame(f'{directory_path}/{file}')
+        snowflake.parse_frame(gainer_df, project_dir)
+        snowflake.seed_gainers(project_dir)
 
         # move file to the cache location
         cache_dir = '../snowflake_cache/'

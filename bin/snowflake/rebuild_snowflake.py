@@ -114,7 +114,7 @@ if __name__ == "__main__":
     only the files within the snowflake_cache/ directory). No files are moved
     during this process.
     '''
-    project_dir = 'projects/gainers'
+    project_dir = 'projects/gainers_export'
     assert os.path.isdir(project_dir), f'{project_dir} was not found'
 
     directory_path = '../snowflake_cache'
