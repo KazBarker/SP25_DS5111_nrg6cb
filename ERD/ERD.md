@@ -130,7 +130,7 @@ downloads only one to only one download_consistency_day: "view"
 
     source_overlap {
         string source FK "FK from the source table"
-        float avg_proportion_overlapping "Average proprtion of source's gainers found in outside sources at the time of download"
+        float avg_proportion_overlapping "Average prop. of source's gainers shared with other sources"
     }
     source_reliability {
         string source FK "Data download source"
