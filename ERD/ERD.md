@@ -91,10 +91,10 @@ parsed_stockanalysis_gainers only one to only one sources_seed: "parse individua
         string source PK "'wsj', 'yahoo', or 'stockanalysis'"
     }
  
-downloads_seed one or more to only one downloads: "incremental"
-gainers_seed one or more to only one gainers: "incremental"
-gainer_details_seed one or more to only one gainer_details: "incremental"
-sources_seed one or more to only one sources: "incremental"
+downloads_seed one or more optionally to only one downloads: "incremental"
+gainers_seed one or more optionally to only one gainers: "incremental"
+gainer_details_seed one or more optionally to only one gainer_details: "incremental"
+sources_seed one or more optionally to only one sources: "incremental"
 
     downloads {
         str date_time PK "Download timestamp in Date, Hour format"
@@ -122,6 +122,11 @@ gainer_details only one to only one source_overlap: "view"
 gainer_details only one to only one source_reliability: "view"
 gainer_details only one to only one ticker_price_range: "view"
 gainer_details only one to only one ticker_repeats: "view"
+gainer_details only one to only one download_consistency_time: "view" 
+gainer_details only one to only one download_consistency_date: "view" 
+
+downloads only one to only one download_consistency_time: "view"
+downloads only one to only one download_consistency_date: "view"
 
     source_overlap {
         string source FK "FK from the SOURCE table via the GAINER-DETAILS table"
@@ -139,7 +144,19 @@ gainer_details only one to only one ticker_repeats: "view"
         float price_range "Difference between the ticker's highest and lowest observed prices"
     }
     ticker_repeats {
-        str symbol FK "FK from the GAINERS table via the GAINER-DETAILS table"
+        string symbol FK "FK from the GAINERS table via the GAINER-DETAILS table"
         int counts "Number of times the stock has appeared across different timepoints"
+    }
+    download_consistency_time {
+        int time "Time of day download was attempted"
+        string gainer_source FK "Download source"
+        float proportion_successful "Proportion of download attempts were successful for a source at the given time"
+        int total_downloads "Total number of successfull downloads for a source a the given time"
+    }
+    download_consistency_day {
+        int time "Day of week download was attempted"
+        string gainer_source FK "Download source"
+        float proportion_successful "Proportion of download attempts were successful for a source on the given weekday"
+        int total_downloads "Total number of successfull downloads for a source on the given weekday"
     }
 ```
