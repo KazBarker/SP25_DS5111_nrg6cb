@@ -1,32 +1,32 @@
 # ERD
 ```mermaid
 erDiagram
-    WSJ only one to zero or more wsj_gainers_YYYY-MM-DD-HH:MM.csv: "download 3x daily on weekdays"
-    YAHOO only one to zero or more yahoo_gainers_YYYY-MM-DD-HH:MM.csv: "download 3x daily on weekdays"
-    "STOCK ANALYSIS" only one to zero or more stockanalysis_gainers_YYYY-MM-DD-HH:MM.csv: "download 3x daily on weekdays"
+    WSJ only one to zero or more wsj_gainers_YYYY-MM-DD-HHMM.csv: "download 3x daily on weekdays"
+    YAHOO only one to zero or more yahoo_gainers_YYYY-MM-DD-HHMM.csv: "download 3x daily on weekdays"
+    "STOCK ANALYSIS" only one to zero or more stockanalysis_gainers_YYYY-MM-DD-HHMM.csv: "download 3x daily on weekdays"
     
-    wsj_gainers_YYYY-MM-DD-HH:MM.csv {
+    wsj_gainers_YYYY-MM-DD-HHMM.csv {
         string symbol PK "The stock symbol"
         float price "Current price"
         float price_change "Current price vs price at opening"
         float price_percent_change
     }
-    yahoo_gainers_YYYY-MM-DD-HH:MM.csv {
+    yahoo_gainers_YYYY-MM-DD-HHMM.csv {
         string symbol PK "The stock symbol"
         float price "Current price"
         float price_change "Current price vs price at opening"
         float price_percent_change
     }
-    stockanalysis_gainers_YYYY-MM-DD-HH:MM.csv {
+    stockanalysis_gainers_YYYY-MM-DD-HHMM.csv {
         string symbol PK "The stock symbol"
         float price "Current price"
         float price_change "Current price vs price at opening"
         float price_percent_change
     }
 
-wsj_gainers_YYYY-MM-DD-HH:MM.csv only one to only one parsed_wsj_gainers: "parse source and timestamp from filename (pandas dataframe)"
-yahoo_gainers_YYYY-MM-DD-HH:MM.csv only one to only one parsed_yahoo_gainers: "parse source and timestamp from filename (pandas dataframe)"
-stockanalysis_gainers_YYYY-MM-DD-HH:MM.csv only one to only one parsed_stockanalysis_gainers: "parse source and timestamp from filename (pandas dataframe)"
+wsj_gainers_YYYY-MM-DD-HHMM.csv only one to only one parsed_wsj_gainers: "parse source and timestamp from filename (pandas dataframe)"
+yahoo_gainers_YYYY-MM-DD-HHMM.csv only one to only one parsed_yahoo_gainers: "parse source and timestamp from filename (pandas dataframe)"
+stockanalysis_gainers_YYYY-MM-DD-HHMM.csv only one to only one parsed_stockanalysis_gainers: "parse source and timestamp from filename (pandas dataframe)"
 
     parsed_wsj_gainers {
         string symbol PK "The stock symbol"
