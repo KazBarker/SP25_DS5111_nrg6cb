@@ -24,9 +24,9 @@ erDiagram
         float price_percent_change
     }
 
-wsj_gainers_YYYY_MM_DD_HHMM only one to only one parsed_wsj_gainers: "parse source and timestamp from filename (pandas dataframe)"
-yahoo_gainers_YYYY_MM_DD_HHMM only one to only one parsed_yahoo_gainers: "parse source and timestamp from filename (pandas dataframe)"
-stockanalysis_gainers_YYYY_MM_DD_HHMM only one to only one parsed_stockanalysis_gainers: "parse source and timestamp from filename (pandas dataframe)"
+wsj_gainers_YYYY_MM_DD_HHMM only one to only one parsed_wsj_gainers: "parse source and timestamp"
+yahoo_gainers_YYYY_MM_DD_HHMM only one to only one parsed_yahoo_gainers: "parse source and timestamp"
+stockanalysis_gainers_YYYY_MM_DD_HHMM only one to only one parsed_stockanalysis_gainers: "parse source and timestamp"
 
     parsed_wsj_gainers {
         string symbol PK "The stock symbol"
@@ -123,25 +123,25 @@ gainer_details only one to only one source_reliability: "view"
 gainer_details only one to only one ticker_price_range: "view"
 gainer_details only one to only one ticker_repeats: "view"
 gainer_details only one to only one download_consistency_time: "view" 
-gainer_details only one to only one download_consistency_date: "view" 
+gainer_details only one to only one download_consistency_day: "view" 
 
 downloads only one to only one download_consistency_time: "view"
-downloads only one to only one download_consistency_date: "view"
+downloads only one to only one download_consistency_day: "view"
 
     source_overlap {
-        string source FK "FK from the SOURCE table via the GAINER-DETAILS table"
-        float avg_proportion_overlapping "Average proprtion of the source's gainers that are found in the other sources at the time of each download"
+        string source FK "FK from the source table"
+        float avg_proportion_overlapping "Average proprtion of source's gainers found in outside sources at the time of download"
     }
     source_reliability {
         string source FK "Data download source"
-        int download_count "Total successful downloads for the source"
-        float reliability_score "Proportion of the total attempted downloads successfully executed for the source"
+        int download_count "# successful downloads for the source"
+        float reliability_score "Proportion of total possible downloads that succeeded"
     }
     ticker_price_range {
         string symbol FK "Stock ticker"
         float min_price "Lowest observed price for the ticker"
         float max_price "Highest observed price for the ticker"
-        float price_range "Difference between the ticker's highest and lowest observed prices"
+        float price_range "Difference between highest and lowest observed prices"
     }
     ticker_repeats {
         string symbol FK "FK from the GAINERS table via the GAINER-DETAILS table"
@@ -150,13 +150,13 @@ downloads only one to only one download_consistency_date: "view"
     download_consistency_time {
         int time "Time of day download was attempted"
         string gainer_source FK "Download source"
-        float proportion_successful "Proportion of download attempts were successful for a source at the given time"
-        int total_downloads "Total number of successfull downloads for a source a the given time"
+        float proportion_successful "Proportion of total possible downloads that succeeded"
+        int total_downloads "Total successfull downloads for source at time"
     }
-    download_consistency_date {
+    download_consistency_day {
         int weekday "Day of week download was attempted"
         string gainer_source FK "Download source"
-        float proportion_successful "Proportion of download attempts were successful for a source on the given weekday"
-        int total_downloads "Total number of successfull downloads for a source on the given weekday"
+        float proportion_successful "Proportion of total possible downloads that succeeded"
+        int total_downloads "Total successfull downloads for source at time"
     }
 ```
