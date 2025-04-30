@@ -1,6 +1,6 @@
 # Gainers Compilation Report
 ## Introduction
-This report describes the "gainers" stock data, including data collection, data processing, and use cases. These data are collected with the intent to identify useful trends and patterns in the top daily gainers identified by several financial websites. These trends and patterns could be used in the future to help inform shareholders' of the reliability of information sources (WSJ, Yahoo, and Stock Analysis) and provide data for stock trading and investing actions.
+This report describes the "gainers" stock data, including data collection, data processing, use cases, and future recommendations for the project. These data are collected with the intent to identify useful trends and patterns in the top daily gainers identified by several financial websites. These trends and patterns could be used to help inform shareholders' of the reliability of information sources (WSJ, Yahoo, and Stock Analysis) and provide data for stock trading and investing actions.
 
 ## Use Cases
 * Assess data source consistency:
@@ -40,17 +40,28 @@ Once gainer downloads were parsed and uploaded to Snowflake, DBT was again used 
 
 * **Ticker Repeats**: Derived from the Gainer Details table, this view contains the total number of instances each stock ticker was observed throughout the dataset.
 
+For more detailed information about table and view formats, sources, and relationships see the [project ERD](https://github.com/KazBarker/SP25_DS5111_nrg6cb/blob/main/ERD/ERD.md)
+
 ## Summary
 The *available* data indicate Yahoo is the most consistent data source in data aquisition both at the weekday and download time scales. This is supported by the overall reliability score from the Source Reliability table, where Yahoo earned a score of 1.0, Stock Analysis a score of 0.94, and WSJ a score of 0.89. Also considering the *available* data, Yahoo appears to demonstrate the greatest average overlap with the other data sources, seemingly indicating tickers listed within the Yahoo data are, on average, more consistent/less unique than the tickers listed within either of the other data sources. 
 
 Further investigation is necessary before any conclusions can be drawn from these data. Early bugs in the download pipeline likely have created uneven coverage for download *attempts* between days, times, and download sources themselves. To effectively evaluate data source performance it will be necessary to run a data collection study, with uninterrupted and consistent download attempts spanning several weeks. Furthermore, because each data source currently provides differing numbers of gainers on download, it is not possible to rely on the consistency evaluation: for example, Yahoo provides far fewer gainers on each download than WSJ, meaning there will automatically be less overlap of WSJ's stocks with Yahoo's than vice versa (see the consistency evaluation below, from the Source Overlap view). It is recommended to further develop the download or parsing processes, to ensure all data sources provide the same number of gainers upon each download. The large size of the attempted download from WSJ may additionally be contributing to a higher download failure rate: in this case, standardizing the requested download size would be a highly productive solution and should be investigated prior to downstream limitations on gainers. 
 
 | SOURCE | AVG PROPORTION OVERLAPPING |
-|:------:|:--------------------------:|
+|:-------|:--------------------------:|
 | WSJ | 0.191162790698 |
 | Stock Analysis | 0.335365853659 |
 | Yahoo | 0.592555975610 |
 
-Given the necessary improvements highlighted above, significant caution is warrented in considering the compiled stock information. The provided views of price range and repeat counts provide a proof-of-concept that analyses can be conducted in the future when the pipeline is more robust; however, due to missing data and the lack of sophistocation in the available views no confident conclusions can be reached about the gainers within the download period. It is notable that, across a total of 48 maximum attempted downloads, the maximum number of times a gainer recurred was 17. Future analyses could investigate recurrence using time series, and price range insights could be expanded by using price percentage change in addition to base price.
+Given the necessary improvements highlighted above, significant caution is warrented in considering the compiled stock information. The provided views of price range and repeat counts provide a proof-of-concept that analyses can be conducted in the future when the pipeline is more robust; however, due to missing data and the lack of sophistocation in the available views no confident conclusions can be reached about the gainers within the download period. It is notable that, across a total of 48 maximum attempted downloads, the maximum number of times a gainer recurred was 17 (a sample of the Ticker Repeats is shown below). Future analyses could investigate recurrence using time series, and price range insights could be expanded by using price percentage change in addition to base price.
+
+| SYMBOL | COUNTS |
+|:-------|:------:|
+|USAR|17|
+|AEVA|16|
+|CRVO|16|
+|BIYA|15|
+|JNVR|15|
+|ALMS|14|
 
 Overall, further pipeline development is necessary before any reliable insights can be achieved. Normalizing the number of gainers downloaded, ensuring downloads are consistently successful, and implementing methods of managing data in the case of failure of one data source will produce significant improvements in the quality of insights possible to derive from the data. Furthermore, additional data sources could improve robustness, data diversity, and provide additional insights about source reliability and consistency. Only once these steps are completed should further analyses be implemented.
