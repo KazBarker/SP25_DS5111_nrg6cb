@@ -21,6 +21,6 @@
 # For more information see the manual pages of crontab(5) and cron(8)
 # 
 # m h  dom mon dow   command
-31 9 * * 1-5 cd /home/ubuntu/SP25_DS5111_nrg6cb/; make all_gainers; make export_gainers
-30 12 * * 1-5 cd /home/ubuntu/SP25_DS5111_nrg6cb/; make all_gainers; make export_gainers
-01 16 * * 1-5 cd /home/ubuntu/SP25_DS5111_nrg6cb/; make all_gainers; make export_gainers
+31 9 * * 1-5 cd /home/ubuntu/SP25_DS5111_nrg6cb/; make all_gainers; make export_gainers; make snowflake_views
+30 12 * * 1-5 cd /home/ubuntu/SP25_DS5111_nrg6cb/; make all_gainers; make export_gainers; make snowflake_views
+01 16 * * 1-5 cd /home/ubuntu/SP25_DS5111_nrg6cb/; make all_gainers; make export_gainers; make snowflake_views
