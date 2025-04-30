@@ -61,9 +61,9 @@ parsed_wsj_gainers only one to only one gainers_seed: "parse individually"
 parsed_yahoo_gainers only one to only one gainers_seed: "parse individually"
 parsed_stockanalysis_gainers only one to only one gainers_seed: "parse individually"
 
-parsed_wsj_gainers only one to only one gainers_details_seed: "parse individually"
-parsed_yahoo_gainers only one to only one gainers_details_seed: "parse individually"
-parsed_stockanalysis_gainers only one to only one gainers_details_seed: "parse individually"
+parsed_wsj_gainers only one to only one gainer_details_seed: "parse individually"
+parsed_yahoo_gainers only one to only one gainer_details_seed: "parse individually"
+parsed_stockanalysis_gainers only one to only one gainer_details_seed: "parse individually"
 
 parsed_wsj_gainers only one to only one sources_seed: "parse individually"
 parsed_yahoo_gainers only one to only one sources_seed: "parse individually"
