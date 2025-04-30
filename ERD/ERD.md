@@ -53,6 +53,10 @@ stockanalysis_gainers_YYYY_MM_DD_HHMM only one to only one parsed_stockanalysis_
         string date_time "Timestamp in YYYYMMDD_HHMM format"
     }
 
+parsed_wsj_gainers only one to only one gainers_seed: "parse individually"
+parsed_yahoo_gainers only one to only one gainers_seed: "parse individually"
+parsed_stockanalysis_gainers only one to only one gainers_seed: "parse individually"
+
 parsed_wsj_gainers only one to only one downloads_seed: "parse individually"
 parsed_yahoo_gainers only one to only one downloads_seed: "parse individually"
 parsed_stockanalysis_gainers only one to only one downloads_seed: "parse individually"
@@ -61,14 +65,13 @@ parsed_wsj_gainers only one to only one gainer_details_seed: "parse individually
 parsed_yahoo_gainers only one to only one gainer_details_seed: "parse individually"
 parsed_stockanalysis_gainers only one to only one gainer_details_seed: "parse individually"
 
-parsed_wsj_gainers only one to only one gainers_seed: "parse individually"
-parsed_yahoo_gainers only one to only one gainers_seed: "parse individually"
-parsed_stockanalysis_gainers only one to only one gainers_seed: "parse individually"
-
 parsed_wsj_gainers only one to only one sources_seed: "parse individually"
 parsed_yahoo_gainers only one to only one sources_seed: "parse individually"
 parsed_stockanalysis_gainers only one to only one sources_seed: "parse individually"
 
+    gainers_seed {
+        string symbol PK "Unique stock symbol"
+    }
     downloads_seed {
         str date_time PK "Download timestamp in Date, Hour format"
         int year "Year of download"
@@ -84,18 +87,18 @@ parsed_stockanalysis_gainers only one to only one sources_seed: "parse individua
         float price_change "Current price vs price at opening"
         float price_percent_change
     }
-    gainers_seed {
-        string symbol PK "Unique stock symbol"
-    }
     sources_seed {
         string source PK "'wsj', 'yahoo', or 'stockanalysis'"
     }
  
+gainers_seed one or more optionally to only one gainers: "incremental"
 downloads_seed one or more optionally to only one downloads: "incremental"
 gainer_details_seed one or more optionally to only one gainer_details: "incremental"
-gainers_seed one or more optionally to only one gainers: "incremental"
 sources_seed one or more optionally to only one sources: "incremental"
 
+    gainers {
+        string symbol PK "Unique stock symbol"
+    }
     downloads {
         str date_time PK "Download timestamp in Date, Hour format"
         int year "Year of download"
@@ -110,9 +113,6 @@ sources_seed one or more optionally to only one sources: "incremental"
         float price "Current price"
         float price_change "Current price vs price at opening"
         float price_percent_change
-    }
-    gainers {
-        string symbol PK "Unique stock symbol"
     }
     sources {
         string source PK "'wsj', 'yahoo', or 'stockanalysis'"
