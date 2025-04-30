@@ -153,8 +153,8 @@ downloads only one to only one download_consistency_date: "view"
         float proportion_successful "Proportion of download attempts were successful for a source at the given time"
         int total_downloads "Total number of successfull downloads for a source a the given time"
     }
-    download_consistency_day {
-        int time "Day of week download was attempted"
+    download_consistency_date {
+        int weekday "Day of week download was attempted"
         string gainer_source FK "Download source"
         float proportion_successful "Proportion of download attempts were successful for a source on the given weekday"
         int total_downloads "Total number of successfull downloads for a source on the given weekday"
