@@ -57,13 +57,13 @@ parsed_wsj_gainers only one to only one downloads_seed: "parse individually"
 parsed_yahoo_gainers only one to only one downloads_seed: "parse individually"
 parsed_stockanalysis_gainers only one to only one downloads_seed: "parse individually"
 
-parsed_wsj_gainers only one to only one gainers_seed: "parse individually"
-parsed_yahoo_gainers only one to only one gainers_seed: "parse individually"
-parsed_stockanalysis_gainers only one to only one gainers_seed: "parse individually"
-
 parsed_wsj_gainers only one to only one gainer_details_seed: "parse individually"
 parsed_yahoo_gainers only one to only one gainer_details_seed: "parse individually"
 parsed_stockanalysis_gainers only one to only one gainer_details_seed: "parse individually"
+
+parsed_wsj_gainers only one to only one gainers_seed: "parse individually"
+parsed_yahoo_gainers only one to only one gainers_seed: "parse individually"
+parsed_stockanalysis_gainers only one to only one gainers_seed: "parse individually"
 
 parsed_wsj_gainers only one to only one sources_seed: "parse individually"
 parsed_yahoo_gainers only one to only one sources_seed: "parse individually"
@@ -76,9 +76,6 @@ parsed_stockanalysis_gainers only one to only one sources_seed: "parse individua
         int day "Day of download"
         int time "Time of download (HHMM, 24-hour time)"
     }
-    gainers_seed {
-        string symbol PK "Unique stock symbol"
-    }
     gainer_details_seed {
         int date_time FK "From the DOWNLOADS table"
         string source FK "From the SOURCE table"
@@ -87,13 +84,16 @@ parsed_stockanalysis_gainers only one to only one sources_seed: "parse individua
         float price_change "Current price vs price at opening"
         float price_percent_change
     }
+    gainers_seed {
+        string symbol PK "Unique stock symbol"
+    }
     sources_seed {
         string source PK "'wsj', 'yahoo', or 'stockanalysis'"
     }
  
 downloads_seed one or more optionally to only one downloads: "incremental"
-gainers_seed one or more optionally to only one gainers: "incremental"
 gainer_details_seed one or more optionally to only one gainer_details: "incremental"
+gainers_seed one or more optionally to only one gainers: "incremental"
 sources_seed one or more optionally to only one sources: "incremental"
 
     downloads {
@@ -103,9 +103,6 @@ sources_seed one or more optionally to only one sources: "incremental"
         int day "Day of download"
         int time "Time of download (HHMM, 24-hour time)"
     }
-    gainers {
-        string symbol PK "Unique stock symbol"
-    }
     gainer_details {
         int date_time FK "From the DOWNLOADS table"
         string source FK "From the SOURCE table"
@@ -113,6 +110,9 @@ sources_seed one or more optionally to only one sources: "incremental"
         float price "Current price"
         float price_change "Current price vs price at opening"
         float price_percent_change
+    }
+    gainers {
+        string symbol PK "Unique stock symbol"
     }
     sources {
         string source PK "'wsj', 'yahoo', or 'stockanalysis'"
